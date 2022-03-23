@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_elements_image_lists",
+  "info": {
+    "name": "imageList",
+    "icon": "border-all"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

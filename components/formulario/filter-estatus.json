@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_formulario_filter_estatuses",
+  "info": {
+    "name": "FilterEstatus",
+    "icon": "air-freshener"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "checkboxes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "formulario.checkbox"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_sections_banners",
+  "info": {
+    "name": "Banner",
+    "icon": "apple-alt"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "Titles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.main-hero"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button-link"
+    },
+    "icon": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

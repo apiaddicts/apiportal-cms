@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_elements_containers",
+  "info": {
+    "name": "Container",
+    "icon": "archway",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "keyword": {
+      "type": "string"
+    },
+    "buttonLink": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button-link"
+    },
+    "badgeInfo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.badget"
+    }
+  }
+}

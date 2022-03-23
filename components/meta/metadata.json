@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_meta_metadata",
+  "info": {
+    "name": "Metadata",
+    "icon": "robot",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string",
+      "required": false
+    },
+    "metaDescription": {
+      "type": "text",
+      "required": false
+    }
+  }
+}

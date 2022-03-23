@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_new_sharings",
+  "info": {
+    "name": "Sharing",
+    "icon": "share-square"
+  },
+  "options": {},
+  "attributes": {
+    "shareList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "new.share"
+    },
+    "shareName": {
+      "type": "string"
+    }
+  }
+}

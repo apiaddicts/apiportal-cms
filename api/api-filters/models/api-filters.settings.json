@@ -1,0 +1,100 @@
+{
+  "kind": "collectionType",
+  "collectionName": "api_filters",
+  "info": {
+    "name": "api-filters",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "estatus": {
+      "type": "dynamiczone",
+      "components": [
+        "elements.placeholder"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "project_type": {
+      "type": "dynamiczone",
+      "components": [
+        "formulario.select-option"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "version": {
+      "type": "dynamiczone",
+      "components": [
+        "elements.custom-radio"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "solution": {
+      "type": "dynamiczone",
+      "components": [
+        "elements.placeholder"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "tags": {
+      "type": "dynamiczone",
+      "components": [
+        "elements.placeholder"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "filters_header": {
+      "type": "dynamiczone",
+      "components": [
+        "elements.placeholder",
+        "formulario.select-option"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

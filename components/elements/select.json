@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_elements_selects",
+  "info": {
+    "name": "select",
+    "icon": "arrow-circle-right"
+  },
+  "options": {},
+  "attributes": {
+    "tetretert": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.entry"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

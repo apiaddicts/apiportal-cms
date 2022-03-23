@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_section_use_cases",
+  "info": {
+    "name": "sectionUseCase",
+    "icon": "biohazard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "useCaseList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "cards.use-case-card"
+    }
+  }
+}

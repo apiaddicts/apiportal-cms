@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_cards_use_case_cards",
+  "info": {
+    "name": "useCaseCard",
+    "icon": "arrow-alt-circle-up",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "estatus": {
+      "type": "enumeration",
+      "enum": [
+        "available",
+        "deprecated",
+        "comming_soon"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "picture": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "linkUrl": {
+      "type": "string"
+    },
+    "linkText": {
+      "type": "string"
+    },
+    "badge": {
+      "type": "text"
+    },
+    "statusText": {
+      "type": "string"
+    }
+  }
+}

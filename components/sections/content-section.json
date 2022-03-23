@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sections_content_sections",
+  "info": {
+    "name": "contentSection",
+    "icon": "balance-scale-left"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

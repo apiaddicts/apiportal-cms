@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_formulario_select_options",
+  "info": {
+    "name": "SelectOption",
+    "icon": "anchor",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "Option": {
+      "type": "component",
+      "repeatable": true,
+      "component": "formulario.option"
+    },
+    "isRequired": {
+      "type": "boolean"
+    },
+    "errorMessage": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer"
+    }
+  }
+}

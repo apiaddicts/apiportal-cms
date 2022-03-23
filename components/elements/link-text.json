@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_elements_link_texts",
+  "info": {
+    "name": "linkText",
+    "icon": "border-none"
+  },
+  "options": {},
+  "attributes": {
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.link"
+    },
+    "text": {
+      "type": "string"
+    }
+  }
+}

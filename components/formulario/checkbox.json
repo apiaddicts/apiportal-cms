@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_formulario_checkboxes",
+  "info": {
+    "name": "Checkbox",
+    "icon": "edit",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "value": {
+      "type": "boolean"
+    },
+    "isRequired": {
+      "type": "boolean"
+    },
+    "errorMessage": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer"
+    }
+  }
+}

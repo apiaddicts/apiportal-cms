@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_sections_full_heroes",
+  "info": {
+    "name": "fullHero",
+    "icon": "balance-scale"
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.main-hero"
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button"
+    }
+  }
+}

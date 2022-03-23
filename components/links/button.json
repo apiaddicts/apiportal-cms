@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_links_simple_buttons",
+  "info": {
+    "name": "Button",
+    "icon": "fingerprint",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary"
+      ]
+    },
+    "order": {
+      "type": "integer"
+    }
+  }
+}

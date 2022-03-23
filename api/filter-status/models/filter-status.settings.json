@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "filter_statuses",
+  "info": {
+    "name": "FilterStatus",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "estatus": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "kind": "singleType",
+  "collectionName": "navbars",
+  "info": {
+    "name": "Navbar",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "links": {
+      "type": "dynamiczone",
+      "components": [
+        "links.drop-big-link",
+        "links.icon-link",
+        "links.link"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "buttonLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button-link",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "icon": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

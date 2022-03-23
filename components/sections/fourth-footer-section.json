@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_sections_fourth_footer_sections",
+  "info": {
+    "name": "FourthFooterSection",
+    "icon": "bowling-ball"
+  },
+  "options": {},
+  "attributes": {
+    "IdContentType": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "text": {
+      "type": "richtext"
+    },
+    "buttonAffirmative": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.basic-link"
+    },
+    "buttonNegative": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.basic-link"
+    }
+  }
+}

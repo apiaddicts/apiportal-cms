@@ -1,0 +1,21 @@
+version: '3'
+services:
+  strapi:
+    image: registry.gitlab.com/cloudappi/climatetrade/dev-portal-climatetrade-backend:_VERSION #strapi/strapi
+    environment:
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_SSL: ${DATABASE_SSL}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_ACCESS_SECRET: ${AWS_ACCESS_SECRET}
+      AWS_REGION: ${AWS_REGION}
+      AWS_BUCKET: ${AWS_BUCKET}
+      CLOUDFRONT: ${CLOUDFRONT}
+    volumes:
+      - ./app:/srv/app
+    ports:
+      - $PORT:1337

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_sections_cookies",
+  "info": {
+    "name": "cookies",
+    "icon": "bold"
+  },
+  "options": {},
+  "attributes": {
+    "actions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button"
+    },
+    "info": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.notification-banner"
+    }
+  }
+}

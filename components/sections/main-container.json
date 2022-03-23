@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_sections_main_containers",
+  "info": {
+    "name": "MainContainer",
+    "icon": "archive",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "title": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.button-link"
+    }
+  }
+}

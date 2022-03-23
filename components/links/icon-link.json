@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_links_icon_links",
+  "info": {
+    "name": "iconLink",
+    "icon": "battery-three-quarters"
+  },
+  "options": {},
+  "attributes": {
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.link"
+    },
+    "icon": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

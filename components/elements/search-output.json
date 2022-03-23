@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_elements_search_outputs",
+  "info": {
+    "name": "searchOutput",
+    "icon": "align-left",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "message": {
+      "type": "string"
+    }
+  }
+}

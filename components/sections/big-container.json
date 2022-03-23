@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_sections_big_containers",
+  "info": {
+    "name": "bigContainer",
+    "icon": "assistive-listening-systems"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.main-hero"
+    },
+    "icon": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

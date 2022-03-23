@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_formulario_button_forms",
+  "info": {
+    "name": "ButtonForm",
+    "icon": "arrow-left",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "class": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "tertiary"
+      ]
+    },
+    "order": {
+      "type": "integer"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.link"
+    }
+  }
+}

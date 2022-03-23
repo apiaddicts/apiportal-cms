@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_share_options",
+  "info": {
+    "name": "shareOptions",
+    "icon": "box"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.icon-link"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_elements_titles",
+  "info": {
+    "name": "titles",
+    "icon": "beer"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

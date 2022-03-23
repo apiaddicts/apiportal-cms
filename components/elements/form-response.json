@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_elements_form_responses",
+  "info": {
+    "name": "FormResponse",
+    "icon": "band-aid",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "success",
+        "error"
+      ]
+    },
+    "show": {
+      "type": "boolean"
+    },
+    "icon": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

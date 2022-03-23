@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_links_drop_big_links",
+  "info": {
+    "name": "dropBigLink",
+    "icon": "boxes"
+  },
+  "options": {},
+  "attributes": {
+    "mainLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.link"
+    },
+    "bigLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.big-link"
+    }   
+  }
+}

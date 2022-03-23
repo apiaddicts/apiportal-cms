@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_use_cases_banners",
+  "info": {
+    "name": "banner",
+    "icon": "window-minimize"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "buttonList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "use-cases.button-list"
+    }
+  }
+}

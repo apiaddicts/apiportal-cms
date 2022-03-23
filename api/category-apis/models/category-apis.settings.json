@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "category_apis",
+  "info": {
+    "name": "tagsAPIS",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "apis": {
+      "via": "category_apis",
+      "collection": "apis"
+    }
+  }
+}

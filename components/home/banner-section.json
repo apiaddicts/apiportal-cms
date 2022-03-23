@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_home_banner_sections",
+  "info": {
+    "name": "BannerSection",
+    "icon": "arrow-up",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "background": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.basic-link"
+    }
+  }
+}

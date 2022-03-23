@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_cards_card_products",
+  "info": {
+    "name": "ProductCard",
+    "icon": "border-style",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "icon": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.basic-link"
+    }
+  }
+}

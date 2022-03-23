@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_sections_call_actions",
+  "info": {
+    "name": "callAction",
+    "icon": "battery-empty",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "string"
+    },
+    "backgroundIcon": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "icon": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}
