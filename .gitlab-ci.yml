@@ -57,10 +57,10 @@ docker:deploy:
   rules:
     - if: $CI_COMMIT_REF_NAME == "develop"
       variables:
-        REMOTE_PATH: /var/www/aplicacion/devportal-climatetrade-back/dev
+        REMOTE_PATH: /var/www/aplicacion/devportal-sura-back/dev
     - if: $CI_COMMIT_REF_NAME == "pre"
       variables:
-        REMOTE_PATH: /var/www/aplicacion/devportal-climatetrade-back/pre
+        REMOTE_PATH: /var/www/aplicacion/devportal-sura-back/pre
   <<: *ssh-deploy
   environment:
     name: $CI_COMMIT_REF_NAME
