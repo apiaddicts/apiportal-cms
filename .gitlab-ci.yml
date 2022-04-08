@@ -49,21 +49,21 @@ docker:build:
   environment:
     name: $CI_COMMIT_REF_NAME
 
-docker:deploy:
-  stage: deploy
-  variables:
-    SSH_LOGIN: ubuntu@$PRE_UBUNTU
-    SSH_KEY: $PRIVATE_RSA_KEY
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "develop"
-      variables:
-        REMOTE_PATH: /var/www/aplicacion/devportal-sura-back/dev
-    - if: $CI_COMMIT_REF_NAME == "pre"
-      variables:
-        REMOTE_PATH: /var/www/aplicacion/devportal-sura-back/pre
-  <<: *ssh-deploy
-  environment:
-    name: $CI_COMMIT_REF_NAME
+#docker:deploy:
+#  stage: deploy
+#  variables:
+#    SSH_LOGIN: ubuntu@$PRE_UBUNTU
+#    SSH_KEY: $PRIVATE_RSA_KEY
+#  rules:
+#    - if: $CI_COMMIT_REF_NAME == "develop"
+#      variables:
+#        REMOTE_PATH: /var/www/aplicacion/devportal-sura-back/dev
+#    - if: $CI_COMMIT_REF_NAME == "pre"
+#      variables:
+#        REMOTE_PATH: /var/www/aplicacion/devportal-sura-back/pre
+#  <<: *ssh-deploy
+#  environment:
+#    name: $CI_COMMIT_REF_NAME
 # ecs:deploy:prod:
 #   stage: deploy
 #   variables:
