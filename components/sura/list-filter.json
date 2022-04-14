@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sura_list_filters",
+  "info": {
+    "name": "ListFilter",
+    "icon": "list"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.titles"
+    }
+  }
+}

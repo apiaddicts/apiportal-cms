@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_elements_sliders",
+  "info": {
+    "name": "slider",
+    "icon": "book-open"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "imgSrc": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "actionButtons": {
+      "type": "json"
+    }
+  }
+}
