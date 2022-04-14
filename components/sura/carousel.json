@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sura_carousels",
+  "info": {
+    "name": "carousel",
+    "icon": "caret-right"
+  },
+  "options": {},
+  "attributes": {
+    "slider": {
+      "type": "string"
+    },
+    "sliderCarousel": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.slider"
+    }
+  }
+}

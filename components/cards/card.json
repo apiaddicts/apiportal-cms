@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_cards_cards",
+  "info": {
+    "name": "card",
+    "icon": "sim-card"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "footerTitle": {
+      "type": "string"
+    },
+    "footerDescription": {
+      "type": "string"
+    }
+  }
+}

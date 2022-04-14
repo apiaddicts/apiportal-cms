@@ -573,7 +573,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -744,7 +747,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -782,7 +788,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -914,7 +923,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -1043,7 +1055,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -1192,7 +1207,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -1411,7 +1429,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -1449,7 +1470,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -1501,7 +1525,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -1646,7 +1673,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -1898,7 +1928,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -2265,7 +2298,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -2521,7 +2557,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -2717,7 +2756,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -2936,7 +2978,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -3068,7 +3113,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -3220,7 +3268,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -3258,6 +3309,326 @@
                         },
                         "secondName": {
                           "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "slider": {
+                      "type": "string"
+                    },
+                    "sliderCarousel": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "imgSrc": {
+                            "type": "array",
+                            "items": {
+                              "required": [
+                                "id",
+                                "name",
+                                "hash",
+                                "mime",
+                                "size",
+                                "url",
+                                "provider"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "alternativeText": {
+                                  "type": "string"
+                                },
+                                "caption": {
+                                  "type": "string"
+                                },
+                                "width": {
+                                  "type": "integer"
+                                },
+                                "height": {
+                                  "type": "integer"
+                                },
+                                "formats": {
+                                  "type": "object"
+                                },
+                                "hash": {
+                                  "type": "string"
+                                },
+                                "ext": {
+                                  "type": "string"
+                                },
+                                "mime": {
+                                  "type": "string"
+                                },
+                                "size": {
+                                  "type": "number"
+                                },
+                                "url": {
+                                  "type": "string"
+                                },
+                                "previewUrl": {
+                                  "type": "string"
+                                },
+                                "provider": {
+                                  "type": "string"
+                                },
+                                "provider_metadata": {
+                                  "type": "object"
+                                },
+                                "related": {
+                                  "type": "string"
+                                },
+                                "created_by": {
+                                  "type": "string"
+                                },
+                                "updated_by": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "actionButtons": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "img": {
+                      "type": "array",
+                      "items": {
+                        "required": [
+                          "id",
+                          "name",
+                          "hash",
+                          "mime",
+                          "size",
+                          "url",
+                          "provider"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "alternativeText": {
+                            "type": "string"
+                          },
+                          "caption": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "integer"
+                          },
+                          "height": {
+                            "type": "integer"
+                          },
+                          "formats": {
+                            "type": "object"
+                          },
+                          "hash": {
+                            "type": "string"
+                          },
+                          "ext": {
+                            "type": "string"
+                          },
+                          "mime": {
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "number"
+                          },
+                          "url": {
+                            "type": "string"
+                          },
+                          "previewUrl": {
+                            "type": "string"
+                          },
+                          "provider": {
+                            "type": "string"
+                          },
+                          "provider_metadata": {
+                            "type": "object"
+                          },
+                          "related": {
+                            "type": "string"
+                          },
+                          "created_by": {
+                            "type": "string"
+                          },
+                          "updated_by": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "cards": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "icon": {
+                            "type": "string"
+                          },
+                          "footerTitle": {
+                            "type": "string"
+                          },
+                          "footerDescription": {
+                            "type": "string"
+                          }
                         }
                       }
                     }
@@ -3372,7 +3743,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -3543,7 +3917,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -3581,7 +3958,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -3713,7 +4093,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -3842,7 +4225,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -3991,7 +4377,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -4210,7 +4599,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -4248,7 +4640,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -4300,7 +4695,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -4445,7 +4843,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -4697,7 +5098,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -5064,7 +5468,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -5320,7 +5727,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -5516,7 +5926,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -5735,7 +6148,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -5867,7 +6283,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -6019,7 +6438,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -6057,6 +6479,326 @@
                         },
                         "secondName": {
                           "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "slider": {
+                      "type": "string"
+                    },
+                    "sliderCarousel": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "imgSrc": {
+                            "type": "array",
+                            "items": {
+                              "required": [
+                                "id",
+                                "name",
+                                "hash",
+                                "mime",
+                                "size",
+                                "url",
+                                "provider"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "alternativeText": {
+                                  "type": "string"
+                                },
+                                "caption": {
+                                  "type": "string"
+                                },
+                                "width": {
+                                  "type": "integer"
+                                },
+                                "height": {
+                                  "type": "integer"
+                                },
+                                "formats": {
+                                  "type": "object"
+                                },
+                                "hash": {
+                                  "type": "string"
+                                },
+                                "ext": {
+                                  "type": "string"
+                                },
+                                "mime": {
+                                  "type": "string"
+                                },
+                                "size": {
+                                  "type": "number"
+                                },
+                                "url": {
+                                  "type": "string"
+                                },
+                                "previewUrl": {
+                                  "type": "string"
+                                },
+                                "provider": {
+                                  "type": "string"
+                                },
+                                "provider_metadata": {
+                                  "type": "object"
+                                },
+                                "related": {
+                                  "type": "string"
+                                },
+                                "created_by": {
+                                  "type": "string"
+                                },
+                                "updated_by": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "actionButtons": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "img": {
+                      "type": "array",
+                      "items": {
+                        "required": [
+                          "id",
+                          "name",
+                          "hash",
+                          "mime",
+                          "size",
+                          "url",
+                          "provider"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "alternativeText": {
+                            "type": "string"
+                          },
+                          "caption": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "integer"
+                          },
+                          "height": {
+                            "type": "integer"
+                          },
+                          "formats": {
+                            "type": "object"
+                          },
+                          "hash": {
+                            "type": "string"
+                          },
+                          "ext": {
+                            "type": "string"
+                          },
+                          "mime": {
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "number"
+                          },
+                          "url": {
+                            "type": "string"
+                          },
+                          "previewUrl": {
+                            "type": "string"
+                          },
+                          "provider": {
+                            "type": "string"
+                          },
+                          "provider_metadata": {
+                            "type": "object"
+                          },
+                          "related": {
+                            "type": "string"
+                          },
+                          "created_by": {
+                            "type": "string"
+                          },
+                          "updated_by": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "cards": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "icon": {
+                            "type": "string"
+                          },
+                          "footerTitle": {
+                            "type": "string"
+                          },
+                          "footerDescription": {
+                            "type": "string"
+                          }
                         }
                       }
                     }
