@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/10/2022 11:34:30 PM"
+    "x-generation-date": "04/14/2022 3:41:10 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -6663,6 +6663,530 @@
         "summary": "",
         "tags": [
           "Success-stories"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/sura-blog-items": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Sura-blog-item"
+        ],
+        "parameters": [
+          {
+            "name": "_limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of results possible",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_sort",
+            "in": "query",
+            "required": false,
+            "description": "Sort according to a specific field.",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_start",
+            "in": "query",
+            "required": false,
+            "description": "Skip a specific number of entries (especially useful for pagination)",
+            "schema": {
+              "type": "integer"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "=",
+            "in": "query",
+            "required": false,
+            "description": "Get entries that matches exactly your input",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_ne",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are not equals to something",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lt",
+            "in": "query",
+            "required": false,
+            "description": "Get record that are lower than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_lte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are lower than or equal to a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gt",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_gte",
+            "in": "query",
+            "required": false,
+            "description": "Get records that are greater than  or equal a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_contains",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_containss",
+            "in": "query",
+            "required": false,
+            "description": "Get records that contains (case sensitive) a value",
+            "schema": {
+              "type": "string"
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_in",
+            "in": "query",
+            "required": false,
+            "description": "Get records that matches any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          },
+          {
+            "name": "_nin",
+            "in": "query",
+            "required": false,
+            "description": "Get records that doesn't match any value in the array of values",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "deprecated": false
+          }
+        ]
+      },
+      "post": {
+        "deprecated": false,
+        "description": "Create a new record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Sura-blog-item"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSura-blog-item"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sura-blog-items/count": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Sura-blog-item"
+        ],
+        "parameters": []
+      }
+    },
+    "/sura-blog-items/{id}": {
+      "get": {
+        "deprecated": false,
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Sura-blog-item"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "deprecated": false,
+        "description": "Update a record",
+        "responses": {
+          "200": {
+            "description": "response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "foo": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Sura-blog-item"
+        ],
+        "requestBody": {
+          "description": "",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSura-blog-item"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "deprecated": false,
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "deprecated": false,
+        "description": "Delete a record",
+        "responses": {
+          "200": {
+            "description": "deletes a single record based on the ID supplied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "summary": "",
+        "tags": [
+          "Sura-blog-item"
         ],
         "parameters": [
           {
@@ -14742,7 +15266,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -14913,7 +15440,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -14951,7 +15481,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -15083,7 +15616,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -15212,7 +15748,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -15361,7 +15900,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -15580,7 +16122,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -15618,7 +16163,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -15670,7 +16218,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -15815,7 +16366,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -16067,7 +16621,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -16434,7 +16991,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -16690,7 +17250,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -16886,7 +17449,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -17105,7 +17671,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -17237,7 +17806,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -17389,7 +17961,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -17427,6 +18002,326 @@
                         },
                         "secondName": {
                           "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "slider": {
+                      "type": "string"
+                    },
+                    "sliderCarousel": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "imgSrc": {
+                            "type": "array",
+                            "items": {
+                              "required": [
+                                "id",
+                                "name",
+                                "hash",
+                                "mime",
+                                "size",
+                                "url",
+                                "provider"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "alternativeText": {
+                                  "type": "string"
+                                },
+                                "caption": {
+                                  "type": "string"
+                                },
+                                "width": {
+                                  "type": "integer"
+                                },
+                                "height": {
+                                  "type": "integer"
+                                },
+                                "formats": {
+                                  "type": "object"
+                                },
+                                "hash": {
+                                  "type": "string"
+                                },
+                                "ext": {
+                                  "type": "string"
+                                },
+                                "mime": {
+                                  "type": "string"
+                                },
+                                "size": {
+                                  "type": "number"
+                                },
+                                "url": {
+                                  "type": "string"
+                                },
+                                "previewUrl": {
+                                  "type": "string"
+                                },
+                                "provider": {
+                                  "type": "string"
+                                },
+                                "provider_metadata": {
+                                  "type": "object"
+                                },
+                                "related": {
+                                  "type": "string"
+                                },
+                                "created_by": {
+                                  "type": "string"
+                                },
+                                "updated_by": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "actionButtons": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "img": {
+                      "type": "array",
+                      "items": {
+                        "required": [
+                          "id",
+                          "name",
+                          "hash",
+                          "mime",
+                          "size",
+                          "url",
+                          "provider"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "alternativeText": {
+                            "type": "string"
+                          },
+                          "caption": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "integer"
+                          },
+                          "height": {
+                            "type": "integer"
+                          },
+                          "formats": {
+                            "type": "object"
+                          },
+                          "hash": {
+                            "type": "string"
+                          },
+                          "ext": {
+                            "type": "string"
+                          },
+                          "mime": {
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "number"
+                          },
+                          "url": {
+                            "type": "string"
+                          },
+                          "previewUrl": {
+                            "type": "string"
+                          },
+                          "provider": {
+                            "type": "string"
+                          },
+                          "provider_metadata": {
+                            "type": "object"
+                          },
+                          "related": {
+                            "type": "string"
+                          },
+                          "created_by": {
+                            "type": "string"
+                          },
+                          "updated_by": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "cards": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "icon": {
+                            "type": "string"
+                          },
+                          "footerTitle": {
+                            "type": "string"
+                          },
+                          "footerDescription": {
+                            "type": "string"
+                          }
                         }
                       }
                     }
@@ -17541,7 +18436,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -17712,7 +18610,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -17750,7 +18651,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -17882,7 +18786,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -18011,7 +18918,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -18160,7 +19070,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -18379,7 +19292,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -18417,7 +19333,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -18469,7 +19388,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -18614,7 +19536,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -18866,7 +19791,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -19233,7 +20161,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -19489,7 +20420,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -19685,7 +20619,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -19904,7 +20841,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -20036,7 +20976,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -20188,7 +21131,10 @@
                         "home.key-section",
                         "home.banner-section",
                         "home.work-section",
-                        "apis.filters"
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
                       ]
                     },
                     "id": {
@@ -20226,6 +21172,326 @@
                         },
                         "secondName": {
                           "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "slider": {
+                      "type": "string"
+                    },
+                    "sliderCarousel": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "imgSrc": {
+                            "type": "array",
+                            "items": {
+                              "required": [
+                                "id",
+                                "name",
+                                "hash",
+                                "mime",
+                                "size",
+                                "url",
+                                "provider"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "name": {
+                                  "type": "string"
+                                },
+                                "alternativeText": {
+                                  "type": "string"
+                                },
+                                "caption": {
+                                  "type": "string"
+                                },
+                                "width": {
+                                  "type": "integer"
+                                },
+                                "height": {
+                                  "type": "integer"
+                                },
+                                "formats": {
+                                  "type": "object"
+                                },
+                                "hash": {
+                                  "type": "string"
+                                },
+                                "ext": {
+                                  "type": "string"
+                                },
+                                "mime": {
+                                  "type": "string"
+                                },
+                                "size": {
+                                  "type": "number"
+                                },
+                                "url": {
+                                  "type": "string"
+                                },
+                                "previewUrl": {
+                                  "type": "string"
+                                },
+                                "provider": {
+                                  "type": "string"
+                                },
+                                "provider_metadata": {
+                                  "type": "object"
+                                },
+                                "related": {
+                                  "type": "string"
+                                },
+                                "created_by": {
+                                  "type": "string"
+                                },
+                                "updated_by": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          },
+                          "actionButtons": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "Title": {
+                      "type": "string"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                },
+                {
+                  "properties": {
+                    "__component": {
+                      "type": "string",
+                      "enum": [
+                        "sections.button-hero",
+                        "elements.entry",
+                        "sections.time-section",
+                        "sections.calculate-section",
+                        "sections.our-products-section",
+                        "sections.for-all-section",
+                        "sections.title-section",
+                        "sections.questions-list-section",
+                        "sections.section-use-case",
+                        "use-cases.calculate-use-case",
+                        "sections.section-widget-form",
+                        "home.discover-section",
+                        "home.widget-section",
+                        "home.key-section",
+                        "home.banner-section",
+                        "home.work-section",
+                        "apis.filters",
+                        "sura.carousel",
+                        "sura.list-filter",
+                        "sura.tab-card"
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "img": {
+                      "type": "array",
+                      "items": {
+                        "required": [
+                          "id",
+                          "name",
+                          "hash",
+                          "mime",
+                          "size",
+                          "url",
+                          "provider"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "alternativeText": {
+                            "type": "string"
+                          },
+                          "caption": {
+                            "type": "string"
+                          },
+                          "width": {
+                            "type": "integer"
+                          },
+                          "height": {
+                            "type": "integer"
+                          },
+                          "formats": {
+                            "type": "object"
+                          },
+                          "hash": {
+                            "type": "string"
+                          },
+                          "ext": {
+                            "type": "string"
+                          },
+                          "mime": {
+                            "type": "string"
+                          },
+                          "size": {
+                            "type": "number"
+                          },
+                          "url": {
+                            "type": "string"
+                          },
+                          "previewUrl": {
+                            "type": "string"
+                          },
+                          "provider": {
+                            "type": "string"
+                          },
+                          "provider_metadata": {
+                            "type": "object"
+                          },
+                          "related": {
+                            "type": "string"
+                          },
+                          "created_by": {
+                            "type": "string"
+                          },
+                          "updated_by": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "cards": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          },
+                          "icon": {
+                            "type": "string"
+                          },
+                          "footerTitle": {
+                            "type": "string"
+                          },
+                          "footerDescription": {
+                            "type": "string"
+                          }
                         }
                       }
                     }
@@ -20460,6 +21726,430 @@
             }
           },
           "locale": {
+            "type": "string"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "updated_by": {
+            "type": "string"
+          }
+        }
+      },
+      "Sura-blog-item": {
+        "required": [
+          "id",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "image": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "alternativeText": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                },
+                "formats": {
+                  "type": "object"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "previewUrl": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "timeRead": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "question": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "img": {
+                  "type": "array",
+                  "items": {
+                    "required": [
+                      "id",
+                      "name",
+                      "hash",
+                      "mime",
+                      "size",
+                      "url",
+                      "provider"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "alternativeText": {
+                        "type": "string"
+                      },
+                      "caption": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "integer"
+                      },
+                      "height": {
+                        "type": "integer"
+                      },
+                      "formats": {
+                        "type": "object"
+                      },
+                      "hash": {
+                        "type": "string"
+                      },
+                      "ext": {
+                        "type": "string"
+                      },
+                      "mime": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "previewUrl": {
+                        "type": "string"
+                      },
+                      "provider": {
+                        "type": "string"
+                      },
+                      "provider_metadata": {
+                        "type": "object"
+                      },
+                      "related": {
+                        "type": "string"
+                      },
+                      "created_by": {
+                        "type": "string"
+                      },
+                      "updated_by": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "nameUser": {
+            "type": "string"
+          },
+          "photoUser": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id",
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "alternativeText": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "integer"
+                },
+                "height": {
+                  "type": "integer"
+                },
+                "formats": {
+                  "type": "object"
+                },
+                "hash": {
+                  "type": "string"
+                },
+                "ext": {
+                  "type": "string"
+                },
+                "mime": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "previewUrl": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "jobUser": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "description": {
+            "type": "string"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NewSura-blog-item": {
+        "required": [
+          "description"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "timeRead": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "question": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "img": {
+                  "type": "array",
+                  "items": {
+                    "required": [
+                      "id",
+                      "name",
+                      "hash",
+                      "mime",
+                      "size",
+                      "url",
+                      "provider"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "alternativeText": {
+                        "type": "string"
+                      },
+                      "caption": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "integer"
+                      },
+                      "height": {
+                        "type": "integer"
+                      },
+                      "formats": {
+                        "type": "object"
+                      },
+                      "hash": {
+                        "type": "string"
+                      },
+                      "ext": {
+                        "type": "string"
+                      },
+                      "mime": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "previewUrl": {
+                        "type": "string"
+                      },
+                      "provider": {
+                        "type": "string"
+                      },
+                      "provider_metadata": {
+                        "type": "object"
+                      },
+                      "related": {
+                        "type": "string"
+                      },
+                      "created_by": {
+                        "type": "string"
+                      },
+                      "updated_by": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "nameUser": {
+            "type": "string"
+          },
+          "jobUser": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "description": {
             "type": "string"
           },
           "published_at": {
