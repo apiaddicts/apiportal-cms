@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sura_items",
+  "info": {
+    "name": "items",
+    "icon": "th-list"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}
