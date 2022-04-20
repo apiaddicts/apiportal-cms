@@ -2,11 +2,30 @@
   "collectionName": "components_sura_items",
   "info": {
     "name": "items",
-    "icon": "th-list"
+    "icon": "th-list",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "icon": {
       "type": "string"
     }
   }
