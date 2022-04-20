@@ -1047,6 +1047,9 @@
                           }
                         }
                       }
+                    },
+                    "search": {
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -1975,6 +1978,9 @@
                           }
                         }
                       }
+                    },
+                    "search": {
+                      "type": "string"
                     }
                   },
                   "required": [

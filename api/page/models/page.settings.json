@@ -63,7 +63,8 @@
         "apis.filters",
         "sura.carousel",
         "sura.list-filter",
-        "sura.tab-card"
+        "sura.tab-card",
+        "sura.list-recent"
       ],
       "pluginOptions": {
         "i18n": {

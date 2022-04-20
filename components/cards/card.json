@@ -16,10 +16,10 @@
     "icon": {
       "type": "string"
     },
-    "footerTitle": {
+    "titleFooter": {
       "type": "string"
     },
-    "footerDescription": {
+    "descriptionFooter": {
       "type": "string"
     },
     "image": {
@@ -38,6 +38,18 @@
       "type": "string"
     },
     "LinkUrl": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "steps": {
+      "type": "json"
+    },
+    "descriptionHeader": {
+      "type": "string"
+    },
+    "timeRead": {
       "type": "string"
     }
   }
