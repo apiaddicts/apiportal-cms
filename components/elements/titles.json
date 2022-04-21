@@ -2,11 +2,18 @@
   "collectionName": "components_elements_titles",
   "info": {
     "name": "titles",
-    "icon": "beer"
+    "icon": "beer",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "title": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "class": {
       "type": "string"
     }
   }
