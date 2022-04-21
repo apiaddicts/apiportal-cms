@@ -3513,6 +3513,12 @@
                           },
                           "title": {
                             "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "class": {
+                            "type": "string"
                           }
                         }
                       }
@@ -6925,6 +6931,12 @@
                             "type": "string"
                           },
                           "title": {
+                            "type": "string"
+                          },
+                          "label": {
+                            "type": "string"
+                          },
+                          "class": {
                             "type": "string"
                           }
                         }
