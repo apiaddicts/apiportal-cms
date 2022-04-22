@@ -2,7 +2,8 @@
   "collectionName": "components_sura_questions",
   "info": {
     "name": "questions",
-    "icon": "question"
+    "icon": "question",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -23,6 +24,14 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "seccion": {
+      "type": "enumeration",
+      "enum": [
+        "Reverse",
+        "Normal",
+        "NoImage"
+      ]
     }
   }
 }

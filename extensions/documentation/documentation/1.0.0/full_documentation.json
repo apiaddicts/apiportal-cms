@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/21/2022 3:36:55 PM"
+    "x-generation-date": "04/21/2022 7:40:15 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -16601,6 +16601,9 @@
                           },
                           "iconText": {
                             "type": "string"
+                          },
+                          "num": {
+                            "type": "integer"
                           }
                         }
                       }
@@ -17232,6 +17235,9 @@
                           },
                           "iconText": {
                             "type": "string"
+                          },
+                          "num": {
+                            "type": "integer"
                           }
                         }
                       }
@@ -20020,6 +20026,9 @@
                           },
                           "iconText": {
                             "type": "string"
+                          },
+                          "num": {
+                            "type": "integer"
                           }
                         }
                       }
@@ -20651,6 +20660,9 @@
                           },
                           "iconText": {
                             "type": "string"
+                          },
+                          "num": {
+                            "type": "integer"
                           }
                         }
                       }
@@ -22432,6 +22444,14 @@
                       }
                     }
                   }
+                },
+                "seccion": {
+                  "type": "string",
+                  "enum": [
+                    "Reverse",
+                    "Normal",
+                    "NoImage"
+                  ]
                 }
               }
             }
@@ -22645,6 +22665,14 @@
                       }
                     }
                   }
+                },
+                "seccion": {
+                  "type": "string",
+                  "enum": [
+                    "Reverse",
+                    "Normal",
+                    "NoImage"
+                  ]
                 }
               }
             }
@@ -23071,6 +23099,9 @@
                           },
                           "iconText": {
                             "type": "string"
+                          },
+                          "num": {
+                            "type": "integer"
                           }
                         }
                       }
@@ -24002,6 +24033,9 @@
                           },
                           "iconText": {
                             "type": "string"
+                          },
+                          "num": {
+                            "type": "integer"
                           }
                         }
                       }

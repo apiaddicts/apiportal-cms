@@ -924,6 +924,9 @@
                           },
                           "iconText": {
                             "type": "string"
+                          },
+                          "num": {
+                            "type": "integer"
                           }
                         }
                       }
@@ -1855,6 +1858,9 @@
                           },
                           "iconText": {
                             "type": "string"
+                          },
+                          "num": {
+                            "type": "integer"
                           }
                         }
                       }
