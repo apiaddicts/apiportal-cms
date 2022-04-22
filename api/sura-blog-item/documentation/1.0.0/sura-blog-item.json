@@ -721,6 +721,14 @@
                       }
                     }
                   }
+                },
+                "seccion": {
+                  "type": "string",
+                  "enum": [
+                    "Reverse",
+                    "Normal",
+                    "NoImage"
+                  ]
                 }
               }
             }
@@ -934,6 +942,14 @@
                       }
                     }
                   }
+                },
+                "seccion": {
+                  "type": "string",
+                  "enum": [
+                    "Reverse",
+                    "Normal",
+                    "NoImage"
+                  ]
                 }
               }
             }
