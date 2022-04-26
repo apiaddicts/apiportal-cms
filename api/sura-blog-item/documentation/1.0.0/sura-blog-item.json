@@ -631,6 +631,16 @@
                 },
                 "class": {
                   "type": "string"
+                },
+                "tab": {
+                  "type": "string",
+                  "enum": [
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five"
+                  ]
                 }
               }
             }
@@ -852,6 +862,16 @@
                 },
                 "class": {
                   "type": "string"
+                },
+                "tab": {
+                  "type": "string",
+                  "enum": [
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five"
+                  ]
                 }
               }
             }

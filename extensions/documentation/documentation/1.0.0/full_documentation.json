@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/21/2022 7:40:15 PM"
+    "x-generation-date": "04/26/2022 10:56:20 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -18218,6 +18218,16 @@
                           },
                           "class": {
                             "type": "string"
+                          },
+                          "tab": {
+                            "type": "string",
+                            "enum": [
+                              "one",
+                              "two",
+                              "three",
+                              "four",
+                              "five"
+                            ]
                           }
                         }
                       }
@@ -18447,6 +18457,17 @@
                           }
                         }
                       }
+                    },
+                    "tab": {
+                      "type": "string",
+                      "enum": [
+                        "zero",
+                        "one",
+                        "two",
+                        "three",
+                        "four",
+                        "five"
+                      ]
                     }
                   },
                   "required": [
@@ -21643,6 +21664,16 @@
                           },
                           "class": {
                             "type": "string"
+                          },
+                          "tab": {
+                            "type": "string",
+                            "enum": [
+                              "one",
+                              "two",
+                              "three",
+                              "four",
+                              "five"
+                            ]
                           }
                         }
                       }
@@ -21872,6 +21903,17 @@
                           }
                         }
                       }
+                    },
+                    "tab": {
+                      "type": "string",
+                      "enum": [
+                        "zero",
+                        "one",
+                        "two",
+                        "three",
+                        "four",
+                        "five"
+                      ]
                     }
                   },
                   "required": [
@@ -22354,6 +22396,16 @@
                 },
                 "class": {
                   "type": "string"
+                },
+                "tab": {
+                  "type": "string",
+                  "enum": [
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five"
+                  ]
                 }
               }
             }
@@ -22575,6 +22627,16 @@
                 },
                 "class": {
                   "type": "string"
+                },
+                "tab": {
+                  "type": "string",
+                  "enum": [
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five"
+                  ]
                 }
               }
             }

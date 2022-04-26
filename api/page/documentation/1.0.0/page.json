@@ -3525,6 +3525,16 @@
                           },
                           "class": {
                             "type": "string"
+                          },
+                          "tab": {
+                            "type": "string",
+                            "enum": [
+                              "one",
+                              "two",
+                              "three",
+                              "four",
+                              "five"
+                            ]
                           }
                         }
                       }
@@ -3754,6 +3764,17 @@
                           }
                         }
                       }
+                    },
+                    "tab": {
+                      "type": "string",
+                      "enum": [
+                        "zero",
+                        "one",
+                        "two",
+                        "three",
+                        "four",
+                        "five"
+                      ]
                     }
                   },
                   "required": [
@@ -6950,6 +6971,16 @@
                           },
                           "class": {
                             "type": "string"
+                          },
+                          "tab": {
+                            "type": "string",
+                            "enum": [
+                              "one",
+                              "two",
+                              "three",
+                              "four",
+                              "five"
+                            ]
                           }
                         }
                       }
@@ -7179,6 +7210,17 @@
                           }
                         }
                       }
+                    },
+                    "tab": {
+                      "type": "string",
+                      "enum": [
+                        "zero",
+                        "one",
+                        "two",
+                        "three",
+                        "four",
+                        "five"
+                      ]
                     }
                   },
                   "required": [
