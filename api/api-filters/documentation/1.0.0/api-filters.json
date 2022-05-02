@@ -814,6 +814,12 @@
                 },
                 "order": {
                   "type": "integer"
+                },
+                "class": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
                 }
               }
             }
@@ -1272,6 +1278,12 @@
                 },
                 "order": {
                   "type": "integer"
+                },
+                "class": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
                 }
               }
             }
