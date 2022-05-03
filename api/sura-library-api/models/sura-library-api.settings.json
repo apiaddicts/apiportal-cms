@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "tags": {
-      "type": "component",
-      "repeatable": true,
-      "component": "sura.chips"
-    },
     "title": {
       "type": "string"
     },
@@ -56,6 +51,11 @@
       "type": "component",
       "repeatable": true,
       "component": "home.work-section"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.titles"
     }
   }
 }

@@ -535,26 +535,6 @@
           "id": {
             "type": "string"
           },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "id"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "color": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "title": {
             "type": "string"
           },
@@ -810,14 +790,6 @@
               }
             }
           },
-          "published_at": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "NewSura-library-api": {
-        "properties": {
           "tags": {
             "type": "array",
             "items": {
@@ -829,15 +801,36 @@
                 "id": {
                   "type": "string"
                 },
-                "color": {
+                "title": {
                   "type": "string"
                 },
-                "name": {
+                "label": {
                   "type": "string"
+                },
+                "class": {
+                  "type": "string"
+                },
+                "tab": {
+                  "type": "string",
+                  "enum": [
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five"
+                  ]
                 }
               }
             }
           },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NewSura-library-api": {
+        "properties": {
           "title": {
             "type": "string"
           },
@@ -1019,6 +1012,39 @@
                       "type": "string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "class": {
+                  "type": "string"
+                },
+                "tab": {
+                  "type": "string",
+                  "enum": [
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five"
+                  ]
                 }
               }
             }
