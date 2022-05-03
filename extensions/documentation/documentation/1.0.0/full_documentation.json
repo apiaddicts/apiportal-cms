@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "04/29/2022 5:54:15 PM"
+    "x-generation-date": "05/03/2022 9:44:40 AM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -23320,26 +23320,6 @@
           "id": {
             "type": "string"
           },
-          "tags": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "required": [
-                "id"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "color": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "title": {
             "type": "string"
           },
@@ -23595,14 +23575,6 @@
               }
             }
           },
-          "published_at": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "NewSura-library-api": {
-        "properties": {
           "tags": {
             "type": "array",
             "items": {
@@ -23614,15 +23586,36 @@
                 "id": {
                   "type": "string"
                 },
-                "color": {
+                "title": {
                   "type": "string"
                 },
-                "name": {
+                "label": {
                   "type": "string"
+                },
+                "class": {
+                  "type": "string"
+                },
+                "tab": {
+                  "type": "string",
+                  "enum": [
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five"
+                  ]
                 }
               }
             }
           },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "NewSura-library-api": {
+        "properties": {
           "title": {
             "type": "string"
           },
@@ -23804,6 +23797,39 @@
                       "type": "string"
                     }
                   }
+                }
+              }
+            }
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "class": {
+                  "type": "string"
+                },
+                "tab": {
+                  "type": "string",
+                  "enum": [
+                    "one",
+                    "two",
+                    "three",
+                    "four",
+                    "five"
+                  ]
                 }
               }
             }
