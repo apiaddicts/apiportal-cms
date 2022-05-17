@@ -44,7 +44,7 @@ stages:
     jobs:
       - deployment: Deploy
         variables:
-          - group: backend-variables-development
+          - group: backend-variables-${{variables.environment}}
             #ENVIRONMENT: 'Development'
         displayName: "Deploy to Dev"
         environment: $(environment)

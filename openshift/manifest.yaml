@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: $azName
+  name: $AZNAME
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: $azName
+      app: $AZNAME
   template:
     metadata:
       labels:
-        app: $azName
+        app: $AZNAME
     spec:
       containers:
-        - name: $azName
-          image: $azImage
+        - name: $AZNAME
+          image: $AZIMAGE
           ports:
-            - containerPort: $azPort
+            - containerPort: $AZPORT
           env:
             - name: DATABASE_CLIENT
               value: $DATABASE_CLIENT
@@ -44,27 +44,27 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: $azName
+  name: $AZNAME
 spec:
   selector:
-    app: $azName
+    app: $AZNAME
   ports:
     - nodePort: 0
       port: 80
       protocol: TCP
-      targetPort: $azPort
+      targetPort: $AZPORT
 
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: $azName
+  name: $AZNAME
   annotations:
     haproxy.router.openshift.io/hsts_header: max-age=31536000;includeSubDomains;preload
 spec:
-  host: $httpHost
+  host: $HTTPHOST
   port:
     targetPort: 80
   to:
     kind: Service
-    name: $azName
+    name: $AZNAME
