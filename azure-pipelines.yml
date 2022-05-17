@@ -32,7 +32,7 @@ stages:
               buildContext: .
               tags: |
                 $(Build.SourceBranchName)
-                $(tag)
+                $(Build.SourceVersion)
   - stage: Deploy
     jobs:
       - deployment: Deploy
