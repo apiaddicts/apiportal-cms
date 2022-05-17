@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __az-name__
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: __az-name__
+  template:
+    metadata:
+      labels:
+        app: __az-name__
+    spec:
+      containers:
+        - name: __az-name__
+          image: __az-image__:__az-tag__
+          ports:
+            - containerPort: __az-port__
+          env:
+            - name: DATABASE_CLIENT
+              value: __DATABASE_CLIENT__
+            - name: DATABASE_HOST
+              value: __DATABASE_HOST__
+            - name: DATABASE_PORT
+              value: __DATABASE_PORT__
+            - name: DATABASE_NAME
+              value: __DATABASE_NAME__
+            - name: DATABASE_USERNAME
+              value: __DATABASE_USERNAME__
+            - name: DATABASE_PASSWORD
+              value: __DATABASE_PASSWORD__
+            - name: DATABASE_SSL
+              value: __DATABASE_SSL__
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "1Gi"
+            limits:
+              cpu: "1000m"
+              memory: "2Gi"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: __az-name__
+spec:
+  selector:
+    app: __az-name__
+  ports:
+    - nodePort: 0
+      port: 80
+      protocol: TCP
+      targetPort: __az-port__
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: __az-name__
+  annotations:
+    haproxy.router.openshift.io/hsts_header: max-age=31536000;includeSubDomains;preload
+spec:
+  host: __http-host__
+  port:
+    targetPort: 80
+  to:
+    kind: Service
+    name: __az-name__
