@@ -10,9 +10,10 @@ pool:
   vmImage: ubuntu-20.04
 
 variables:
-  az-name: devportal-back
-  az-port: 1337
-  http-host: strapi.sura.com
+  azName: devportal-back
+  azPort: 1337
+  httpHost: strapi.sura.com
+  azImage: azurecontainerregistrysuradev.azurecr.io/devportal-back:$(Build.SourceVersion)
 stages:
   - stage: Build
     jobs:
@@ -47,6 +48,7 @@ stages:
               steps:
                 - checkout: self
                   submodules: true
+                - script: envsubst < openshift/manifest.yaml | kubectl apply -f -
                 # - task: qetza.replacetokens.replacetokens-task.replacetokens@3
                 #   displayName: Replace variables - Kubernetes Manifest
                 #   inputs:
