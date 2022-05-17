@@ -1,12 +1,12 @@
 {
   "paths": {
-    "/category-apis": {
+    "/slides-news": {
       "get": {
         "deprecated": false,
-        "description": "Find all the category-apis's records",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve category-apis document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -52,7 +52,7 @@
         },
         "summary": "",
         "tags": [
-          "Category-apis"
+          "Slides-new"
         ],
         "parameters": [
           {
@@ -195,10 +195,10 @@
       },
       "post": {
         "deprecated": false,
-        "description": "Create a new category-apis record",
+        "description": "Create a new record",
         "responses": {
           "200": {
-            "description": "Retrieve category-apis document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -244,7 +244,7 @@
         },
         "summary": "",
         "tags": [
-          "Category-apis"
+          "Slides-new"
         ],
         "requestBody": {
           "description": "",
@@ -252,20 +252,20 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCategory-apis"
+                "$ref": "#/components/schemas/NewSlides-new"
               }
             }
           }
         }
       }
     },
-    "/category-apis/count": {
+    "/slides-news/count": {
       "get": {
         "deprecated": false,
-        "description": "Retrieve the numver of category-apis documents",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve category-apis document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -311,18 +311,18 @@
         },
         "summary": "",
         "tags": [
-          "Category-apis"
+          "Slides-new"
         ],
         "parameters": []
       }
     },
-    "/category-apis/{id}": {
+    "/slides-news/{id}": {
       "get": {
         "deprecated": false,
-        "description": "Find one category-apis record",
+        "description": "",
         "responses": {
           "200": {
-            "description": "Retrieve category-apis document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -368,7 +368,7 @@
         },
         "summary": "",
         "tags": [
-          "Category-apis"
+          "Slides-new"
         ],
         "parameters": [
           {
@@ -385,10 +385,10 @@
       },
       "put": {
         "deprecated": false,
-        "description": "Update a single category-apis record",
+        "description": "Update a record",
         "responses": {
           "200": {
-            "description": "Retrieve category-apis document(s)",
+            "description": "response",
             "content": {
               "application/json": {
                 "schema": {
@@ -434,7 +434,7 @@
         },
         "summary": "",
         "tags": [
-          "Category-apis"
+          "Slides-new"
         ],
         "requestBody": {
           "description": "",
@@ -442,7 +442,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewCategory-apis"
+                "$ref": "#/components/schemas/NewSlides-new"
               }
             }
           }
@@ -462,10 +462,10 @@
       },
       "delete": {
         "deprecated": false,
-        "description": "Delete a single category-apis record",
+        "description": "Delete a record",
         "responses": {
           "200": {
-            "description": "deletes a single category-apis based on the ID supplied",
+            "description": "deletes a single record based on the ID supplied",
             "content": {
               "application/json": {
                 "schema": {
@@ -508,7 +508,7 @@
         },
         "summary": "",
         "tags": [
-          "Category-apis"
+          "Slides-new"
         ],
         "parameters": [
           {
@@ -527,7 +527,7 @@
   },
   "components": {
     "schemas": {
-      "Category-apis": {
+      "Slides-new": {
         "required": [
           "id"
         ],
@@ -538,12 +538,23 @@
           "title": {
             "type": "string"
           },
-          "apis": {
+          "description": {
+            "type": "string"
+          },
+          "linkText": {
+            "type": "string"
+          },
+          "img": {
             "type": "array",
             "items": {
               "required": [
                 "id",
-                "name"
+                "name",
+                "hash",
+                "mime",
+                "size",
+                "url",
+                "provider"
               ],
               "properties": {
                 "id": {
@@ -552,70 +563,46 @@
                 "name": {
                   "type": "string"
                 },
-                "version": {
+                "alternativeText": {
                   "type": "string"
                 },
-                "comercialTitle": {
+                "caption": {
                   "type": "string"
                 },
-                "shortComercialDescription": {
-                  "type": "string"
+                "width": {
+                  "type": "integer"
                 },
-                "isPublicDocumented": {
-                  "type": "boolean"
+                "height": {
+                  "type": "integer"
                 },
-                "isPublicPortalVisible": {
-                  "type": "boolean"
-                },
-                "openDoc": {
+                "formats": {
                   "type": "object"
                 },
-                "category_apis": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "metadata": {
-                  "type": "component"
-                },
-                "IsPublicCoverVisible": {
-                  "type": "boolean"
-                },
-                "filter_status": {
+                "hash": {
                   "type": "string"
                 },
-                "filter_project_types": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "filter_versions": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "filter_solutions": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "smallText": {
+                "ext": {
                   "type": "string"
                 },
-                "localizations": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "locale": {
+                "mime": {
                   "type": "string"
                 },
-                "published_at": {
+                "size": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "previewUrl": {
+                  "type": "string"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "provider_metadata": {
+                  "type": "object"
+                },
+                "related": {
                   "type": "string"
                 },
                 "created_by": {
@@ -626,49 +613,6 @@
                 }
               }
             }
-          },
-          "localizations": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "title": {
-                  "type": "string"
-                },
-                "apis": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "localizations": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "locale": {
-                  "type": "string"
-                },
-                "published_at": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "locale": {
-            "type": "string"
           },
           "published_at": {
             "type": "string",
@@ -676,24 +620,15 @@
           }
         }
       },
-      "NewCategory-apis": {
+      "NewSlides-new": {
         "properties": {
           "title": {
             "type": "string"
           },
-          "apis": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "description": {
+            "type": "string"
           },
-          "localizations": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "locale": {
+          "linkText": {
             "type": "string"
           },
           "published_at": {

@@ -23,11 +23,6 @@
           "localized": true
         }
       }
-    },
-    "apis": {
-      "via": "filter_versions",
-      "collection": "apis",
-      "dominant": true
     }
   }
 }
