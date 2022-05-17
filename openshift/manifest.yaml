@@ -62,7 +62,7 @@ metadata:
   annotations:
     haproxy.router.openshift.io/hsts_header: max-age=31536000;includeSubDomains;preload
 spec:
-  host: $HTTPHOST
+  host: $HTTP_HOST
   port:
     targetPort: 80
   to:

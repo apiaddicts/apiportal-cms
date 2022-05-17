@@ -12,7 +12,6 @@ pool:
 variables:
   azName: devportal-back
   azPort: 1337
-  httpHost: strapi.sura.com
   azImage: $(dockerRegistry)/$(azName):$(Build.SourceVersion)
   ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
     dockerRegistry: azurecontainerregistrysuradev.azurecr.io
