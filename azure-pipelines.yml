@@ -14,10 +14,10 @@ variables:
   azPort: 1337
   httpHost: strapi.sura.com
   azImage: azurecontainerregistrysuradev.azurecr.io/devportal-back:$(Build.SourceVersion)
-  - ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
-      dockerRegistryConnection: AzRegistryContainerDev
-      openshiftServiceConnection: "ARO-Dev"
-      environment: dev
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+    dockerRegistryConnection: AzRegistryContainerDev
+    openshiftServiceConnection: "ARO-Dev"
+    environment: dev
 
 stages:
   - stage: Build
