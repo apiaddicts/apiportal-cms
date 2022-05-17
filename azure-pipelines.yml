@@ -1,0 +1,73 @@
+trigger:
+  branches:
+    include:
+      - develop
+      - main
+      - pre
+
+pool:
+  name: Azure Pipelines
+  vmImage: ubuntu-20.04
+
+variables:
+  az-name: devportal-back
+  az-port: 1337
+  http-host: strapi.sura.com
+stages:
+  - stage: Build
+    jobs:
+      - job: Build
+        steps:
+          - task: Docker@2
+            displayName: Login to ACR
+            inputs:
+              command: login
+              containerRegistry: AzRegistryContainerDev
+          - task: Docker@2
+            displayName: Build and Push
+            inputs:
+              command: buildAndPush
+              repository: devportal-back
+              Dockerfile: Dockerfile
+              buildContext: .
+              tags: |
+                $(Build.SourceBranchName)
+                $(tag)
+  - stage: Deploy
+    jobs:
+      - deployment: Deploy
+        variables:
+          - group: backend-variables-development
+            #ENVIRONMENT: 'Development'
+        displayName: "Deploy to Dev"
+        environment: dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+                  submodules: true
+                - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+                  displayName: Replace variables - Kubernetes Manifest
+                  inputs:
+                    rootDirectory: $(System.DefaultWorkingDirectory)/kubernetes
+                    targetFiles: "openshift/*.yaml"
+                    keepToken: true
+                    tokenPrefix: __
+                    tokenSuffix: __
+
+                # Install oc so that it can be used within a 'script' or bash 'task'
+                - task: oc-setup@2
+                  displayName: Setup oc
+                  inputs:
+                    openshiftService: "ARO-Dev"
+                # A script task making use of 'oc'
+                - script: |
+                    oc apply -f openshift/manifest.yaml -n api-cloud-dev
+                  displayName: Apply deployment
+                # Single shot 'oc' command
+                - task: oc-cmd@2
+                  displayName: Wait for deployment
+                  inputs:
+                    openshiftService: "ARO-Dev"
+                    cmd: "rollout status -w deployment/$(az-name)"
