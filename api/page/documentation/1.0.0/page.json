@@ -2548,6 +2548,9 @@
                           }
                         }
                       }
+                    },
+                    "iconText": {
+                      "type": "string"
                     }
                   },
                   "required": [
@@ -5994,6 +5997,9 @@
                           }
                         }
                       }
+                    },
+                    "iconText": {
+                      "type": "string"
                     }
                   },
                   "required": [

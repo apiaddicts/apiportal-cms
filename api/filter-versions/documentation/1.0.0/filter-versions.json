@@ -538,95 +538,6 @@
           "title": {
             "type": "string"
           },
-          "apis": {
-            "type": "array",
-            "items": {
-              "required": [
-                "id",
-                "name"
-              ],
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "version": {
-                  "type": "string"
-                },
-                "comercialTitle": {
-                  "type": "string"
-                },
-                "shortComercialDescription": {
-                  "type": "string"
-                },
-                "isPublicDocumented": {
-                  "type": "boolean"
-                },
-                "isPublicPortalVisible": {
-                  "type": "boolean"
-                },
-                "openDoc": {
-                  "type": "object"
-                },
-                "category_apis": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "metadata": {
-                  "type": "component"
-                },
-                "IsPublicCoverVisible": {
-                  "type": "boolean"
-                },
-                "filter_status": {
-                  "type": "string"
-                },
-                "filter_project_types": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "filter_versions": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "filter_solutions": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "smallText": {
-                  "type": "string"
-                },
-                "localizations": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "locale": {
-                  "type": "string"
-                },
-                "published_at": {
-                  "type": "string"
-                },
-                "created_by": {
-                  "type": "string"
-                },
-                "updated_by": {
-                  "type": "string"
-                }
-              }
-            }
-          },
           "localizations": {
             "type": "array",
             "items": {
@@ -639,12 +550,6 @@
                 },
                 "title": {
                   "type": "string"
-                },
-                "apis": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
                 },
                 "localizations": {
                   "type": "array",
@@ -680,12 +585,6 @@
         "properties": {
           "title": {
             "type": "string"
-          },
-          "apis": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           },
           "localizations": {
             "type": "array",
