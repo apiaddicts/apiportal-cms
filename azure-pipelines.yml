@@ -13,8 +13,9 @@ variables:
   azName: devportal-back
   azPort: 1337
   httpHost: strapi.sura.com
-  azImage: azurecontainerregistrysuradev.azurecr.io/devportal-back:$(Build.SourceVersion)
+  azImage: $(dockerRegistry)/$(azName):$(Build.SourceVersion)
   ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+    dockerRegistry: azurecontainerregistrysuradev.azurecr.io
     dockerRegistryConnection: AzRegistryContainerDev
     openshiftServiceConnection: "ARO-Dev"
     environment: dev
@@ -33,7 +34,7 @@ stages:
             displayName: Build and Push
             inputs:
               command: buildAndPush
-              repository: devportal-back
+              repository: $(azName)
               Dockerfile: Dockerfile
               buildContext: .
               tags: |
@@ -53,8 +54,6 @@ stages:
               steps:
                 - checkout: self
                   submodules: true
-                - script: envsubst < openshift/manifest.yaml > openshift/manifest.yaml
-                  displayName: Subsitute variables in manifest
                 # - task: qetza.replacetokens.replacetokens-task.replacetokens@3
                 #   displayName: Replace variables - Kubernetes Manifest
                 #   inputs:
@@ -71,7 +70,7 @@ stages:
                     openshiftService: $(openshiftServiceConnection)
                 # A script task making use of 'oc'
                 - script: |
-                    oc apply -f openshift/manifest.yaml -n api-cloud-dev
+                    envsubst < openshift/manifest.yaml | oc apply -n api-cloud-dev -f -
                   displayName: Apply deployment
                 # Single shot 'oc' command
                 - task: oc-cmd@2
