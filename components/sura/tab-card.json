@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_sura_tab_cards",
+  "info": {
+    "name": "tabCard",
+    "icon": "sd-card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "img": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "cards.card"
+    }
+  }
+}

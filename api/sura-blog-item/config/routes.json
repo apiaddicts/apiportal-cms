@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/sura-blog-items",
+      "handler": "sura-blog-item.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sura-blog-items/count",
+      "handler": "sura-blog-item.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sura-blog-items/:id",
+      "handler": "sura-blog-item.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sura-blog-items",
+      "handler": "sura-blog-item.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/sura-blog-items/:id",
+      "handler": "sura-blog-item.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/sura-blog-items/:id",
+      "handler": "sura-blog-item.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

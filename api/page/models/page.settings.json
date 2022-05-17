@@ -60,7 +60,10 @@
         "home.key-section",
         "home.banner-section",
         "home.work-section",
-        "apis.filters"
+        "apis.filters",
+        "sura.carousel",
+        "sura.list-filter",
+        "sura.tab-card"
       ],
       "pluginOptions": {
         "i18n": {
