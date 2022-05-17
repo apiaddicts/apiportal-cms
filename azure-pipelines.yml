@@ -53,8 +53,8 @@ stages:
               steps:
                 - checkout: self
                   submodules: true
-                - script: apt-get install -y gettext-base
                 - script: envsubst < openshift/manifest.yaml > openshift/manifest.yaml
+                  displayName: Subsitute variables in manifest
                 # - task: qetza.replacetokens.replacetokens-task.replacetokens@3
                 #   displayName: Replace variables - Kubernetes Manifest
                 #   inputs:
