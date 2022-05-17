@@ -14,6 +14,11 @@ variables:
   azPort: 1337
   httpHost: strapi.sura.com
   azImage: azurecontainerregistrysuradev.azurecr.io/devportal-back:$(Build.SourceVersion)
+  - ${{ if eq(variables['Build.SourceBranchName'], 'develop') }}:
+      dockerRegistryConnection: AzRegistryContainerDev
+      openshiftServiceConnection: "ARO-Dev"
+      environment: dev
+
 stages:
   - stage: Build
     jobs:
@@ -23,7 +28,7 @@ stages:
             displayName: Login to ACR
             inputs:
               command: login
-              containerRegistry: AzRegistryContainerDev
+              containerRegistry: $(dockerRegistryConnection)
           - task: Docker@2
             displayName: Build and Push
             inputs:
@@ -41,14 +46,15 @@ stages:
           - group: backend-variables-development
             #ENVIRONMENT: 'Development'
         displayName: "Deploy to Dev"
-        environment: dev
+        environment: $(environment)
         strategy:
           runOnce:
             deploy:
               steps:
                 - checkout: self
                   submodules: true
-                - script: envsubst < openshift/manifest.yaml | kubectl apply -f -
+                - script: apt-get install -y gettext-base
+                - script: envsubst < openshift/manifest.yaml > openshift/manifest.yaml
                 # - task: qetza.replacetokens.replacetokens-task.replacetokens@3
                 #   displayName: Replace variables - Kubernetes Manifest
                 #   inputs:
@@ -62,7 +68,7 @@ stages:
                 - task: oc-setup@2
                   displayName: Setup oc
                   inputs:
-                    openshiftService: "ARO-Dev"
+                    openshiftService: $(openshiftServiceConnection)
                 # A script task making use of 'oc'
                 - script: |
                     oc apply -f openshift/manifest.yaml -n api-cloud-dev
@@ -71,5 +77,5 @@ stages:
                 - task: oc-cmd@2
                   displayName: Wait for deployment
                   inputs:
-                    openshiftService: "ARO-Dev"
+                    openshiftService: $(openshiftServiceConnection)
                     cmd: "rollout status -w deployment/$(az-name)"
