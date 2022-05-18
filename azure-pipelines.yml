@@ -53,17 +53,6 @@ stages:
               steps:
                 - checkout: self
                   submodules: true
-                - script: |
-                    envsubst < openshift/manifest.yaml
-                    env
-                # - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-                #   displayName: Replace variables - Kubernetes Manifest
-                #   inputs:
-                #     rootDirectory: $(System.DefaultWorkingDirectory)/kubernetes
-                #     targetFiles: "openshift/*.yaml"
-                #     keepToken: true
-                #     tokenPrefix: __
-                #     tokenSuffix: __
 
                 # Install oc so that it can be used within a 'script' or bash 'task'
                 - task: oc-setup@2
