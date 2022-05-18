@@ -23,11 +23,6 @@
           "localized": true
         }
       }
-    },
-    "apis": {
-      "via": "filter_project_types",
-      "collection": "apis",
-      "dominant": true
     }
   }
 }

@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/category-apis",
-      "handler": "category-apis.find",
+      "path": "/slides-news",
+      "handler": "slides-new.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/category-apis/count",
-      "handler": "category-apis.count",
+      "path": "/slides-news/count",
+      "handler": "slides-new.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/category-apis/:id",
-      "handler": "category-apis.findOne",
+      "path": "/slides-news/:id",
+      "handler": "slides-new.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/category-apis",
-      "handler": "category-apis.create",
+      "path": "/slides-news",
+      "handler": "slides-new.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/category-apis/:id",
-      "handler": "category-apis.update",
+      "path": "/slides-news/:id",
+      "handler": "slides-new.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/category-apis/:id",
-      "handler": "category-apis.delete",
+      "path": "/slides-news/:id",
+      "handler": "slides-new.delete",
       "config": {
         "policies": []
       }
