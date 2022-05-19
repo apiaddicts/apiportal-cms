@@ -19,19 +19,19 @@ spec:
             - containerPort: $AZPORT
           env:
             - name: DATABASE_CLIENT
-              value: $DATABASE_CLIENT
+              value: "$DATABASE_CLIENT"
             - name: DATABASE_HOST
-              value: $DATABASE_HOST
+              value: "$DATABASE_HOST"
             - name: DATABASE_PORT
-              value: $DATABASE_PORT
+              value: "$DATABASE_PORT"
             - name: DATABASE_NAME
-              value: $DATABASE_NAME
+              value: "$DATABASE_NAME"
             - name: DATABASE_USERNAME
-              value: $DATABASE_USERNAME
+              value: "$DATABASE_USERNAME"
             - name: DATABASE_PASSWORD
-              value: $DATABASE_PASSWORD
+              value: "$DATABASE_PASSWORD"
             - name: DATABASE_SSL
-              value: $DATABASE_SSL
+              value: "$DATABASE_SSL"
           resources:
             requests:
               cpu: "500m"
@@ -39,6 +39,7 @@ spec:
             limits:
               cpu: "1000m"
               memory: "2Gi"
+      imagePullpolicy: Always
       imagePullSecrets:
         - name: gitlab-cloudappi
 
