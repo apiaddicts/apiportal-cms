@@ -18,6 +18,7 @@ RUN yarn add mysql
 COPY . /usr/src/app
 
 RUN yarn build
+RUN chmod 777 -R .
 EXPOSE 1337
 
 CMD [ "yarn", "start" ]
