@@ -32,6 +32,9 @@
         "Normal",
         "NoImage"
       ]
+    },
+    "description_two": {
+      "type": "richtext"
     }
   }
 }

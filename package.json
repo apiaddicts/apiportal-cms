@@ -26,6 +26,8 @@
     "strapi-plugin-i18n": "^3.6.8",
     "strapi-plugin-upload": "^3.6.5",
     "strapi-plugin-users-permissions": "^3.6.5",
+    "strapi-plugin-wysiwyg-react-md-editor": "^4.2.0",
+    "strapi-provider-upload-local-url": "^1.0.2",
     "strapi-utils": "^3.6.5"
   },
   "author": {
