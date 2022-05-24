@@ -17,21 +17,22 @@ spec:
           image: $AZIMAGE
           ports:
             - containerPort: $AZPORT
+              name: $AZPORTNAME
           env:
             - name: DATABASE_CLIENT
-              value: $DATABASE_CLIENT
+              value: "$DATABASE_CLIENT"
             - name: DATABASE_HOST
-              value: $DATABASE_HOST
+              value: "$DATABASE_HOST"
             - name: DATABASE_PORT
-              value: $DATABASE_PORT
+              value: "$DATABASE_PORT"
             - name: DATABASE_NAME
-              value: $DATABASE_NAME
+              value: "$DATABASE_NAME"
             - name: DATABASE_USERNAME
-              value: $DATABASE_USERNAME
+              value: "$DATABASE_USERNAME"
             - name: DATABASE_PASSWORD
-              value: $DATABASE_PASSWORD
+              value: "$DATABASE_PASSWORD"
             - name: DATABASE_SSL
-              value: $DATABASE_SSL
+              value: "$DATABASE_SSL"
           resources:
             requests:
               cpu: "500m"
@@ -39,6 +40,9 @@ spec:
             limits:
               cpu: "1000m"
               memory: "2Gi"
+      imagePullpolicy: Always
+      imagePullSecrets:
+        - name: gitlab-cloudappi
 
 ---
 apiVersion: v1
@@ -49,22 +53,21 @@ spec:
   selector:
     app: $AZNAME
   ports:
-    - nodePort: 0
+    - name: ${AZPORTNAME}-svc
+      nodePort: 0
       port: 80
       protocol: TCP
-      targetPort: $AZPORT
+      targetPort: $AZPORTNAME
 
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: $AZNAME
-  annotations:
-    haproxy.router.openshift.io/hsts_header: max-age=31536000;includeSubDomains;preload
 spec:
   host: $HTTP_HOST
   port:
-    targetPort: 80
+    targetPort: ${AZPORTNAME}-svc
   to:
     kind: Service
     name: $AZNAME
