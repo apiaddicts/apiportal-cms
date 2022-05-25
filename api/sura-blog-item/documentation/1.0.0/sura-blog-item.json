@@ -739,6 +739,9 @@
                     "Normal",
                     "NoImage"
                   ]
+                },
+                "description_two": {
+                  "type": "string"
                 }
               }
             }
@@ -970,6 +973,9 @@
                     "Normal",
                     "NoImage"
                   ]
+                },
+                "description_two": {
+                  "type": "string"
                 }
               }
             }
