@@ -12,6 +12,7 @@ WORKDIR /usr/src/app
 COPY package*.json /usr/src/app/
 RUN npm install
 RUN npm install mysql
+RUN npm install @strapi/design-system
 
 # Bundle app source
 COPY . /usr/src/app
