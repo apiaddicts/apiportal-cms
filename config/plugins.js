@@ -1,15 +1,13 @@
 module.exports = ({ env }) => ({
-       upload: {
-        provider: "aws-s3-cloudfront",
-        providerOptions: {
-          accessKeyId: env("AWS_ACCESS_KEY_ID"),
-          secretAccessKey: env("AWS_ACCESS_SECRET"),
-          region: env("AWS_REGION"),
-          params: {
-            Bucket: env("AWS_BUCKET"),
-          },
-          cdn: env('CLOUDFRONT')
-          
-        },
-      },
-   });
+  upload: {
+    provider: "azure-storage",
+    providerOptions: {
+      account: env("STORAGE_ACCOUNT"),
+      accountKey: env("STORAGE_ACCOUNT_KEY"),
+      serviceBaseURL: env("STORAGE_URL"),
+      containerName: env("STORAGE_CONTAINER_NAME"),
+      defaultPath: "assets",
+      maxConcurrent: 10,
+    },
+  },
+});
