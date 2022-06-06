@@ -1,38 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: $AZNAME
+  name: __az-name__
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: $AZNAME
+      app: __az-name__
   template:
     metadata:
       labels:
-        app: $AZNAME
+        app: __az-name__
     spec:
       containers:
-        - name: $AZNAME
-          image: $AZIMAGE
+        - name: __az-name__
+          image: __az-image__:__az-tag__
           ports:
-            - containerPort: $AZPORT
-              name: $AZPORTNAME
+            - containerPort: __az-port__
           env:
             - name: DATABASE_CLIENT
-              value: "$DATABASE_CLIENT"
+              value: __DATABASE_CLIENT__
             - name: DATABASE_HOST
-              value: "$DATABASE_HOST"
+              value: __DATABASE_HOST__
             - name: DATABASE_PORT
-              value: "$DATABASE_PORT"
+              value: __DATABASE_PORT__
             - name: DATABASE_NAME
-              value: "$DATABASE_NAME"
+              value: __DATABASE_NAME__
             - name: DATABASE_USERNAME
-              value: "$DATABASE_USERNAME"
+              value: __DATABASE_USERNAME__
             - name: DATABASE_PASSWORD
-              value: "$DATABASE_PASSWORD"
+              value: __DATABASE_PASSWORD__
             - name: DATABASE_SSL
-              value: "$DATABASE_SSL"
+              value: __DATABASE_SSL__
           resources:
             requests:
               cpu: "500m"
@@ -40,34 +39,32 @@ spec:
             limits:
               cpu: "1000m"
               memory: "2Gi"
-      imagePullpolicy: Always
-      imagePullSecrets:
-        - name: gitlab-cloudappi
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: $AZNAME
+  name: __az-name__
 spec:
   selector:
-    app: $AZNAME
+    app: __az-name__
   ports:
-    - name: ${AZPORTNAME}-svc
-      nodePort: 0
+    - nodePort: 0
       port: 80
       protocol: TCP
-      targetPort: $AZPORTNAME
+      targetPort: __az-port__
 
 ---
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: $AZNAME
+  name: __az-name__
+  annotations:
+    haproxy.router.openshift.io/hsts_header: max-age=31536000;includeSubDomains;preload
 spec:
-  host: $HTTP_HOST
+  host: __http-host__
   port:
-    targetPort: ${AZPORTNAME}-svc
+    targetPort: 80
   to:
     kind: Service
-    name: $AZNAME
+    name: __az-name__
