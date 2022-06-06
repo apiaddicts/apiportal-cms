@@ -26,6 +26,17 @@
       "type": "component",
       "repeatable": true,
       "component": "cards.card"
+    },
+    "tab": {
+      "type": "enumeration",
+      "enum": [
+        "zero",
+        "one",
+        "two",
+        "three",
+        "four",
+        "five"
+      ]
     }
   }
 }

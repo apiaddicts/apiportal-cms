@@ -10,14 +10,14 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package*.json /usr/src/app/
-COPY yarn.lock /usr/src/app/
-RUN yarn install
-RUN yarn add mysql
+RUN npm install
+RUN npm install mysql
 
 # Bundle app source
 COPY . /usr/src/app
 
-RUN yarn build
+RUN npm run build
+RUN chmod 777 -R .
 EXPOSE 1337
 
-CMD [ "yarn", "start" ]
+CMD [ "npm", "run", "start" ]

@@ -40,6 +40,9 @@
     },
     "iconText": {
       "type": "string"
+    },
+    "num": {
+      "type": "biginteger"
     }
   }
 }

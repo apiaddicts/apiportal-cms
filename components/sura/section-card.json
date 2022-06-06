@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_sura_section_cards",
+  "info": {
+    "name": "sectionCard",
+    "icon": "vr-cardboard"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

@@ -29,6 +29,9 @@
       "type": "component",
       "repeatable": true,
       "component": "links.basic-link"
+    },
+    "search": {
+      "type": "string"
     }
   }
 }

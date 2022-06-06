@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/slides-news",
+      "handler": "slides-new.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/slides-news/count",
+      "handler": "slides-new.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/slides-news/:id",
+      "handler": "slides-new.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/slides-news",
+      "handler": "slides-new.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/slides-news/:id",
+      "handler": "slides-new.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/slides-news/:id",
+      "handler": "slides-new.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
