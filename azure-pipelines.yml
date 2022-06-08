@@ -36,7 +36,7 @@ stages:
     jobs:
       - deployment: Deploy
         variables:
-          - group: backend-variables-development
+          - group: backend-variables-dev
             #ENVIRONMENT: 'Development'
         displayName: "Deploy to Dev"
         environment: dev
