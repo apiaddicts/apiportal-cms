@@ -71,4 +71,4 @@ stages:
                   displayName: Wait for deployment
                   inputs:
                     openshiftService: "ARO-Dev"
-                    cmd: "rollout status -w deployment/$(${AZNAME})"
+                    cmd: "rollout status -w deployment/$(AZNAME)"
