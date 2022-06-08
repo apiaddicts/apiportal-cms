@@ -1,7 +1,7 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: ${AZ-NAME}
+  name: $AZNAME
   annotations:
     haproxy.router.openshift.io/hsts_header: max-age=31536000;includeSubDomains;preload
 spec:
@@ -10,4 +10,4 @@ spec:
     targetPort: 80
   to:
     kind: Service
-    name: ${AZ-NAME}
+    name: $AZNAME
