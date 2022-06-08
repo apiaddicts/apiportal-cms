@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: __az-name__
+spec:
+  selector:
+    app: __az-name__
+  ports:
+    - nodePort: 0
+      port: 80
+      protocol: TCP
+      targetPort: __az-port__

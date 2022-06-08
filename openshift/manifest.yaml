@@ -32,6 +32,16 @@ spec:
               value: __DATABASE_PASSWORD__
             - name: DATABASE_SSL
               value: __DATABASE_SSL__
+            - name: STORAGE_ACCOUNT
+              value: __STORAGE_ACCOUNT__
+            - name: STORAGE_ACCOUNT_KEY
+              value: __STORAGE_ACCOUNT_KEY__
+            - name: STORAGE_URL
+              value: __STORAGE_URL__
+            - name: STORAGE_CONTAINER_NAME
+              value: __STORAGE_CONTAINER_NAME__
+            - name: STORAGE_ACCOUNT
+              value: __STORAGE_ACCOUNT__
           resources:
             requests:
               cpu: "500m"
@@ -39,32 +49,3 @@ spec:
             limits:
               cpu: "1000m"
               memory: "2Gi"
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: __az-name__
-spec:
-  selector:
-    app: __az-name__
-  ports:
-    - nodePort: 0
-      port: 80
-      protocol: TCP
-      targetPort: __az-port__
-
----
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: __az-name__
-  annotations:
-    haproxy.router.openshift.io/hsts_header: max-age=31536000;includeSubDomains;preload
-spec:
-  host: __http-host__
-  port:
-    targetPort: 80
-  to:
-    kind: Service
-    name: __az-name__

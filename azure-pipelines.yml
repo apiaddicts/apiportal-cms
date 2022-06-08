@@ -2,8 +2,8 @@ trigger:
   branches:
     include:
       - develop
-      - main
-      - pre
+      # - main
+      # - pre
 
 pool:
   name: Azure Pipelines
@@ -63,7 +63,7 @@ stages:
                     openshiftService: "ARO-Dev"
                 # A script task making use of 'oc'
                 - script: |
-                    oc apply -f openshift/manifest.yaml -n api-cloud-dev
+                    oc apply -f openshift/ -n api-cloud-dev
                   displayName: Apply deployment
                 # Single shot 'oc' command
                 - task: oc-cmd@2
