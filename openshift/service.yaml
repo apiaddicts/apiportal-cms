@@ -6,7 +6,8 @@ spec:
   selector:
     app: $AZNAME
   ports:
-    - nodePort: 0
+    - name: ${AZPORTNAME}-svc
+      nodePort: 0
       port: 80
       protocol: TCP
-      targetPort: $AZPORT
+      targetPort: $AZPORTNAME

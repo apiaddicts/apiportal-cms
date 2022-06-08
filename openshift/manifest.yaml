@@ -17,6 +17,7 @@ spec:
           image: $AZIMAGE
           ports:
             - containerPort: $AZPORT
+              name: $AZPORTNAME
           env:
             - name: DATABASE_CLIENT
               value: "$DATABASE_CLIENT"
