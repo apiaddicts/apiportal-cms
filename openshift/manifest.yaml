@@ -1,47 +1,47 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: __az-name__
+  name: $AZ-NAME
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: __az-name__
+      app: $AZ-NAME
   template:
     metadata:
       labels:
-        app: __az-name__
+        app: $AZ-NAME
     spec:
       containers:
-        - name: __az-name__
-          image: __az-image__:__az-tag__
+        - name: $AZ-NAME
+          image: $AZ-IMAGE:$AZ-TAG
           ports:
-            - containerPort: __az-port__
+            - containerPort: $AZ-PORT
           env:
             - name: DATABASE_CLIENT
-              value: __DATABASE_CLIENT__
+              value: "$DATABASE_CLIENT"
             - name: DATABASE_HOST
-              value: __DATABASE_HOST__
+              value: "$DATABASE_HOST"
             - name: DATABASE_PORT
-              value: __DATABASE_PORT__
+              value: "$DATABASE_PORT"
             - name: DATABASE_NAME
-              value: __DATABASE_NAME__
+              value: "$DATABASE_NAME"
             - name: DATABASE_USERNAME
-              value: __DATABASE_USERNAME__
+              value: "$DATABASE_USERNAME"
             - name: DATABASE_PASSWORD
-              value: __DATABASE_PASSWORD__
+              value: "$DATABASE_PASSWORD"
             - name: DATABASE_SSL
-              value: __DATABASE_SSL__
+              value: "$DATABASE_SSL"
             - name: STORAGE_ACCOUNT
-              value: __STORAGE_ACCOUNT__
+              value: "$STORAGE_ACCOUNT"
             - name: STORAGE_ACCOUNT_KEY
-              value: __STORAGE_ACCOUNT_KEY__
+              value: "$STORAGE_ACCOUNT_KEY"
             - name: STORAGE_URL
-              value: __STORAGE_URL__
+              value: "$STORAGE_URL"
             - name: STORAGE_CONTAINER_NAME
-              value: __STORAGE_CONTAINER_NAME__
+              value: "$STORAGE_CONTAINER_NAME"
             - name: STORAGE_ACCOUNT
-              value: __STORAGE_ACCOUNT__
+              value: "$STORAGE_ACCOUNT"
           resources:
             requests:
               cpu: "500m"

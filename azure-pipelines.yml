@@ -12,7 +12,6 @@ pool:
 variables:
   az-name: devportal-back
   az-port: 1337
-  http-host: strapi.sura.com
 stages:
   - stage: Build
     jobs:
@@ -47,14 +46,12 @@ stages:
               steps:
                 - checkout: self
                   submodules: true
-                - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-                  displayName: Replace variables - Kubernetes Manifest
-                  inputs:
-                    rootDirectory: $(System.DefaultWorkingDirectory)/kubernetes
-                    targetFiles: "openshift/*.yaml"
-                    keepToken: true
-                    tokenPrefix: __
-                    tokenSuffix: __
+                - script: |
+                    for file in $(ls openshift)
+                    do
+                      envsubst < openshift/$file | tee openshift/$file
+                    done
+                  displayName: Replace variables in manifests
 
                 # Install oc so that it can be used within a 'script' or bash 'task'
                 - task: oc-setup@2
