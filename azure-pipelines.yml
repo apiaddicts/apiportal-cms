@@ -17,6 +17,15 @@ variables:
   dockerRegistryConnection: Cloudappi-GitlabRegistry
   gitlabRepository: cloudappi/sura/dev-portal-sura-backend
   azPortName: http
+  ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
+    environment: prod
+    openshiftServiceConnection: ARO-Pro
+  ${{ if eq(variables['Build.SourceBranchName'], 'pre')}}:
+    environment: pre
+    openshiftServiceConnection: ARO-Pre
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
+    environment: dev
+    openshiftServiceConnection: ARO-Dev
 stages:
   - stage: Build
     jobs:
@@ -41,10 +50,10 @@ stages:
     jobs:
       - deployment: Deploy
         variables:
-          - group: backend-variables-dev
+          - group: backend-variables-${{ variables.environment }}
             #ENVIRONMENT: 'Development'
-        displayName: "Deploy to Dev"
-        environment: dev
+        displayName: "Deploy to ${{ variables.environment }}"
+        environment: ${{ variables.environment }}
         strategy:
           runOnce:
             deploy:
@@ -62,7 +71,7 @@ stages:
                 - task: oc-setup@2
                   displayName: Setup oc
                   inputs:
-                    openshiftService: "ARO-Dev"
+                    openshiftService: $(openshiftServiceConnection)
                 # A script task making use of 'oc'
                 - script: |
                     oc apply -f openshift/ -n api-cloud-dev
@@ -71,5 +80,5 @@ stages:
                 - task: oc-cmd@2
                   displayName: Wait for deployment
                   inputs:
-                    openshiftService: "ARO-Dev"
+                    openshiftService: $(openshiftServiceConnection)
                     cmd: "rollout status -w deployment/$(AZNAME)"
