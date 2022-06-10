@@ -41,8 +41,6 @@ spec:
               value: "$STORAGE_URL"
             - name: STORAGE_CONTAINER_NAME
               value: "$STORAGE_CONTAINER_NAME"
-            - name: STORAGE_ACCOUNT
-              value: "$STORAGE_ACCOUNT"
           resources:
             requests:
               cpu: "500m"
