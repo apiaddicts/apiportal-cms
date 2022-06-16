@@ -12,10 +12,8 @@ pool:
 variables:
   AZNAME: devportal-back
   AZPORT: 1337
-  azImage: $(dockerRegistry)/$(gitlabRepository):$(Build.SourceVersion)
-  dockerRegistry: registry.gitlab.com
-  dockerRegistryConnection: Cloudappi-GitlabRegistry
-  gitlabRepository: cloudappi/sura/dev-portal-sura-backend
+  azImage: $(AZNAME):$(Build.SourceVersion)
+  dockerRegistryConnection: AzRegistryContainerDev
   azPortName: http
   ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
     environment: prod
@@ -40,7 +38,7 @@ stages:
             displayName: Build and Push
             inputs:
               command: buildAndPush
-              repository: $(gitlabRepository)
+              repository: $(AZNAME)
               Dockerfile: Dockerfile
               buildContext: .
               tags: |
