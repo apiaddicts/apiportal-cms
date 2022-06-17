@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: $AZNAME
+spec:
+  selector:
+    app: $AZNAME
+  ports:
+    - name: ${AZPORTNAME}-svc
+      nodePort: 0
+      port: 80
+      protocol: TCP
+      targetPort: $AZPORTNAME
