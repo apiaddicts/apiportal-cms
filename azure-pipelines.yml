@@ -14,6 +14,9 @@ variables:
   AZPORT: 1337
   azImage: $(AZNAME):$(Build.SourceVersion)
   dockerRegistryConnection: AzRegistryContainerDev
+  azPortName: http
+  ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
+    environment: prod
     openshiftServiceConnection: ARO-Pro
   ${{ if eq(variables['Build.SourceBranchName'], 'pre')}}:
     environment: pre
