@@ -12,9 +12,8 @@ pool:
 variables:
   AZNAME: devportal-back
   AZPORT: 1337
-  azImage: $(dockerRegistry)/$(AZNAME):$(Build.SourceVersion)
+  azImage: $(AZNAME):$(Build.SourceVersion)
   dockerRegistryConnection: AzRegistryContainerDev
-  dockerRegistry: azurecontainerregistrysuradev.azurecr.io
   azPortName: http
   ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
     environment: prod
@@ -73,7 +72,6 @@ stages:
                     openshiftService: $(openshiftServiceConnection)
                 # A script task making use of 'oc'
                 - script: |
-                    oc apply -f openshift/manifest.yaml -n api-cloud-dev
                     oc apply -f openshift/ -n api-cloud-dev
                   displayName: Apply deployment
                 # Single shot 'oc' command
