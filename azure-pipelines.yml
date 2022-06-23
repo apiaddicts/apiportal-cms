@@ -2,28 +2,36 @@ trigger:
   branches:
     include:
       - develop
-      # - main
-      # - pre
+      - qa
+      - main
 
 pool:
   name: Azure Pipelines
   vmImage: ubuntu-20.04
 
 variables:
-  AZNAME: devportal-back
-  AZPORT: 1337
-  azImage: $(AZNAME):$(Build.SourceVersion)
-  dockerRegistryConnection: AzRegistryContainerDev
-  azPortName: http
+  APP_NAME: devportal-back
+  APP_PORT: 1337
+  APP_PORT_NAME: http
+  ACR_IMAGE: $(ACR_HOST)/$(APP_NAME):$(ENV)
   ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
-    environment: prod
-    openshiftServiceConnection: ARO-Pro
-  ${{ if eq(variables['Build.SourceBranchName'], 'pre')}}:
-    environment: pre
-    openshiftServiceConnection: ARO-Pre
+    ENV: prod
+    ACR_CONNECTION: AzRegistryContainerPro
+    ACR_HOST: azurecontainerregistrysura.azurecr.io
+    ACR_SECRET_IMAGE_PULL: acrpro-sura
+    OC_CONNECTION: ARO-Pro
   ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
-    environment: dev
-    openshiftServiceConnection: ARO-Dev
+    ENV: dev
+    ACR_CONNECTION: AzRegistryContainerDev
+    ACR_HOST: azurecontainerregistrysuradev.azurecr.io
+    ACR_SECRET_IMAGE_PULL: acrdev-sura
+    OC_CONNECTION: ARO-Dev
+  ${{ if eq(variables['Build.SourceBranchName'], 'qa')}}:
+    ENV: qa
+    ACR_CONNECTION: AzRegistryContainerDev
+    ACR_HOST: azurecontainerregistrysuradev.azurecr.io
+    ACR_SECRET_IMAGE_PULL: acrdev-sura
+    OC_CONNECTION: ARO-qa
 stages:
   - stage: Build
     jobs:
@@ -33,25 +41,25 @@ stages:
             displayName: Login to ACR
             inputs:
               command: login
-              containerRegistry: $(dockerRegistryConnection)
+              containerRegistry: $(ACR_CONNECTION)
           - task: Docker@2
             displayName: Build and Push
             inputs:
               command: buildAndPush
-              repository: $(AZNAME)
+              repository: $(APP_NAME)
               Dockerfile: Dockerfile
               buildContext: .
+              #tags: latest
               tags: |
-                $(Build.SourceBranchName)
-                $(Build.SourceVersion)
+                $(ENV)
+                latest
   - stage: Deploy
     jobs:
       - deployment: Deploy
         variables:
-          - group: backend-variables-${{ variables.environment }}
-            #ENVIRONMENT: 'Development'
-        displayName: "Deploy to ${{ variables.environment }}"
-        environment: ${{ variables.environment }}
+          - group: backend-variables-${{ variables.ENV }}
+        displayName: "Deploy to ${{ variables.ENV }}"
+        environment: ${{ variables.ENV }}
         strategy:
           runOnce:
             deploy:
@@ -69,14 +77,14 @@ stages:
                 - task: oc-setup@2
                   displayName: Setup oc
                   inputs:
-                    openshiftService: $(openshiftServiceConnection)
+                    openshiftService: $(OC_CONNECTION)
                 # A script task making use of 'oc'
                 - script: |
-                    oc apply -f openshift/ -n api-cloud-dev
+                    oc apply -f openshift/ -n api-cloud-${{ variables.env }}
                   displayName: Apply deployment
                 # Single shot 'oc' command
                 - task: oc-cmd@2
                   displayName: Wait for deployment
                   inputs:
-                    openshiftService: $(openshiftServiceConnection)
-                    cmd: "rollout status -w deployment/$(AZNAME)"
+                    openshiftService: $(OC_CONNECTION)
+                    cmd: "rollout status -w deployment/$(APP_NAME)"
