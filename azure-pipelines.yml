@@ -2,17 +2,28 @@ trigger:
   branches:
     include:
       - develop
-      - main
-      - pre
+      # - main
+      # - pre
 
 pool:
   name: Azure Pipelines
   vmImage: ubuntu-20.04
 
 variables:
-  az-name: devportal-back
-  az-port: 1337
-  http-host: strapi.sura.com
+  AZNAME: devportal-back
+  AZPORT: 1337
+  azImage: $(AZNAME):$(Build.SourceVersion)
+  dockerRegistryConnection: AzRegistryContainerDev
+  azPortName: http
+  ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
+    environment: prod
+    openshiftServiceConnection: ARO-Pro
+  ${{ if eq(variables['Build.SourceBranchName'], 'pre')}}:
+    environment: pre
+    openshiftServiceConnection: ARO-Pre
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
+    environment: dev
+    openshiftServiceConnection: ARO-Dev
 stages:
   - stage: Build
     jobs:
@@ -22,52 +33,50 @@ stages:
             displayName: Login to ACR
             inputs:
               command: login
-              containerRegistry: AzRegistryContainerDev
+              containerRegistry: $(dockerRegistryConnection)
           - task: Docker@2
             displayName: Build and Push
             inputs:
               command: buildAndPush
-              repository: devportal-back
+              repository: $(AZNAME)
               Dockerfile: Dockerfile
               buildContext: .
               tags: |
                 $(Build.SourceBranchName)
-                $(tag)
+                $(Build.SourceVersion)
   - stage: Deploy
     jobs:
       - deployment: Deploy
         variables:
-          - group: backend-variables-development
+          - group: backend-variables-${{ variables.environment }}
             #ENVIRONMENT: 'Development'
-        displayName: "Deploy to Dev"
-        environment: dev
+        displayName: "Deploy to ${{ variables.environment }}"
+        environment: ${{ variables.environment }}
         strategy:
           runOnce:
             deploy:
               steps:
                 - checkout: self
                   submodules: true
-                - task: qetza.replacetokens.replacetokens-task.replacetokens@3
-                  displayName: Replace variables - Kubernetes Manifest
-                  inputs:
-                    rootDirectory: $(System.DefaultWorkingDirectory)/kubernetes
-                    targetFiles: "openshift/*.yaml"
-                    keepToken: true
-                    tokenPrefix: __
-                    tokenSuffix: __
+                - script: |
+                    for file in $(ls openshift)
+                    do
+                      envsubst < openshift/$file | tee openshift/$file
+                    done
+                  displayName: Replace variables in manifests
 
                 # Install oc so that it can be used within a 'script' or bash 'task'
                 - task: oc-setup@2
                   displayName: Setup oc
                   inputs:
-                    openshiftService: "ARO-Dev"
+                    openshiftService: $(openshiftServiceConnection)
                 # A script task making use of 'oc'
                 - script: |
-                    oc apply -f openshift/manifest.yaml -n api-cloud-dev
+                    oc apply -f openshift/ -n api-cloud-dev
                   displayName: Apply deployment
                 # Single shot 'oc' command
                 - task: oc-cmd@2
                   displayName: Wait for deployment
                   inputs:
-                    openshiftService: "ARO-Dev"
-                    cmd: "rollout status -w deployment/$(az-name)"
+                    openshiftService: $(openshiftServiceConnection)
+                    cmd: "rollout status -w deployment/$(AZNAME)"
