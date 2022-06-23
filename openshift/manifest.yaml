@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: $AZNAME
+  name: $APP_NAME
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: $AZNAME
+      app: $APP_NAME
   template:
     metadata:
       labels:
-        app: $AZNAME
+        app: $APP_NAME
     spec:
       containers:
-        - name: $AZNAME
-          image: $AZIMAGE
+        - name: $APP_NAME
+          image: $ACR_IMAGE
           ports:
-            - containerPort: $AZPORT
-              name: $AZPORTNAME
+            - containerPort: $APP_PORT
+              name: $APP_PORT_NAME
           env:
             - name: DATABASE_CLIENT
               value: "$DATABASE_CLIENT"
@@ -50,4 +50,4 @@ spec:
               memory: "2Gi"
       imagePullpolicy: Always
       imagePullSecrets:
-        - name: acrdev-sura
+        - name: $ACR_SECRET_IMAGE_PULL
