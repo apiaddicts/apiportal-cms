@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "library_apis",
+  "info": {
+    "name": "LibraryApi"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "description": {
+      "type": "text"
+    },
+    "color_status": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "footerText": {
+      "type": "string"
+    },
+    "image": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "version": {
+      "type": "string"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button"
+    },
+    "benefits": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.work-section"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.titles"
+    },
+    "openDoc": {
+      "type": "json"
+    },
+    "markdown": {
+      "type": "richtext"
+    }
+  }
+}
