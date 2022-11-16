@@ -1,7 +1,7 @@
 version: '3'
 services:
   strapi:
-    image: _IMAGE:_VERSION #strapi/strapi
+    image: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_SHA}
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
       DATABASE_HOST: ${DATABASE_HOST}
@@ -17,4 +17,4 @@ services:
     volumes:
       - ./app:/srv/app
     ports:
-      - $PORT:1337
+      - ${PORT}:1337
