@@ -7,7 +7,7 @@ ENV NODE_ENV production
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package*.json .
+COPY package*.json ./   
 RUN npm install
 RUN npm install mysql
 
