@@ -9,46 +9,59 @@ stages:
 variables:
   DOCKER_IMAGE_PATH: "$CI_REGISTRY_IMAGE"
 
-build-dev:
-  stage: build
+.template:build: &docker-build
   before_script:
+    # Log in to GitLab Container Registry
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
   script:
-    - echo version:$CI_COMMIT_SHORT_SHA
-    - docker build --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from "${DOCKER_IMAGE_PATH}:$CI_COMMIT_SHORT_SHA" -t "${DOCKER_IMAGE_PATH}:$CI_COMMIT_SHORT_SHA" .
-    - docker tag "${DOCKER_IMAGE_PATH}:$CI_COMMIT_SHORT_SHA" "${DOCKER_IMAGE_PATH}:development"
-    - docker push ${DOCKER_IMAGE_PATH}:$CI_COMMIT_SHORT_SHA
-    - docker push ${DOCKER_IMAGE_PATH}:development
-  only:
-    refs:
-      - develop  
+    - echo version:$CI_TAG
+    - docker build
+      --build-arg BUILDKIT_INLINE_CACHE=1
+      --cache-from "${DOCKER_IMAGE_PATH}:$TAG"
+      -t "${DOCKER_IMAGE_PATH}:$CI_TAG" -t "${DOCKER_IMAGE_PATH}:$TAG" .
+    - docker push $DOCKER_IMAGE_PATH:$TAG
+    - docker push $DOCKER_IMAGE_PATH:$CI_TAG
 
-deploy-dev:
+.template:deploy: &ssh-deploy
+  script:
+    - mkdir -p ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - echo "$PRIVATE_RSA_KEY" | tr -d '\r' > ssh-auth
+    - chmod 600 ssh-auth
+    - sed -i "s|_VERSION|$CI_COMMIT_SHA|g;" docker-compose.yaml
+    - scp -i ssh-auth docker-compose.yaml $SSH_LOGIN:$REMOTE_PATH/docker-compose.yaml
+    - ssh -i ssh-auth $SSH_LOGIN "cd $REMOTE_PATH && docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com && docker-compose down && docker-compose up -d "
+
+docker:build:
+  stage: build
+  variables:
+    TAG: $CI_COMMIT_REF_NAME
+    CI_TAG: $CI_COMMIT_SHA
+
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v[0-9]+(\.[0-9]+)+(\.[0-9]+)$/
+      variables:
+        TAG: latest
+        CI_TAG: $CI_COMMIT_TAG
+    # - if: $CI_COMMIT_REF_NAME == "develop"
+    - if: $CI_COMMIT_REF_NAME == "pre"
+  <<: *docker-build
+  environment:
+    name: $CI_COMMIT_REF_NAME
+
+docker:deploy:
   stage: deploy
-  before_script:
-    - apk add --update ca-certificates bash gnupg jq  && apk add --update -t deps curl gettext &&  rm -rf /var/cache/apk/*
-    - curl -L https://storage.googleapis.com/kubernetes-release/release/v1.23.0/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
-  script: 
-    - mkdir ~/.kube/
-    - echo "$AKS_CONFIG_QA" | tr -d '\r' > ~/.kube/config
-    - export KUBECONFIG=~/.kube/config
-    - kubectl version
-    - DEPLOY_VERSION=$CI_COMMIT_SHORT_SHA
-    - cat kubernetes/manifest.yaml | 
-          sed -e "s|CI_PROJECT_NAME|$CI_PROJECT_NAME|g;" | 
-          sed -e "s|CI_REGISTRY_IMAGE|$DOCKER_IMAGE_PATH|g;" | 
-          sed -e "s|DEPLOY_VERSION|$DEPLOY_VERSION|g;" | 
-          sed -e "s|DATABASE_HOST_VALUE|$DATABASE_HOST|g;" | 
-          sed -e "s|DATABASE_PORT_VALUE|$DATABASE_PORT|g;" |
-          sed -e "s|DATABASE_NAME_VALUE|$DATABASE_NAME|g;" |
-          sed -e "s|DATABASE_USERNAME_VALUE|$DATABASE_USERNAME|g;" |
-          sed -e "s|DATABASE_PASSWORD_VALUE|$DATABASE_PASSWORD|g;" |
-          sed -e "s|STORAGE_ACCOUNT_VALUE|$STORAGE_ACCOUNT|g;" |
-          sed -e "s|STORAGE_ACCOUNT_KEY_VALUE|$STORAGE_ACCOUNT_KEY|g;" |
-          sed -e "s|STORAGE_URL_VALUE|$STORAGE_URL|g;" |
-          sed -e "s|STORAGE_CONTAINER_NAME_VALUE|$STORAGE_CONTAINER_NAME|g;" > manifest.yaml
-        #  sed -e "s|INGRESS_URL|$INGRESS_URL_DEV|g;" > manifest.yaml
-    - kubectl apply -n dev-demo-cloudappi -f manifest.yaml  
-  only:
-    refs:
-      - develop 
+  variables:
+    SSH_LOGIN: ubuntu@$PRE_UBUNTU
+    SSH_KEY: $PRIVATE_RSA_KEY
+    REMOTE_PATH: /var/www/aplicacion/devportal-clo-back
+  rules:
+    # - if: $CI_COMMIT_REF_NAME == "develop"
+    #   variables:
+    #     REMOTE_PATH: /var/www/aplicacion/devportal-clo-back/dev
+    - if: $CI_COMMIT_REF_NAME == "pre"
+      variables:
+        REMOTE_PATH: /var/www/aplicacion/devportal-clo-back/pre
+  <<: *ssh-deploy
+  environment:
+    name: $CI_COMMIT_REF_NAME
