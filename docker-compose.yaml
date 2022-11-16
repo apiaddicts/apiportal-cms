@@ -1,7 +1,7 @@
 version: '3'
 services:
   strapi:
-    image: registry.gitlab.com/cloudappi/sura/dev-portal-sura-backend:_VERSION #strapi/strapi
+    image: _IMAGE:_VERSION #strapi/strapi
     environment:
       DATABASE_CLIENT: ${DATABASE_CLIENT}
       DATABASE_HOST: ${DATABASE_HOST}
