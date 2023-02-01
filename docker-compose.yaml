@@ -18,3 +18,4 @@ services:
       - ./app:/srv/app
     ports:
       - ${PORT}:1337
+    restart: always
