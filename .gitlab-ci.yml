@@ -14,9 +14,9 @@ variables:
 mysql:deploy:
   stage: deploy-mysql
   variables:
-    MYSQL_HOST=$DATABASE_HOST 
-    MYSQL_USER=$DATABASE_USERNAME
-    MYSQL_PASS=$DATABASE_PASSWORD
+    MYSQL_HOST: $DATABASE_HOST 
+    MYSQL_USER: $DATABASE_USERNAME
+    MYSQL_PASS: $DATABASE_PASSWORD
   script:
     - apk add openssh-client
     - eval $(ssh-agent -s)
