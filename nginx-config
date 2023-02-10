@@ -1,0 +1,33 @@
+server {
+    listen 443 ssl;
+    server_name hostTarget;
+
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/app.apiquality.es/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/app.apiquality.es/privkey.pem; # managed by Certbot
+
+
+    ssl_session_cache shared:SSL:20m;
+    ssl_session_timeout 10m;
+
+    ssl_prefer_server_ciphers       on;
+    ssl_protocols                   TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers                     ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS;
+
+    add_header Strict-Transport-Security "max-age=31536000";
+
+    location / {
+        proxy_pass http://0.0.0.0:portTarget/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+      proxy_redirect off;
+      client_max_body_size 200m;
+      proxy_connect_timeout       3000;
+      proxy_send_timeout          3000;
+      proxy_read_timeout         3000;
+      send_timeout                3000;
+    }
+}

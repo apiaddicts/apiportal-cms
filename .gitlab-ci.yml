@@ -6,14 +6,18 @@ stages:
   - deploy-mysql
   - build
   - deploy
+  - deploy-nginx
 
 
 variables:
   REMOTE_PATH_SQL: "/home/ubuntu/sql"
   DOCKER_IMAGE_PATH: "$CI_REGISTRY_IMAGE"
+  REMOTE_PATH_NGINX: "/home/ubuntu/nginxSites"
 
 mysql:deploy:
   stage: deploy-mysql
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "test2"
   variables:
     MYSQL_HOST: $DATABASE_HOST 
     MYSQL_USER: $DATABASE_USERNAME
@@ -65,18 +69,33 @@ docker:build:
     CI_TAG: $CI_COMMIT_SHA
 
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   <<: *docker-build
+  environment:
+    name: $CI_COMMIT_REF_NAME
+
+nginx:deploy:
+  stage: deploy-nginx
+  variables:
+    REMOTE_PATH: /var/www/aplicacion/devportal-generated
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "test2"
+  <<: *ssh-deploy
   environment:
     name: $CI_COMMIT_REF_NAME
 
 docker:deploy:
   stage: deploy
-  variables:
-    REMOTE_PATH: /var/www/aplicacion/devportal-generated
   rules:
     - if: $CI_COMMIT_REF_NAME == "test"
-  <<: *ssh-deploy
-  environment:
-    name: $CI_COMMIT_REF_NAME
-
+  script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - cat nginx-config | 
+        sed -e "s|hostTarget|${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT}|g;" |
+        sed -e "s|portTarget|${PORT}|g;" > ${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT}
+    - scp -o StrictHostKeyChecking=no ${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT} ubuntu@52.49.95.19:$REMOTE_PATH_NGINX/
+    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "sudo su -; mv $REMOTE_PATH_NGINX/${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT} /etc/nginx/sites-enabled/; nginx -s reload"
