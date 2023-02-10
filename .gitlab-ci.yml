@@ -9,7 +9,7 @@ stages:
 
 
 variables:
-  REMOTE_PATH_SQL: "/var/www/sql"
+  REMOTE_PATH_SQL: "/var/sql"
 
 mysql:deploy:
   stage: deploy-mysql
