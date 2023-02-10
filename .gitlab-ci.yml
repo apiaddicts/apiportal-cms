@@ -9,9 +9,7 @@ stages:
 
 mysql:deploy:
   stage: deploy-mysql
-  image: ubuntu:20.04
-  services:
-    - mysql:5.7
+  image: mysql:5.7
   script:
-    - apt-get update && apt-get install -y git curl libmcrypt-dev default-mysql-client
+    - service mysql start
     - mysql --version
