@@ -47,6 +47,7 @@ mysql:deploy:
 .template:deploy: &ssh-deploy
   script:
     - apk add openssh-client
+    - apk add gettext
     - eval $(ssh-agent -s)
     - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
