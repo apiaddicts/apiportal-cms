@@ -13,6 +13,10 @@ variables:
   REMOTE_PATH_SQL: "/home/ubuntu/sql"
   DOCKER_IMAGE_PATH: "$CI_REGISTRY_IMAGE"
   REMOTE_PATH_NGINX: "/home/ubuntu/nginxSites"
+  CLOUDFARE_HEADERMAIL: 'X-Auth-Email: '
+  CLOUDFARE_HEADERKEY: 'X-Auth-Key: '
+  CLOUDFARE_APPLICATION: 'Content-Type: application/json'
+
 
 mysql:deploy:
   stage: deploy-mysql
