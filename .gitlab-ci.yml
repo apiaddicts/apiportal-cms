@@ -3,10 +3,9 @@ services:
   - docker:dind
 
 stages:
-  - build
-  - build-docker
-  - deploy
   - deploy-mysql
+  - build
+  - deploy
 
 
 variables:
