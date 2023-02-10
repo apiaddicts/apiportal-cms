@@ -7,7 +7,7 @@ stages:
   - build
   - deploy
   - deploy-nginx
-
+  - deploy-cloudfare
 
 variables:
   REMOTE_PATH_SQL: "/home/ubuntu/sql"
@@ -100,7 +100,7 @@ nginx:deploy:
     - scp -o StrictHostKeyChecking=no ${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT} ubuntu@52.49.95.19:$REMOTE_PATH_NGINX/
     - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "sudo mv $REMOTE_PATH_NGINX/${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT} /etc/nginx/sites-enabled/; sudo nginx -s reload"
   
-deploy-cloudfare:
+cloudfare:deploy:
   stage: deploy-cloudfare
   rules:
     - if: $CI_COMMIT_REF_NAME == "test"
