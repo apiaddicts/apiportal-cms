@@ -12,4 +12,4 @@ mysql:deploy:
   image: mysql:5.7
   script:
     - mysql --version
-    - echo "SHOW DATABASES;" | mysql -h mysqlpre.cjfsrxm5ousg.eu-west-1.rds.amazonaws.com -u cloudappi -p"[~.QUWa2tx26sRZA"
+    - echo "CREATE DATABASE devportal_${SUBDOMAIN_PROJECT}_db;" | mysql -h mysqlpre.cjfsrxm5ousg.eu-west-1.rds.amazonaws.com -u cloudappi -p"[~.QUWa2tx26sRZA"
