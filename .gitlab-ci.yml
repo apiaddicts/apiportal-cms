@@ -13,3 +13,4 @@ mysql:deploy:
   script:
     - mysql --version
     - echo "CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;" | mysql -h mysqlpre.cjfsrxm5ousg.eu-west-1.rds.amazonaws.com -u cloudappi -p"[~.QUWa2tx26sRZA"
+    - mysql -h mysqlpre.cjfsrxm5ousg.eu-west-1.rds.amazonaws.com -u cloudappi -p"[~.QUWa2tx26sRZA" devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql
