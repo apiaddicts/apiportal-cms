@@ -73,7 +73,7 @@ docker:build:
 docker:deploy:
   stage: deploy
   variables:
-    SSH_LOGIN: ubuntu@$PRE_UBUNTU
+    SSH_LOGIN: ubuntu@52.49.95.19
     SSH_KEY: $PRIVATE_RSA_KEY_PROD
     REMOTE_PATH: /var/www/aplicacion/devportal-generated
   rules:
