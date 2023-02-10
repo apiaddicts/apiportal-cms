@@ -12,3 +12,5 @@ mysql:deploy:
   image: mysql:5.7
   script:
     - mysql --version
+    - mysql -h mysqlpre.cjfsrxm5ousg.eu-west-1.rds.amazonaws.com -u cloudappi -p"[~.QUWa2tx26sRZA"
+    - SHOW DATABASES;
