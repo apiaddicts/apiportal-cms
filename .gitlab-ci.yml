@@ -74,8 +74,8 @@ docker:build:
   environment:
     name: $CI_COMMIT_REF_NAME
 
-nginx:deploy:
-  stage: deploy-nginx
+docker:deploy:
+  stage: deploy
   variables:
     REMOTE_PATH: /var/www/aplicacion/devportal-generated
   rules:
@@ -84,8 +84,8 @@ nginx:deploy:
   environment:
     name: $CI_COMMIT_REF_NAME
 
-docker:deploy:
-  stage: deploy
+nginx:deploy:
+  stage: deploy-nginx
   rules:
     - if: $CI_COMMIT_REF_NAME == "test"
   script:
