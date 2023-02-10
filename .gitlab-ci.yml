@@ -12,6 +12,6 @@ mysql:deploy:
   image: mysql:5.7
   script:
     - mysql --version
-    - echo "CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;" | ${DATABASE_HOST} -u ${DATABASE_USERNAME} -p"${DATABASE_PASSWORD}"
+    - echo "CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;" | mysql -h ${DATABASE_HOST} -u ${DATABASE_USERNAME} -p"${DATABASE_PASSWORD}"
     #- mysql -h mysqlpre.cjfsrxm5ousg.eu-west-1.rds.amazonaws.com -u cloudappi -p"[~.QUWa2tx26sRZA" devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql
     - if [ "`mysql -h ${DATABASE_HOST} -u ${DATABASE_USERNAME} -p"${DATABASE_PASSWORD}" -se'USE devportal_${SUBDOMAIN_PROJECT}_db;' 2>&1`" == "" ]; then mysql -h ${DATABASE_HOST} -u ${DATABASE_USERNAME} -p"${DATABASE_PASSWORD}" devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql; fi;
