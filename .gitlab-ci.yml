@@ -20,7 +20,7 @@ mysql:deploy:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - scp -o StrictHostKeyChecking=no sql/strapi-bk.sql ubuntu@${URL_SERVER}:${REMOTE_PATH_SQL}/
-    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "echo 'CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;' | mysql -h $DATABASE_HOST -u $DATABASE_USERNAME -p$DATABASE_PASSWORD;"
+    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "echo 'CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;' | mysql -h $DATABASE_HOST -u $DATABASE_USERNAME --password=$DATABASE_PASSWORD;"
 
     #- mysql --version
     #- echo "CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;" | mysql -h ${DATABASE_HOST} -u ${DATABASE_USERNAME} -p"'${DATABASE_PASSWORD}'"
