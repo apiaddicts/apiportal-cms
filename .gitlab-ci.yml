@@ -32,9 +32,11 @@ mysql:deploy:
     - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - scp -o StrictHostKeyChecking=no sql/strapi-bk.sql ubuntu@${URL_SERVER}:${REMOTE_PATH_SQL}/
-    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "echo 'CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;' | mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS;"
-    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql"
+    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
+    - echo "$DATABASE_NAME_VALUE"
+    #- scp -o StrictHostKeyChecking=no sql/strapi-bk.sql ubuntu@${URL_SERVER}:${REMOTE_PATH_SQL}/
+    #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "echo 'CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;' | mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS;"
+    #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql"
     #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "if [ "`mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'USE devportal_${SUBDOMAIN_PROJECT}_db;' 2>&1`" == "" ]; then mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS}; fi;"
     #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "if [ '`mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'USE devportal_${SUBDOMAIN_PROJECT}_db;' 2>&1`' == '' ]; then mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;'; mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql; fi;"
 
@@ -73,7 +75,7 @@ docker:build:
     CI_TAG: $CI_COMMIT_SHA
 
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   <<: *docker-build
   environment:
     name: $CI_COMMIT_REF_NAME
@@ -83,7 +85,7 @@ docker:deploy:
   variables:
     REMOTE_PATH: /var/www/aplicacion/devportal-generated
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   <<: *ssh-deploy
   environment:
     name: $CI_COMMIT_REF_NAME
@@ -91,7 +93,7 @@ docker:deploy:
 nginx:deploy:
   stage: deploy-nginx
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   script:
     - apk add openssh-client
     - eval $(ssh-agent -s)
@@ -107,7 +109,7 @@ nginx:deploy:
 cloudfare:deploy:
   stage: deploy-cloudfare
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   variables:
     URL_CMS: "52.49.95.19"
     NAME_DNS: "$SUBDOMAIN_PROJECT-cms.$DOMAIN_PROJECT"
