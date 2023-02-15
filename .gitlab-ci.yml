@@ -77,7 +77,7 @@ docker:build:
     CI_TAG: $CI_COMMIT_SHA
 
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test2"
+    - if: $CI_COMMIT_REF_NAME == "test"
   <<: *docker-build
   environment:
     name: $CI_COMMIT_REF_NAME
@@ -87,7 +87,7 @@ docker:deploy:
   variables:
     REMOTE_PATH: /var/www/aplicacion/devportal-generated
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test2"
+    - if: $CI_COMMIT_REF_NAME == "test"
   <<: *ssh-deploy
   environment:
     name: $CI_COMMIT_REF_NAME
@@ -95,7 +95,7 @@ docker:deploy:
 nginx:deploy:
   stage: deploy-nginx
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test2"
+    - if: $CI_COMMIT_REF_NAME == "test"
   script:
     - apk add openssh-client
     - eval $(ssh-agent -s)
@@ -111,7 +111,7 @@ nginx:deploy:
 cloudfare:deploy:
   stage: deploy-cloudfare
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test2"
+    - if: $CI_COMMIT_REF_NAME == "test"
   variables:
     URL_CMS: "52.49.95.19"
     NAME_DNS: "$SUBDOMAIN_PROJECT-cms.$DOMAIN_PROJECT"
