@@ -34,9 +34,9 @@ mysql:deploy:
     - chmod 700 ~/.ssh
     - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
     - echo "$DATABASE_NAME_VALUE"
-    #- scp -o StrictHostKeyChecking=no sql/strapi-bk.sql ubuntu@${URL_SERVER}:${REMOTE_PATH_SQL}/
-    #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "echo 'CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;' | mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS;"
-    #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql"
+    - scp -o StrictHostKeyChecking=no sql/strapi-bk.sql ubuntu@${URL_SERVER}:${REMOTE_PATH_SQL}/
+    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "echo 'CREATE DATABASE IF NOT EXISTS $DATABASE_NAME_VALUE;' | mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS;"
+    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS $DATABASE_NAME_VALUE < sql/strapi-bk.sql"
     #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "if [ "`mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'USE devportal_${SUBDOMAIN_PROJECT}_db;' 2>&1`" == "" ]; then mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS}; fi;"
     #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "if [ '`mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'USE devportal_${SUBDOMAIN_PROJECT}_db;' 2>&1`' == '' ]; then mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;'; mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql; fi;"
 
@@ -62,7 +62,9 @@ mysql:deploy:
     - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - sed -i "s/DATABASE_GENERATED/devportal_${SUBDOMAIN_PROJECT}_db/g" docker-compose-template.yaml
+    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
+    - echo "$DATABASE_NAME_VALUE"
+    - sed -i "s/DATABASE_GENERATED/$DATABASE_NAME_VALUE/g" docker-compose-template.yaml
     - envsubst < docker-compose-template.yaml > docker-compose.yaml
     - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "cd $REMOTE_PATH; mkdir -p ${SUBDOMAIN_PROJECT}"
     - scp -o StrictHostKeyChecking=no docker-compose.yaml ubuntu@52.49.95.19:$REMOTE_PATH/${SUBDOMAIN_PROJECT}/
