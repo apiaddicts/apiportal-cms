@@ -63,8 +63,10 @@ mysql:deploy:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
+    - CONTAINER_NAME=$(echo ${SUBDOMAIN_PROJECT} | sed -e "s|-|_|g;")
     - echo "$DATABASE_NAME_VALUE"
     - sed -i "s/DATABASE_GENERATED/$DATABASE_NAME_VALUE/g" docker-compose-template.yaml
+    - sed -i "s/latest/$CONTAINER_NAME/g" docker-compose-template.yaml
     - envsubst < docker-compose-template.yaml > docker-compose.yaml
     - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "cd $REMOTE_PATH; mkdir -p ${SUBDOMAIN_PROJECT}"
     - scp -o StrictHostKeyChecking=no docker-compose.yaml ubuntu@52.49.95.19:$REMOTE_PATH/${SUBDOMAIN_PROJECT}/
