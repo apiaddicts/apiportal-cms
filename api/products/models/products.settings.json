@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "name": "Products",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "price": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "btnLabel": {
+      "type": "string"
+    },
+    "benefits": {
+      "type": "json"
+    },
+    "apis": {
+      "type": "json"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "description": {
+      "type": "text"
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "requiredSubscription": {
+      "type": "boolean"
+    },
+    "requiredApproval": {
+      "type": "boolean"
+    },
+    "limitSubscription": {
+      "type": "integer"
+    },
+    "legalConditionals": {
+      "type": "richtext"
+    },
+    "accentColor": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "tertiary"
+      ]
+    },
+    "library_apis": {
+      "collection": "library-api",
+      "via": "products",
+      "dominant": true
+    }
+  }
+}

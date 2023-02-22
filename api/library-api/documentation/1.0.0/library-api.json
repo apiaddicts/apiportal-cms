@@ -832,6 +832,81 @@
           "markdown": {
             "type": "string"
           },
+          "products": {
+            "type": "array",
+            "items": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "price": {
+                  "type": "integer"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "slug": {
+                  "type": "uid"
+                },
+                "btnLabel": {
+                  "type": "string"
+                },
+                "benefits": {
+                  "type": "object"
+                },
+                "apis": {
+                  "type": "object"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "boolean"
+                },
+                "requiredSubscription": {
+                  "type": "boolean"
+                },
+                "requiredApproval": {
+                  "type": "boolean"
+                },
+                "limitSubscription": {
+                  "type": "integer"
+                },
+                "legalConditionals": {
+                  "type": "string"
+                },
+                "accentColor": {
+                  "type": "string",
+                  "enum": [
+                    "primary",
+                    "secondary",
+                    "tertiary"
+                  ]
+                },
+                "library_apis": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "published_at": {
+                  "type": "string"
+                },
+                "created_by": {
+                  "type": "string"
+                },
+                "updated_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "published_at": {
             "type": "string",
             "format": "date-time"
@@ -1066,6 +1141,12 @@
           },
           "markdown": {
             "type": "string"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "published_at": {
             "type": "string",
