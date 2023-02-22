@@ -21,7 +21,7 @@ variables:
 mysql:deploy:
   stage: deploy-mysql
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   variables:
     MYSQL_HOST: $DATABASE_HOST 
     MYSQL_USER: $DATABASE_USERNAME
@@ -97,7 +97,7 @@ docker:deploy:
 nginx:deploy:
   stage: deploy-nginx
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   script:
     - apk add openssh-client
     - eval $(ssh-agent -s)
@@ -113,7 +113,7 @@ nginx:deploy:
 cloudfare:deploy:
   stage: deploy-cloudfare
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   variables:
     URL_CMS: "52.49.95.19"
     NAME_DNS: "$SUBDOMAIN_PROJECT-cms.$DOMAIN_PROJECT"
