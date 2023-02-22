@@ -5,11 +5,11 @@ module.exports = ({ env }) => ({
       connector: 'bookshelf',
       settings: {
         client: 'mysql',
-        host: env('DATABASE_HOST', 'mysqlpre.cjfsrxm5ousg.eu-west-1.rds.amazonaws.com'),
+        host: env('DATABASE_HOST', 'localhost'),
         port: env.int('DATABASE_PORT', 3306),
-        database: env('DATABASE_NAME', 'devportal_climatetrade_dbpre'),
-        username: env('DATABASE_USERNAME', 'developer'),
-        password: env('DATABASE_PASSWORD', 'developer'),
+        database: env('DATABASE_NAME', 'devportal_wke_db'),
+        username: env('DATABASE_USERNAME', 'root'),
+        password: env('DATABASE_PASSWORD', 'Root2023*'),
         ssl: env.bool('DATABASE_SSL', false),
       },
       options: {}

@@ -64,6 +64,10 @@
     },
     "markdown": {
       "type": "richtext"
+    },
+    "products": {
+      "via": "library_apis",
+      "collection": "products"
     }
   }
 }
