@@ -857,9 +857,6 @@
                 "benefits": {
                   "type": "object"
                 },
-                "apis": {
-                  "type": "object"
-                },
                 "content": {
                   "type": "string"
                 },
@@ -894,6 +891,9 @@
                   "items": {
                     "type": "string"
                   }
+                },
+                "form": {
+                  "type": "string"
                 },
                 "published_at": {
                   "type": "string"
