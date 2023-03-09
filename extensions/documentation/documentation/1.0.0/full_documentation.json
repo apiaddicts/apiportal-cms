@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "02/22/2023 12:35:38 PM"
+    "x-generation-date": "03/01/2023 12:26:42 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -4850,9 +4850,6 @@
           "color_status": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
-          },
           "footerText": {
             "type": "string"
           },
@@ -4953,11 +4950,22 @@
                 "order": {
                   "type": "integer"
                 },
-                "class": {
-                  "type": "string"
-                },
                 "link": {
                   "type": "string"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "primary",
+                    "secondary",
+                    "secundaryWhite",
+                    "tertiary",
+                    "tertiaryWhite",
+                    "ghost",
+                    "ghostVariant",
+                    "greeyPrimary",
+                    "disabled"
+                  ]
                 }
               }
             }
@@ -5160,9 +5168,6 @@
                 "benefits": {
                   "type": "object"
                 },
-                "apis": {
-                  "type": "object"
-                },
                 "content": {
                   "type": "string"
                 },
@@ -5198,6 +5203,9 @@
                     "type": "string"
                   }
                 },
+                "formSetting": {
+                  "type": "object"
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -5209,6 +5217,13 @@
                 }
               }
             }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "publicado",
+              "noPublicado"
+            ]
           },
           "published_at": {
             "type": "string",
@@ -5228,9 +5243,6 @@
             "type": "string"
           },
           "color_status": {
-            "type": "string"
-          },
-          "status": {
             "type": "string"
           },
           "footerText": {
@@ -5263,11 +5275,22 @@
                 "order": {
                   "type": "integer"
                 },
-                "class": {
-                  "type": "string"
-                },
                 "link": {
                   "type": "string"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "primary",
+                    "secondary",
+                    "secundaryWhite",
+                    "tertiary",
+                    "tertiaryWhite",
+                    "ghost",
+                    "ghostVariant",
+                    "greeyPrimary",
+                    "disabled"
+                  ]
                 }
               }
             }
@@ -5450,6 +5473,13 @@
             "items": {
               "type": "string"
             }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "publicado",
+              "noPublicado"
+            ]
           },
           "published_at": {
             "type": "string",
@@ -12357,9 +12387,6 @@
           "benefits": {
             "type": "object"
           },
-          "apis": {
-            "type": "object"
-          },
           "content": {
             "type": "string"
           },
@@ -12411,9 +12438,6 @@
                 "color_status": {
                   "type": "string"
                 },
-                "status": {
-                  "type": "string"
-                },
                 "footerText": {
                   "type": "string"
                 },
@@ -12447,6 +12471,13 @@
                     "type": "string"
                   }
                 },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "publicado",
+                    "noPublicado"
+                  ]
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -12458,6 +12489,9 @@
                 }
               }
             }
+          },
+          "formSetting": {
+            "type": "object"
           },
           "published_at": {
             "type": "string",
@@ -12480,9 +12514,6 @@
             "type": "string"
           },
           "benefits": {
-            "type": "object"
-          },
-          "apis": {
             "type": "object"
           },
           "content": {
@@ -12519,6 +12550,9 @@
             "items": {
               "type": "string"
             }
+          },
+          "formSetting": {
+            "type": "object"
           },
           "published_at": {
             "type": "string",

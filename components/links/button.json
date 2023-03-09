@@ -20,11 +20,22 @@
     "order": {
       "type": "integer"
     },
-    "class": {
-      "type": "string"
-    },
     "link": {
       "type": "string"
+    },
+    "class": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "secundaryWhite",
+        "tertiary",
+        "tertiaryWhite",
+        "ghost",
+        "ghostVariant",
+        "greeyPrimary",
+        "disabled"
+      ]
     }
   }
 }
