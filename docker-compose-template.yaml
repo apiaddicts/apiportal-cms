@@ -1,12 +1,13 @@
 version: '3'
 services:
   strapi:
+    container_name: devportal_strapi_latest
     image: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_SHA}
     environment:
       DATABASE_CLIENT: "${DATABASE_CLIENT}"
       DATABASE_HOST: "${DATABASE_HOST}"
       DATABASE_PORT: "${DATABASE_PORT}"
-      DATABASE_NAME: "${DATABASE_NAME}"
+      DATABASE_NAME: "DATABASE_GENERATED"
       DATABASE_USERNAME: "${DATABASE_USERNAME}"
       DATABASE_PASSWORD: "${DATABASE_PASSWORD}"
       DATABASE_SSL: "${DATABASE_SSL}"

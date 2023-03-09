@@ -3,15 +3,47 @@ services:
   - docker:dind
 
 stages:
+  - deploy-mysql
   - build
   - deploy
+  - deploy-nginx
+  - deploy-cloudfare
 
 variables:
+  REMOTE_PATH_SQL: "/home/ubuntu/sql"
   DOCKER_IMAGE_PATH: "$CI_REGISTRY_IMAGE"
+  REMOTE_PATH_NGINX: "/home/ubuntu/nginxSites"
+  CLOUDFARE_HEADERMAIL: 'X-Auth-Email: '
+  CLOUDFARE_HEADERKEY: 'X-Auth-Key: '
+  CLOUDFARE_APPLICATION: 'Content-Type: application/json'
+
+
+mysql:deploy:
+  stage: deploy-mysql
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "test2"
+  variables:
+    MYSQL_HOST: $DATABASE_HOST 
+    MYSQL_USER: $DATABASE_USERNAME
+    MYSQL_PASS: $DATABASE_PASSWORD
+  script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
+    - echo "$DATABASE_NAME_VALUE"
+    - scp -o StrictHostKeyChecking=no sql/strapi-bk.sql ubuntu@${URL_SERVER}:${REMOTE_PATH_SQL}/
+    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "echo 'CREATE DATABASE IF NOT EXISTS $DATABASE_NAME_VALUE;' | mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS;"
+    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS $DATABASE_NAME_VALUE < sql/strapi-bk.sql"
+    #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "if [ "`mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'USE devportal_${SUBDOMAIN_PROJECT}_db;' 2>&1`" == "" ]; then mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS}; fi;"
+    #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "if [ '`mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'USE devportal_${SUBDOMAIN_PROJECT}_db;' 2>&1`' == '' ]; then mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;'; mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql; fi;"
+
+
 
 .template:build: &docker-build
   before_script:
-    # Log in to GitLab Container Registry
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
   script:
     - echo version:$CI_TAG
@@ -24,14 +56,21 @@ variables:
 
 .template:deploy: &ssh-deploy
   script:
+    - apk add openssh-client
     - apk add gettext
+    - eval $(ssh-agent -s)
+    - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - echo "$PRIVATE_RSA_KEY" | tr -d '\r' > ssh-auth
-    - chmod 600 ssh-auth
-    - envsubst < docker-compose.yaml > docker-compose.yaml.tmp
-    - scp -i ssh-auth docker-compose.yaml.tmp $SSH_LOGIN:$REMOTE_PATH/docker-compose.yaml
-    - ssh -i ssh-auth $SSH_LOGIN "cd $REMOTE_PATH && docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com && docker-compose down && docker-compose up -d "
+    - chmod 700 ~/.ssh
+    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
+    - CONTAINER_NAME=$(echo ${SUBDOMAIN_PROJECT} | sed -e "s|-|_|g;")
+    - echo "$DATABASE_NAME_VALUE"
+    - sed -i "s/DATABASE_GENERATED/$DATABASE_NAME_VALUE/g" docker-compose-template.yaml
+    - sed -i "s/latest/$CONTAINER_NAME/g" docker-compose-template.yaml
+    - envsubst < docker-compose-template.yaml > docker-compose.yaml
+    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "cd $REMOTE_PATH; mkdir -p ${SUBDOMAIN_PROJECT}"
+    - scp -o StrictHostKeyChecking=no docker-compose.yaml ubuntu@52.49.95.19:$REMOTE_PATH/${SUBDOMAIN_PROJECT}/
+    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "cd $REMOTE_PATH/${SUBDOMAIN_PROJECT} && docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com && docker-compose down && docker-compose up -d "
 
 docker:build:
   stage: build
@@ -40,12 +79,7 @@ docker:build:
     CI_TAG: $CI_COMMIT_SHA
 
   rules:
-    # - if: $CI_COMMIT_TAG =~ /^v[0-9]+(\.[0-9]+)+(\.[0-9]+)$/
-    #   variables:
-    #     TAG: latest
-    #     CI_TAG: $CI_COMMIT_TAG
-    # - if: $CI_COMMIT_REF_NAME == "develop"
-    - if: $CI_COMMIT_REF_NAME == "main"
+    - if: $CI_COMMIT_REF_NAME == "test"
   <<: *docker-build
   environment:
     name: $CI_COMMIT_REF_NAME
@@ -53,16 +87,42 @@ docker:build:
 docker:deploy:
   stage: deploy
   variables:
-    SSH_LOGIN: ubuntu@$PRE_UBUNTU
-    SSH_KEY: $PRIVATE_RSA_KEY
-    REMOTE_PATH: /var/www/aplicacion/devportal-clo-back
+    REMOTE_PATH: /var/www/aplicacion/devportal-generated
   rules:
-    # - if: $CI_COMMIT_REF_NAME == "develop"
-    #   variables:
-    #     REMOTE_PATH: /var/www/aplicacion/devportal-clo-back/dev
-    - if: $CI_COMMIT_REF_NAME == "main"
-      # variables:
-      #   REMOTE_PATH: /var/www/aplicacion/devportal-clo-back/pre
+    - if: $CI_COMMIT_REF_NAME == "test"
   <<: *ssh-deploy
   environment:
     name: $CI_COMMIT_REF_NAME
+
+nginx:deploy:
+  stage: deploy-nginx
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "test2"
+  script:
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - cat nginx-config | 
+        sed -e "s|hostTarget|${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT}|g;" |
+        sed -e "s|portTarget|${PORT}|g;" > ${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT}
+    - scp -o StrictHostKeyChecking=no ${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT} ubuntu@52.49.95.19:$REMOTE_PATH_NGINX/
+    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "sudo mv $REMOTE_PATH_NGINX/${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT} /etc/nginx/sites-enabled/; sudo nginx -s reload"
+  
+cloudfare:deploy:
+  stage: deploy-cloudfare
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "test2"
+  variables:
+    URL_CMS: "52.49.95.19"
+    NAME_DNS: "$SUBDOMAIN_PROJECT-cms.$DOMAIN_PROJECT"
+  before_script:
+    - apk add --update curl && rm -rf /var/cache/apk/*
+    - apk add --no-cache curl jq
+  script:
+    - echo "${CLOUDFARE_HEADERKEY} ${CLOUDFARE_APIKEY}"
+    - echo "${CLOUDFARE_HEADERMAIL} ${CLOUDFARE_EMAIL}"
+    - echo "${URL_S3}"
+    - curl -X POST ${CLOUDFARE_BASEAPI}/${CLOUDFARE_ZONE}/dns_records --header "${CLOUDFARE_HEADERMAIL} ${CLOUDFARE_EMAIL}" --header "${CLOUDFARE_HEADERKEY} ${CLOUDFARE_APIKEY}" --header "${CLOUDFARE_APPLICATION}" --data-raw '{"type":"A","name":"'${NAME_DNS}'","content":"'${URL_CMS}'","ttl":3600,"proxied":true}'
+
