@@ -588,9 +588,6 @@
                 "color_status": {
                   "type": "string"
                 },
-                "status": {
-                  "type": "string"
-                },
                 "footerText": {
                   "type": "string"
                 },
@@ -624,6 +621,13 @@
                     "type": "string"
                   }
                 },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "publicado",
+                    "noPublicado"
+                  ]
+                },
                 "published_at": {
                   "type": "string"
                 },
@@ -636,8 +640,8 @@
               }
             }
           },
-          "form": {
-            "type": "string"
+          "formSetting": {
+            "type": "object"
           },
           "published_at": {
             "type": "string",
@@ -697,8 +701,8 @@
               "type": "string"
             }
           },
-          "form": {
-            "type": "string"
+          "formSetting": {
+            "type": "object"
           },
           "published_at": {
             "type": "string",

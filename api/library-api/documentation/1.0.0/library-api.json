@@ -547,9 +547,6 @@
           "color_status": {
             "type": "string"
           },
-          "status": {
-            "type": "string"
-          },
           "footerText": {
             "type": "string"
           },
@@ -650,11 +647,22 @@
                 "order": {
                   "type": "integer"
                 },
-                "class": {
-                  "type": "string"
-                },
                 "link": {
                   "type": "string"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "primary",
+                    "secondary",
+                    "secundaryWhite",
+                    "tertiary",
+                    "tertiaryWhite",
+                    "ghost",
+                    "ghostVariant",
+                    "greeyPrimary",
+                    "disabled"
+                  ]
                 }
               }
             }
@@ -892,8 +900,8 @@
                     "type": "string"
                   }
                 },
-                "form": {
-                  "type": "string"
+                "formSetting": {
+                  "type": "object"
                 },
                 "published_at": {
                   "type": "string"
@@ -906,6 +914,13 @@
                 }
               }
             }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "publicado",
+              "noPublicado"
+            ]
           },
           "published_at": {
             "type": "string",
@@ -925,9 +940,6 @@
             "type": "string"
           },
           "color_status": {
-            "type": "string"
-          },
-          "status": {
             "type": "string"
           },
           "footerText": {
@@ -960,11 +972,22 @@
                 "order": {
                   "type": "integer"
                 },
-                "class": {
-                  "type": "string"
-                },
                 "link": {
                   "type": "string"
+                },
+                "class": {
+                  "type": "string",
+                  "enum": [
+                    "primary",
+                    "secondary",
+                    "secundaryWhite",
+                    "tertiary",
+                    "tertiaryWhite",
+                    "ghost",
+                    "ghostVariant",
+                    "greeyPrimary",
+                    "disabled"
+                  ]
                 }
               }
             }
@@ -1147,6 +1170,13 @@
             "items": {
               "type": "string"
             }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "publicado",
+              "noPublicado"
+            ]
           },
           "published_at": {
             "type": "string",

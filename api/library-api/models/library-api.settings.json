@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "library_apis",
   "info": {
-    "name": "LibraryApi"
+    "name": "LibraryApi",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -21,9 +22,6 @@
       "type": "text"
     },
     "color_status": {
-      "type": "string"
-    },
-    "status": {
       "type": "string"
     },
     "footerText": {
@@ -68,6 +66,13 @@
     "products": {
       "via": "library_apis",
       "collection": "products"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "publicado",
+        "noPublicado"
+      ]
     }
   }
 }

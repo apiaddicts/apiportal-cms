@@ -41,5 +41,8 @@
     "node": ">=10.16.0 <=14.x.x",
     "npm": "^6.0.0"
   },
+  "resolutions": {
+    "formidable": "1.1.1"
+  },
   "license": "MIT"
 }

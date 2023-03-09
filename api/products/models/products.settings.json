@@ -58,12 +58,12 @@
       ]
     },
     "library_apis": {
-      "collection": "library-api",
       "via": "products",
+      "collection": "library-api",
       "dominant": true
     },
-    "form": {
-      "type": "text"
+    "formSetting": {
+      "type": "json"
     }
   }
 }
