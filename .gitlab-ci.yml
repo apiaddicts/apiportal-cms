@@ -37,10 +37,7 @@ mysql:deploy:
     - scp -o StrictHostKeyChecking=no sql/strapi-bk.sql ubuntu@${URL_SERVER}:${REMOTE_PATH_SQL}/
     - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "echo 'CREATE DATABASE IF NOT EXISTS $DATABASE_NAME_VALUE;' | mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS;"
     - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS $DATABASE_NAME_VALUE < sql/strapi-bk.sql"
-    #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "if [ "`mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'USE devportal_${SUBDOMAIN_PROJECT}_db;' 2>&1`" == "" ]; then mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS}; fi;"
-    #- ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "if [ '`mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'USE devportal_${SUBDOMAIN_PROJECT}_db;' 2>&1`' == '' ]; then mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} -se'CREATE DATABASE IF NOT EXISTS devportal_${SUBDOMAIN_PROJECT}_db;'; mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} --password=${MYSQL_PASS} devportal_${SUBDOMAIN_PROJECT}_db < sql/strapi-bk.sql; fi;"
-
-
+   
 
 .template:build: &docker-build
   before_script:
