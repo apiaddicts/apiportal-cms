@@ -3466,6 +3466,29 @@
                           },
                           "actionButtons": {
                             "type": "object"
+                          },
+                          "subtitleList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "id"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "text": {
+                                  "type": "string"
+                                },
+                                "order": {
+                                  "type": "integer"
+                                },
+                                "keyword": {
+                                  "type": "string"
+                                }
+                              }
+                            }
                           }
                         }
                       }
@@ -6915,6 +6938,29 @@
                           },
                           "actionButtons": {
                             "type": "object"
+                          },
+                          "subtitleList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "id"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "text": {
+                                  "type": "string"
+                                },
+                                "order": {
+                                  "type": "integer"
+                                },
+                                "keyword": {
+                                  "type": "string"
+                                }
+                              }
+                            }
                           }
                         }
                       }

@@ -23,6 +23,11 @@
     },
     "actionButtons": {
       "type": "json"
+    },
+    "subtitleList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.subtitle"
     }
   }
 }

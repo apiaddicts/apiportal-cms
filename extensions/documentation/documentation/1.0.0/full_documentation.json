@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "03/01/2023 12:26:42 PM"
+    "x-generation-date": "03/17/2023 5:00:28 PM"
   },
   "x-strapi-config": {
     "path": "/documentation",
@@ -8445,6 +8445,29 @@
                           },
                           "actionButtons": {
                             "type": "object"
+                          },
+                          "subtitleList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "id"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "text": {
+                                  "type": "string"
+                                },
+                                "order": {
+                                  "type": "integer"
+                                },
+                                "keyword": {
+                                  "type": "string"
+                                }
+                              }
+                            }
                           }
                         }
                       }
@@ -11894,6 +11917,29 @@
                           },
                           "actionButtons": {
                             "type": "object"
+                          },
+                          "subtitleList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "id"
+                              ],
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "text": {
+                                  "type": "string"
+                                },
+                                "order": {
+                                  "type": "integer"
+                                },
+                                "keyword": {
+                                  "type": "string"
+                                }
+                              }
+                            }
                           }
                         }
                       }
