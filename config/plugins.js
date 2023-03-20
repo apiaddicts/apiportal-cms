@@ -1,13 +1,20 @@
 module.exports = ({ env }) => ({
   upload: {
-    provider: "azure-storage",
+    provider: "aws-s3-use-cdn",
     providerOptions: {
-      account: env("STORAGE_ACCOUNT"),
-      accountKey: env("STORAGE_ACCOUNT_KEY"),
-      serviceBaseURL: env("STORAGE_URL"),
-      containerName: env("STORAGE_CONTAINER_NAME"),
-      defaultPath: "assets",
-      maxConcurrent: 10,
+      accessKeyId: env("AWS_ACCESS_KEY_ID"),
+      secretAccessKey: env("AWS_ACCESS_SECRET"),
+      region: env("AWS_REGION"),
+      params: {
+        Bucket: env("AWS_BUCKET"),
+      },
+      actionOptions: {
+        upload: {},
+        uploadStream: {},
+        delete: {},
+      },
+      cdnDomain: env("AWS_CDN_DOMAIN"),
+      bucketSubDirectory: env("AWS_BUCKET_SUBDIRECTORY"),
     },
   },
 });
