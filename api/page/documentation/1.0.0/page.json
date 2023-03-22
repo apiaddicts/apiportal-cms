@@ -3084,6 +3084,9 @@
                         }
                       }
                     },
+                    "search": {
+                      "type": "string"
+                    },
                     "buttons": {
                       "type": "array",
                       "items": {
@@ -3095,24 +3098,38 @@
                           "id": {
                             "type": "string"
                           },
-                          "url": {
-                            "type": "string"
-                          },
                           "name": {
                             "type": "string"
                           },
-                          "target": {
+                          "type": {
                             "type": "string",
                             "enum": [
-                              "_self",
-                              "_blank"
+                              "primary",
+                              "secondary"
+                            ]
+                          },
+                          "order": {
+                            "type": "integer"
+                          },
+                          "link": {
+                            "type": "string"
+                          },
+                          "class": {
+                            "type": "string",
+                            "enum": [
+                              "primary",
+                              "secondary",
+                              "secundaryWhite",
+                              "tertiary",
+                              "tertiaryWhite",
+                              "ghost",
+                              "ghostVariant",
+                              "greeyPrimary",
+                              "disabled"
                             ]
                           }
                         }
                       }
-                    },
-                    "search": {
-                      "type": "string"
                     }
                   },
                   "required": [
@@ -3172,33 +3189,6 @@
                           },
                           "number": {
                             "type": "string"
-                          }
-                        }
-                      }
-                    },
-                    "buttons": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "id"
-                        ],
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "url": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "target": {
-                            "type": "string",
-                            "enum": [
-                              "_self",
-                              "_blank"
-                            ]
                           }
                         }
                       }
@@ -3267,6 +3257,50 @@
                         },
                         "updated_by": {
                           "type": "string"
+                        }
+                      }
+                    },
+                    "buttons": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "primary",
+                              "secondary"
+                            ]
+                          },
+                          "order": {
+                            "type": "integer"
+                          },
+                          "link": {
+                            "type": "string"
+                          },
+                          "class": {
+                            "type": "string",
+                            "enum": [
+                              "primary",
+                              "secondary",
+                              "secundaryWhite",
+                              "tertiary",
+                              "tertiaryWhite",
+                              "ghost",
+                              "ghostVariant",
+                              "greeyPrimary",
+                              "disabled"
+                            ]
+                          }
                         }
                       }
                     }
@@ -6556,6 +6590,9 @@
                         }
                       }
                     },
+                    "search": {
+                      "type": "string"
+                    },
                     "buttons": {
                       "type": "array",
                       "items": {
@@ -6567,24 +6604,38 @@
                           "id": {
                             "type": "string"
                           },
-                          "url": {
-                            "type": "string"
-                          },
                           "name": {
                             "type": "string"
                           },
-                          "target": {
+                          "type": {
                             "type": "string",
                             "enum": [
-                              "_self",
-                              "_blank"
+                              "primary",
+                              "secondary"
+                            ]
+                          },
+                          "order": {
+                            "type": "integer"
+                          },
+                          "link": {
+                            "type": "string"
+                          },
+                          "class": {
+                            "type": "string",
+                            "enum": [
+                              "primary",
+                              "secondary",
+                              "secundaryWhite",
+                              "tertiary",
+                              "tertiaryWhite",
+                              "ghost",
+                              "ghostVariant",
+                              "greeyPrimary",
+                              "disabled"
                             ]
                           }
                         }
                       }
-                    },
-                    "search": {
-                      "type": "string"
                     }
                   },
                   "required": [
@@ -6644,33 +6695,6 @@
                           },
                           "number": {
                             "type": "string"
-                          }
-                        }
-                      }
-                    },
-                    "buttons": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": [
-                          "id"
-                        ],
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "url": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "target": {
-                            "type": "string",
-                            "enum": [
-                              "_self",
-                              "_blank"
-                            ]
                           }
                         }
                       }
@@ -6739,6 +6763,50 @@
                         },
                         "updated_by": {
                           "type": "string"
+                        }
+                      }
+                    },
+                    "buttons": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string",
+                            "enum": [
+                              "primary",
+                              "secondary"
+                            ]
+                          },
+                          "order": {
+                            "type": "integer"
+                          },
+                          "link": {
+                            "type": "string"
+                          },
+                          "class": {
+                            "type": "string",
+                            "enum": [
+                              "primary",
+                              "secondary",
+                              "secundaryWhite",
+                              "tertiary",
+                              "tertiaryWhite",
+                              "ghost",
+                              "ghostVariant",
+                              "greeyPrimary",
+                              "disabled"
+                            ]
+                          }
                         }
                       }
                     }

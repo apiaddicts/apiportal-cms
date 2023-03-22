@@ -257,7 +257,7 @@
     "/products/count": {
       "get": {
         "deprecated": false,
-        "description": "Retrieve the number of products documents",
+        "description": "Retrieve the numver of products documents",
         "responses": {
           "200": {
             "description": "Retrieve products document(s)",
