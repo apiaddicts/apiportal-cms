@@ -25,13 +25,13 @@
       "required": false,
       "pluginOptions": {}
     },
+    "search": {
+      "type": "string"
+    },
     "buttons": {
       "type": "component",
       "repeatable": true,
-      "component": "links.basic-link"
-    },
-    "search": {
-      "type": "string"
+      "component": "links.button"
     }
   }
 }
