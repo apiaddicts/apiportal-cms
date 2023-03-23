@@ -2,6 +2,8 @@
     "upload": {
       "enabled": true,
       "multipart": true,
+      "formLimit": "200mb",
+      "jsonLimit": "200mb",
       "formidable": {
         "maxFileSize": 10737418240
       }
