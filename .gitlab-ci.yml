@@ -60,7 +60,8 @@ mysql:deploy:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
-    - CONTAINER_NAME=$(echo ${SUBDOMAIN_PROJECT}_${DOMAIN_PROJECT} | sed -e "s|-|_|g;")
+    - CONTAINER_NAME_TEMP=$(echo ${SUBDOMAIN_PROJECT}_${DOMAIN_PROJECT} | sed -e "s|.|_|g;")
+    - CONTAINER_NAME=$(echo ${CONTAINER_NAME_TEMP} | sed -e "s|-|_|g;")
     - echo "$DATABASE_NAME_VALUE"
     - sed -i "s/DATABASE_GENERATED/$DATABASE_NAME_VALUE/g" docker-compose-template.yaml
     - sed -i "s/latest/$CONTAINER_NAME/g" docker-compose-template.yaml
@@ -94,7 +95,7 @@ docker:deploy:
 nginx:deploy:
   stage: deploy-nginx
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   script:
     - apk add openssh-client
     - eval $(ssh-agent -s)
@@ -110,7 +111,7 @@ nginx:deploy:
 cloudfare:deploy:
   stage: deploy-cloudfare
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "test2"
   variables:
     URL_CMS: "52.49.95.19"
     NAME_DNS: "$SUBDOMAIN_PROJECT-cms.$DOMAIN_PROJECT"
