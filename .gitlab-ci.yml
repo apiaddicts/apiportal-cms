@@ -103,10 +103,10 @@ nginx:deploy:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - cat nginx-config | 
-        sed -e "s|hostTarget|${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT}|g;" |
-        sed -e "s|portTarget|${PORT}|g;" > ${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT}
-    - scp -o StrictHostKeyChecking=no ${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT} ubuntu@52.49.95.19:$REMOTE_PATH_NGINX/
-    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "sudo mv $REMOTE_PATH_NGINX/${SUBDOMAIN_PROJECT}-cms.${DOMAIN_PROJECT} /etc/nginx/sites-enabled/; sudo nginx -s reload"
+        sed -e "s|hostTarget|${SUBDOMAIN_PROJECT}.${DOMAIN_PROJECT}|g;" |
+        sed -e "s|portTarget|${PORT}|g;" > ${SUBDOMAIN_PROJECT}.${DOMAIN_PROJECT}
+    - scp -o StrictHostKeyChecking=no ${SUBDOMAIN_PROJECT}.${DOMAIN_PROJECT} ubuntu@52.49.95.19:$REMOTE_PATH_NGINX/
+    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "sudo mv $REMOTE_PATH_NGINX/${SUBDOMAIN_PROJECT}.${DOMAIN_PROJECT} /etc/nginx/sites-enabled/; sudo nginx -s reload"
   
 cloudfare:deploy:
   stage: deploy-cloudfare
@@ -114,7 +114,7 @@ cloudfare:deploy:
     - if: $CI_COMMIT_REF_NAME == "test"
   variables:
     URL_CMS: "52.49.95.19"
-    NAME_DNS: "$SUBDOMAIN_PROJECT-cms.$DOMAIN_PROJECT"
+    NAME_DNS: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
   before_script:
     - apk add --update curl && rm -rf /var/cache/apk/*
     - apk add --no-cache curl jq
