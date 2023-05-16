@@ -21,7 +21,7 @@ variables:
 mysql:deploy:
   stage: deploy-mysql
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test2"
+    - if: $CI_COMMIT_REF_NAME == "test"
   variables:
     MYSQL_HOST: $DATABASE_HOST 
     MYSQL_USER: $DATABASE_USERNAME
@@ -59,7 +59,7 @@ mysql:deploy:
     - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - DATABASE_NAME_VALUE=$(echo devportal_wke_db | sed -e "s|-|_|g;")
+    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
     - CONTAINER_NAME_TEMP=$(echo ${SUBDOMAIN_PROJECT}_${DOMAIN_PROJECT} | sed -e "s/[.]/_/g")
     - CONTAINER_NAME=$(echo ${CONTAINER_NAME_TEMP} | sed -e "s|-|_|g;")
     - echo "$DATABASE_NAME_VALUE"
