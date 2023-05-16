@@ -68,7 +68,7 @@ mysql:deploy:
     - envsubst < docker-compose-template.yaml > docker-compose.yaml
     - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "cd $REMOTE_PATH; mkdir -p ${SUBDOMAIN_PROJECT}"
     - scp -o StrictHostKeyChecking=no docker-compose.yaml ubuntu@52.49.95.19:$REMOTE_PATH/${SUBDOMAIN_PROJECT}/
-    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "cd $REMOTE_PATH/${SUBDOMAIN_PROJECT} && docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com && docker-compose down && docker-compose up -d "
+    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "cd $REMOTE_PATH/${SUBDOMAIN_PROJECT} && docker login -u cloudappi -p $REGISTRY_PASSWORD registry.gitlab.com && docker-compose down && docker-compose up -d "
 
 docker:build:
   stage: build
