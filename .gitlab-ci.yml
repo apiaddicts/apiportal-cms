@@ -3,6 +3,7 @@ services:
   - docker:dind
 
 stages:
+  - deploy-bucket
   - deploy-mysql
   - build
   - deploy
@@ -17,6 +18,26 @@ variables:
   CLOUDFARE_HEADERKEY: 'X-Auth-Key: '
   CLOUDFARE_APPLICATION: 'Content-Type: application/json'
 
+bucket:deploy:
+  stage: deploy-bucket
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "test"
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  script:
+   - echo "${AWS_BUCKET}"
+   - NAME_DNS=$(echo "${AWS_BUCKET}")
+   - echo "$NAME_DNS"
+   - >  
+        if [[ ! -z $(aws s3api list-buckets --query 'Buckets[?Name==`'${NAME_DNS}'`]' --output text) ]]; then 
+          echo "Bucket already exists"
+        else 
+          aws s3 mb s3://${NAME_DNS} --region eu-west-1;
+          aws s3 cp init/ s3://${NAME_DNS} --recursive --region eu-west-1;
+          aws s3 website s3://${NAME_DNS} --index-document index.html --error-document index.html --region eu-west-1;
+          aws s3api put-public-access-block --bucket ${NAME_DNS} --public-access-block-configuration  BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false
+          sed -i "s|NOMBRE-BUCKET|${NAME_DNS}|g;" policy-s3.json;
+          aws s3api put-bucket-policy --bucket ${NAME_DNS} --policy file://policy-s3.json --region eu-west-1;
+        fi;
 
 mysql:deploy:
   stage: deploy-mysql
@@ -122,5 +143,14 @@ cloudfare:deploy:
     - echo "${CLOUDFARE_HEADERKEY} ${CLOUDFARE_APIKEY}"
     - echo "${CLOUDFARE_HEADERMAIL} ${CLOUDFARE_EMAIL}"
     - echo "${URL_S3}"
-    - curl -X POST ${CLOUDFARE_BASEAPI}/${CLOUDFARE_ZONE}/dns_records --header "${CLOUDFARE_HEADERMAIL} ${CLOUDFARE_EMAIL}" --header "${CLOUDFARE_HEADERKEY} ${CLOUDFARE_APIKEY}" --header "${CLOUDFARE_APPLICATION}" --data-raw '{"type":"A","name":"'${NAME_DNS}'","content":"'${URL_CMS}'","ttl":3600,"proxied":true}'
+    - curl -X GET ${CLOUDFARE_BASEAPI}/${CLOUDFARE_ZONE}/dns_records  --header "${CLOUDFARE_HEADERMAIL} ${CLOUDFARE_EMAIL}" --header "${CLOUDFARE_HEADERKEY} ${CLOUDFARE_APIKEY}" --header "${CLOUDFARE_APPLICATION}" >> response_dns_list.json
+    - DNS_VALUE=$(cat response_dns_list.json | jq -r '.result[] | select( .name=="'${NAME_DNS}'") | .name')
+    - echo "$DNS_VALUE"
+    - >
+        if [ "${DNS_VALUE}" == "" ]; then
+          curl -X POST ${CLOUDFARE_BASEAPI}/${CLOUDFARE_ZONE}/dns_records --header "${CLOUDFARE_HEADERMAIL} ${CLOUDFARE_EMAIL}" --header "${CLOUDFARE_HEADERKEY} ${CLOUDFARE_APIKEY}" --header "${CLOUDFARE_APPLICATION}" --data-raw '{"type":"CNAME","name":"'${NAME_DNS}'","content":"'${URL_S3}'","ttl":3600,"proxied":true}';
+        else 
+          echo "DNS already exists";
+        fi;
+
 
