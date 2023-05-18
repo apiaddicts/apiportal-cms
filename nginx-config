@@ -3,8 +3,8 @@ server {
     server_name hostTarget;
 
     ssl on;
-    ssl_certificate /etc/letsencrypt/live/app.apiquality.es/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/app.apiquality.es/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/wke-cms.apimarket.io/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/wke-cms.apimarket.io/privkey.pem; # managed by Certbot
 
 
     ssl_session_cache shared:SSL:20m;
