@@ -26,3 +26,9 @@ services:
     ports:
       - ${PORT}:1337
     restart: always
+    networks:
+      - networks_cloudappi
+networks:
+    networks_cloudappi:
+        external: true
+
