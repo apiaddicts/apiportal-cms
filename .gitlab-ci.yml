@@ -4,7 +4,7 @@ services:
 
 stages:
   - deploy-bucket
-  - deploy-mysql
+  - deploy-psql
   - build
   - deploy
   - deploy-nginx
@@ -17,11 +17,12 @@ variables:
   CLOUDFARE_HEADERMAIL: 'X-Auth-Email: '
   CLOUDFARE_HEADERKEY: 'X-Auth-Key: '
   CLOUDFARE_APPLICATION: 'Content-Type: application/json'
+  APP_NAME: "${SUBDOMAIN_PROJECT}"
 
 bucket:deploy:
   stage: deploy-bucket
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "develop"
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   script:
    - echo "${AWS_BUCKET}"
@@ -39,29 +40,24 @@ bucket:deploy:
           aws s3api put-bucket-policy --bucket ${NAME_DNS} --policy file://policy-s3.json --region eu-west-1;
         fi;
 
-mysql:deploy:
-  stage: deploy-mysql
+psql:deploy:
+  stage: deploy-psql
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
-  variables:
-    MYSQL_HOST: $DATABASE_HOST 
-    MYSQL_USER: $DATABASE_USERNAME
-    MYSQL_PASS: $DATABASE_PASSWORD
-    NAME_DNS: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
+    - if: $CI_COMMIT_REF_NAME == "develop"
   script:
-    - apk add openssh-client
-    - eval $(ssh-agent -s)
-    - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
+    - apk add postgresql-client
     - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
     - echo "$DATABASE_NAME_VALUE"
-    - scp -o StrictHostKeyChecking=no sql/strapi-bk.sql ubuntu@${URL_SERVER}:${REMOTE_PATH_SQL}/
-    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "echo 'CREATE DATABASE IF NOT EXISTS $DATABASE_NAME_VALUE;' | mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS;"
-    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "mysql -h $MYSQL_HOST -u $MYSQL_USER --password=$MYSQL_PASS $DATABASE_NAME_VALUE < sql/strapi-bk.sql"
-   
+    - psql -c "create database $DATABASE_NAME_VALUE" postgresql://${OVH_USER_DB_ADMIN}:${OVH_PASSWORD_DB_ADMIN}@${DATABASE_HOST}:${DATABASE_PORT}/defaultdb?sslmode=require
+    - psql postgresql://${OVH_USER_DB_ADMIN}:${OVH_PASSWORD_DB_ADMIN}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME_VALUE}?sslmode=require < sql/psql_devportal.sql  
 
-.template:build: &docker-build
+docker:build:
+  stage: build
+  variables:
+    TAG: $CI_COMMIT_REF_NAME
+    CI_TAG: $CI_COMMIT_SHORT_SHA
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "develop"
   before_script:
     - docker login -u cloudappi -p $REGISTRY_PASSWORD registry.gitlab.com
   script:
@@ -73,71 +69,39 @@ mysql:deploy:
     - docker push $DOCKER_IMAGE_PATH:$TAG
     - docker push $DOCKER_IMAGE_PATH:$CI_TAG
 
-.template:deploy: &ssh-deploy
-  script:
-    - apk add openssh-client
-    - apk add gettext
-    - eval $(ssh-agent -s)
-    - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
-    - CONTAINER_NAME_TEMP=$(echo ${SUBDOMAIN_PROJECT}_${DOMAIN_PROJECT} | sed -e "s/[.]/_/g")
-    - CONTAINER_NAME=$(echo ${CONTAINER_NAME_TEMP} | sed -e "s|-|_|g;")
-    - echo "$DATABASE_NAME_VALUE"
-    - sed -i "s/DATABASE_GENERATED/$DATABASE_NAME_VALUE/g" docker-compose-template.yaml
-    - sed -i "s/latest/$CONTAINER_NAME/g" docker-compose-template.yaml
-    - envsubst < docker-compose-template.yaml > docker-compose.yaml
-    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "cd $REMOTE_PATH; mkdir -p ${SUBDOMAIN_PROJECT}"
-    - scp -o StrictHostKeyChecking=no docker-compose.yaml ubuntu@52.49.95.19:$REMOTE_PATH/${SUBDOMAIN_PROJECT}/
-    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "cd $REMOTE_PATH/${SUBDOMAIN_PROJECT} && docker login -u cloudappi -p $REGISTRY_PASSWORD registry.gitlab.com && docker-compose down && docker-compose up -d "
-
-docker:build:
-  stage: build
-  variables:
-    TAG: $CI_COMMIT_REF_NAME
-    CI_TAG: $CI_COMMIT_SHA
-
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
-  <<: *docker-build
-  environment:
-    name: $CI_COMMIT_REF_NAME
-
-docker:deploy:
+ovh:deploy:
   stage: deploy
   variables:
-    REMOTE_PATH: /var/www/aplicacion/devportal-generated
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
-  <<: *ssh-deploy
-  environment:
-    name: $CI_COMMIT_REF_NAME
+    TAG: $CI_COMMIT_REF_NAME
+    CI_TAG: $CI_COMMIT_SHORT_SHA
+    HOST: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
+  before_script:
+    - apk add --update ca-certificates bash gnupg jq  && apk add --update -t deps curl gettext &&  rm -rf /var/cache/apk/*
+    - curl -L https://storage.googleapis.com/kubernetes-release/release/v1.23.0/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
+  script: 
+    - mkdir ~/.kube/
+    - echo "$OVH_CONFIG" | tr -d '\r' > ~/.kube/config
+    - export KUBECONFIG=~/.kube/config
+    - kubectl version
+    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;") 
+    - kubectl apply -f kubernetes/secret.yaml -n developer-portal
+    - sed -i "s|IMAGE_GITLAB|${DOCKER_IMAGE_PATH}:$CI_TAG|g;" kubernetes/deployment.yaml;  
+    - sed -i "s|DATABASE_GENERATED|${DATABASE_NAME_VALUE}|g;" kubernetes/deployment.yaml;  
+    - >
+       for file in $(ls kubernetes)
+          do
+            envsubst < kubernetes/$file > kubernetes/$file.tmp
+            mv kubernetes/$file.tmp  kubernetes/$file
+          done
+          ls kubernetes
+    - kubectl apply -f kubernetes/ -n developer-portal
 
-nginx:deploy:
-  stage: deploy-nginx
-  rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
-  variables:
-    NAME_DNS: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
-  script:
-    - apk add openssh-client
-    - eval $(ssh-agent -s)
-    - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - cat nginx-config | 
-        sed -e "s|hostTarget|${SUBDOMAIN_PROJECT}.${DOMAIN_PROJECT}|g;" |
-        sed -e "s|portTarget|${PORT}|g;" > ${SUBDOMAIN_PROJECT}.${DOMAIN_PROJECT}
-    - scp -o StrictHostKeyChecking=no ${SUBDOMAIN_PROJECT}.${DOMAIN_PROJECT} ubuntu@52.49.95.19:$REMOTE_PATH_NGINX/
-    - ssh -o StrictHostKeyChecking=no ubuntu@52.49.95.19 "sudo mv $REMOTE_PATH_NGINX/${SUBDOMAIN_PROJECT}.${DOMAIN_PROJECT} /etc/nginx/sites-enabled/; sudo nginx -s reload"
-  
 cloudfare:deploy:
   stage: deploy-cloudfare
   rules:
-    - if: $CI_COMMIT_REF_NAME == "test"
+    - if: $CI_COMMIT_REF_NAME == "develop"
   variables:
-    URL_CMS: "52.49.95.19"
+    URL_CMS: "57.128.91.243"
     NAME_DNS: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
   before_script:
     - apk add --update curl && rm -rf /var/cache/apk/*

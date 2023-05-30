@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: $APP_NAME
+  labels:
+    app: $APP_NAME
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: $APP_NAME
+  template:
+    metadata:
+      labels:
+        app: $APP_NAME
+    spec:
+      containers:
+        - name: $APP_NAME
+          image: IMAGE_GITLAB
+          ports:
+            - name: http
+              containerPort: 1337
+              protocol: TCP
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "75m"
+            limits:
+              memory: "256Mi"
+              cpu: "150m"
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+              name: $APP_NAME
+      imagePullSecrets:
+            - name: registry-gitlab
