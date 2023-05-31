@@ -16,7 +16,7 @@ RUN npm install pg
 COPY . .
 
 RUN npm run build
-RUN chmod 777 -R .
+#RUN chmod 777 -R .
 EXPOSE 1337
 
 CMD [ "npm", "run", "start" ]
