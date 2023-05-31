@@ -11,7 +11,7 @@
           "username": "${process.env.DATABASE_USERNAME}",
           "password": "${process.env.DATABASE_PASSWORD}",
           "schema": "${process.env.DATABASE_SCHEMA}",
-          "ssl": true
+          "ssl":  { "rejectUnauthorized": false }
         },
         "options": {
           "pool": {
