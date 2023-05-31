@@ -74,7 +74,7 @@ ovh:deploy:
     TAG: $CI_COMMIT_REF_NAME
     CI_TAG: 67e1b2be
     HOST: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
-    APP_NAME: "${SUBDOMAIN_PROJECT}"
+    APP_NAME: ${SUBDOMAIN_PROJECT}
   before_script:
     - apk add --update ca-certificates bash gnupg jq  && apk add --update -t deps curl gettext &&  rm -rf /var/cache/apk/*
     - curl -L https://storage.googleapis.com/kubernetes-release/release/v1.23.0/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
@@ -84,17 +84,19 @@ ovh:deploy:
     - export KUBECONFIG=~/.kube/config
     - kubectl version
     - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;") 
-    - kubectl apply -f kubernetes/secret.yaml -n developer-portal
     - sed -i "s|IMAGE_GITLAB|${DOCKER_IMAGE_PATH}:$CI_TAG|g;" kubernetes/deployment.yaml;  
     - sed -i "s|DATABASE_GENERATED|${DATABASE_NAME_VALUE}|g;" kubernetes/deployment.yaml;  
+    - envsubst < kubernetes/secret/secret.yaml > kubernetes/secret/secret.yaml.tmp
+    - mv kubernetes/secret/secret.yaml.tmp kubernetes/secret/secret.yaml
+    - kubectl apply -f kubernetes/secret/ -n developer-portal
     - >
-       for file in $(ls kubernetes)
+        for file in $(ls kubernetes/manifest)
           do
-            envsubst < kubernetes/$file > kubernetes/$file.tmp
-            mv kubernetes/$file.tmp  kubernetes/$file
+            envsubst < kubernetes/manifest/$file > kubernetes/manifest/$file.tmp
+            mv kubernetes/manifest/$file.tmp  kubernetes/manifest/$file
           done
           ls kubernetes
-    - kubectl apply -f kubernetes/ -n developer-portal
+    - kubectl apply -f kubernetes/manifest/ -n developer-portal
 
 cloudfare:deploy:
   stage: deploy-cloudfare
