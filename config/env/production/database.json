@@ -10,10 +10,10 @@
           "database": "${process.env.DATABASE_NAME}",
           "username": "${process.env.DATABASE_USERNAME}",
           "password": "${process.env.DATABASE_PASSWORD}",
-          "schema": "${process.env.DATABASE_SCHEMA}"
+          "schema": "${process.env.DATABASE_SCHEMA}",
+          "ssl": true
         },
         "options": {
-          "ssl": "${process.env.DATABASE_SSL}",
           "pool": {
             "min": 0,
             "max": 15,

@@ -56,7 +56,7 @@ docker:build:
     TAG: $CI_COMMIT_REF_NAME
     CI_TAG: $CI_COMMIT_SHORT_SHA
   rules:
-    - if: $CI_COMMIT_REF_NAME == "develop2"
+    - if: $CI_COMMIT_REF_NAME == "develop"
   before_script:
     - docker login -u cloudappi -p $REGISTRY_PASSWORD registry.gitlab.com
   script:
@@ -72,7 +72,7 @@ ovh:deploy:
   stage: deploy
   variables:
     TAG: $CI_COMMIT_REF_NAME
-    CI_TAG: 67e1b2be
+    CI_TAG:  $CI_COMMIT_SHORT_SHA
     HOST: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
     APP_NAME: ${SUBDOMAIN_PROJECT}
   before_script:
@@ -101,7 +101,7 @@ ovh:deploy:
 cloudfare:deploy:
   stage: deploy-cloudfare
   rules:
-    - if: $CI_COMMIT_REF_NAME == "develop"
+    - if: $CI_COMMIT_REF_NAME == "develop2"
   variables:
     URL_CMS: "57.128.91.243"
     NAME_DNS: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
