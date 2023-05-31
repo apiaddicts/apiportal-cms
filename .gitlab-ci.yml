@@ -84,8 +84,8 @@ ovh:deploy:
     - export KUBECONFIG=~/.kube/config
     - kubectl version
     - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;") 
-    - sed -i "s|IMAGE_GITLAB|${DOCKER_IMAGE_PATH}:$CI_TAG|g;" kubernetes/deployment.yaml;  
-    - sed -i "s|DATABASE_GENERATED|${DATABASE_NAME_VALUE}|g;" kubernetes/deployment.yaml;  
+    - sed -i "s|IMAGE_GITLAB|${DOCKER_IMAGE_PATH}:$CI_TAG|g;" kubernetes/manifest/deployment.yaml;  
+    - sed -i "s|DATABASE_GENERATED|${DATABASE_NAME_VALUE}|g;" kubernetes/secret/secret.yaml;  
     - envsubst < kubernetes/secret/secret.yaml > kubernetes/secret/secret.yaml.tmp
     - mv kubernetes/secret/secret.yaml.tmp kubernetes/secret/secret.yaml
     - kubectl apply -f kubernetes/secret/ -n developer-portal
