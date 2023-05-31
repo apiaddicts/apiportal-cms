@@ -17,7 +17,6 @@ variables:
   CLOUDFARE_HEADERMAIL: 'X-Auth-Email: '
   CLOUDFARE_HEADERKEY: 'X-Auth-Key: '
   CLOUDFARE_APPLICATION: 'Content-Type: application/json'
-  APP_NAME: "${SUBDOMAIN_PROJECT}"
 
 bucket:deploy:
   stage: deploy-bucket
@@ -75,6 +74,7 @@ ovh:deploy:
     TAG: $CI_COMMIT_REF_NAME
     CI_TAG: 67e1b2be
     HOST: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
+    APP_NAME: "${SUBDOMAIN_PROJECT}"
   before_script:
     - apk add --update ca-certificates bash gnupg jq  && apk add --update -t deps curl gettext &&  rm -rf /var/cache/apk/*
     - curl -L https://storage.googleapis.com/kubernetes-release/release/v1.23.0/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && chmod +x /usr/local/bin/kubectl
