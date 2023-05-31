@@ -21,7 +21,7 @@ variables:
 bucket:deploy:
   stage: deploy-bucket
   rules:
-    - if: $CI_COMMIT_REF_NAME == "develop2"
+    - if: $CI_COMMIT_REF_NAME == "develop"
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   script:
    - echo "${AWS_BUCKET}"
@@ -42,7 +42,7 @@ bucket:deploy:
 psql:deploy:
   stage: deploy-psql
   rules:
-    - if: $CI_COMMIT_REF_NAME == "develop2"
+    - if: $CI_COMMIT_REF_NAME == "develop"
   script:
     - apk add postgresql-client
     - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
@@ -70,6 +70,8 @@ docker:build:
 
 ovh:deploy:
   stage: deploy
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "develop"
   variables:
     TAG: $CI_COMMIT_REF_NAME
     CI_TAG:  $CI_COMMIT_SHORT_SHA
@@ -101,7 +103,7 @@ ovh:deploy:
 cloudfare:deploy:
   stage: deploy-cloudfare
   rules:
-    - if: $CI_COMMIT_REF_NAME == "develop2"
+    - if: $CI_COMMIT_REF_NAME == "develop"
   variables:
     URL_CMS: "57.128.91.243"
     NAME_DNS: "$SUBDOMAIN_PROJECT.$DOMAIN_PROJECT"
