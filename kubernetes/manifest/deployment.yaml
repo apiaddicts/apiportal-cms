@@ -17,6 +17,7 @@ spec:
       containers:
         - name: $APP_NAME
           image: IMAGE_GITLAB
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 1337
@@ -28,9 +29,8 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "150m"
-          imagePullPolicy: Always
           envFrom:
             - secretRef:
-              name: $APP_NAME
+                name: $APP_NAME
       imagePullSecrets:
-            - name: registry-gitlab
+        - name: registry-gitlab
