@@ -4,11 +4,11 @@ services:
 
 stages:
   - deploy-bucket
+  - deploy-psql
+  - deploy-ovh-psql
   - build
   - deploy
-  - deploy-psql
   - deploy-ovh
-  - deploy-ovh-psql
   - deploy-nginx
   - deploy-cloudfare
 
