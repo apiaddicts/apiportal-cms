@@ -4,10 +4,11 @@ services:
 
 stages:
   - deploy-bucket
-  - deploy-psql
   - build
   - deploy
+  - deploy-psql
   - deploy-ovh
+  - deploy-ovh-psql
   - deploy-nginx
   - deploy-cloudfare
 
@@ -43,7 +44,7 @@ bucket:deploy:
       - main
 
 psql:deploy:
-  stage: deploy-mysql
+  stage: deploy-psql
   script:
     - apk add openssh-client
     - eval $(ssh-agent -s)
@@ -62,7 +63,7 @@ psql:deploy:
       - develop
 
 psql-ovh:deploy:
-  stage: deploy-psql
+  stage: deploy-ovh-psql
   script:
     - apk add postgresql-client
     - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
