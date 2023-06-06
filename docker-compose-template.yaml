@@ -2,7 +2,7 @@ version: '3'
 services:
   strapi:
     container_name: devportal_strapi_latest
-    image: ${DOCKER_IMAGE_PATH}:${$CI_COMMIT_SHORT_SHA}
+    image: ${DOCKER_IMAGE_PATH}:${CI_COMMIT_SHORT_SHA}
     environment:
       DATABASE_CLIENT: "${DATABASE_CLIENT}"
       DATABASE_HOST: "${DATABASE_HOST}"
