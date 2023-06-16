@@ -47,7 +47,7 @@ mysql:deploy:
   stage: deploy-mysql
   script:
     - apk add mysql mysql-client 
-    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT_DB}_db | sed -e "s|-|_|g;")
+    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
     - echo "$DATABASE_NAME_VALUE"
     - DB_EXISTS=$(mysql -h$DATABASE_HOST -u$DATABASE_USERNAME -p$DATABASE_PASSWORD -P $DATABASE_PORT -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='$DATABASE_NAME_VALUE'")
     - echo "$DB_EXISTS"
