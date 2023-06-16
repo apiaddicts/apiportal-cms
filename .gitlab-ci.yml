@@ -4,8 +4,8 @@ services:
 
 stages:
   - deploy-bucket
-  - deploy-psql
-  - deploy-ovh-psql
+  - deploy-mysql
+  - deploy-ovh-mysql
   - build
   - deploy
   - deploy-ovh
@@ -43,37 +43,28 @@ bucket:deploy:
       - develop
       - main
 
-psql:deploy:
-  stage: deploy-psql
+mysql:deploy:
+  stage: deploy-mysql
   script:
-    - apk add openssh-client
-    - eval $(ssh-agent -s)
-    - echo "$PRIVATE_RSA_KEY_PROD" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
+    - apk add mysql mysql-client 
+    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT_DB}_db | sed -e "s|-|_|g;")
     - echo "$DATABASE_NAME_VALUE"
-    - scp -o StrictHostKeyChecking=no sql/psql_devportal.sql ubuntu@${URL_SERVER}:${REMOTE_PATH_SQL}/
-    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "psql -c 'create database $DATABASE_NAME_VALUE' postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/defaultdb"
-    - ssh -o StrictHostKeyChecking=no ubuntu@${URL_SERVER} "psql postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME_VALUE} < sql/psql_devportal.sql"
+    - DB_EXISTS=$(mysql -h$DATABASE_HOST -u$DATABASE_USERNAME -p$DATABASE_PASSWORD -P $DATABASE_PORT -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='$DATABASE_NAME_VALUE'")
+    - echo "$DB_EXISTS"
+    - > 
+        if [[ -z  "$DB_EXISTS" ]];
+        then 
+            mysql -h$DATABASE_HOST -u$DATABASE_USERNAME -p$DATABASE_PASSWORD -P $DATABASE_PORT -e "CREATE DATABASE IF NOT EXISTS $DATABASE_NAME_VALUE;"
+            mysql -h$DATABASE_HOST -u$DATABASE_USERNAME -p$DATABASE_PASSWORD -P $DATABASE_PORT $DATABASE_NAME_VALUE < sql/strapi-bk.sql
+            exit;
+        else
+            echo "DOES EXIST"
+        fi
   environment:
     name: $CI_COMMIT_REF_NAME
   only:
     refs:
       - develop
-
-psql-ovh:deploy:
-  stage: deploy-ovh-psql
-  script:
-    - apk add postgresql-client
-    - DATABASE_NAME_VALUE=$(echo devportal_${SUBDOMAIN_PROJECT}_db | sed -e "s|-|_|g;")
-    - echo "$DATABASE_NAME_VALUE"
-    - psql -c "create database $DATABASE_NAME_VALUE" postgresql://${OVH_USER_DB_ADMIN}:${OVH_PASSWORD_DB_ADMIN}@${DATABASE_HOST}:${DATABASE_PORT}/defaultdb?sslmode=require
-    - psql postgresql://${OVH_USER_DB_ADMIN}:${OVH_PASSWORD_DB_ADMIN}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME_VALUE}?sslmode=require < sql/psql_devportal.sql  
-  environment:
-    name: $CI_COMMIT_REF_NAME
-  only:
-    refs:
       - main
 
 docker:build:
