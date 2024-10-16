@@ -19,6 +19,9 @@ variables:
   CLOUDFARE_HEADERMAIL: 'X-Auth-Email: '
   CLOUDFARE_HEADERKEY: 'X-Auth-Key: '
   CLOUDFARE_APPLICATION: 'Content-Type: application/json'
+  DOCKER_HOST: tcp://docker:2375/
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
 
 # bucket:deploy:
 #   stage: deploy-bucket
