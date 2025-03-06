@@ -1,0 +1,23 @@
+version: "3"
+services:
+  strapi:
+    container_name: devportal_strapi_latest
+    build: .
+    environment:
+      DATABASE_CLIENT: "${DATABASE_CLIENT}"
+      DATABASE_HOST: "${DATABASE_HOST}"
+      DATABASE_PORT: "${DATABASE_PORT}"
+      DATABASE_NAME: "${DATABASE_NAME}"
+      DATABASE_USERNAME: "${DATABASE_USERNAME}"
+      DATABASE_PASSWORD: "${DATABASE_PASSWORD}"
+      # AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      # AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      # AWS_REGION: "${AWS_REGION}"
+      # AWS_BUCKET: "${AWS_BUCKET}"
+      # AWS_BUCKET_SUBDIRECTORY: "${AWS_BUCKET_SUBDIRECTORY}"
+      # AWS_CDN_DOMAIN: "${AWS_CDN_DOMAIN}"
+    volumes:
+      - /urs/src/app/node_modules
+    ports:
+      - ${PORT}:1337
+    restart: always

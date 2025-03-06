@@ -1,16 +1,13 @@
-FROM node:12-alpine
+FROM node:14.20.1-alpine
 
 ENV PORT 1337
 ENV HOST 0.0.0.0
-ENV NODE_ENV production
 
 WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package*.json ./   
 RUN npm install
-RUN npm install mysql
-RUN npm install pg
 
 # Bundle app source
 COPY . .

@@ -6676,38 +6676,38 @@ ALTER SEQUENCE public.components_slices_testimonials_id_seq OWNED BY public.comp
 
 
 --
--- Name: components_sura_carousels; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_carousels (
+CREATE TABLE public.components_portal_carousels (
     id integer NOT NULL,
     slider character varying(255)
 );
 
 
-ALTER TABLE public.components_sura_carousels OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_carousels OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_carousels_components; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_components; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_carousels_components (
+CREATE TABLE public.components_portal_carousels_components (
     id integer NOT NULL,
     field character varying(255) NOT NULL,
     "order" integer NOT NULL,
     component_type character varying(255) NOT NULL,
     component_id integer NOT NULL,
-    components_sura_carousel_id integer NOT NULL
+    components_portal_carousel_id integer NOT NULL
 );
 
 
-ALTER TABLE public.components_sura_carousels_components OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_carousels_components OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_carousels_components_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_components_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_carousels_components_id_seq
+CREATE SEQUENCE public.components_portal_carousels_components_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -6716,20 +6716,20 @@ CREATE SEQUENCE public.components_sura_carousels_components_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_carousels_components_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_carousels_components_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_carousels_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_carousels_components_id_seq OWNED BY public.components_sura_carousels_components.id;
+ALTER SEQUENCE public.components_portal_carousels_components_id_seq OWNED BY public.components_portal_carousels_components.id;
 
 
 --
--- Name: components_sura_carousels_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_carousels_id_seq
+CREATE SEQUENCE public.components_portal_carousels_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -6738,33 +6738,33 @@ CREATE SEQUENCE public.components_sura_carousels_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_carousels_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_carousels_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_carousels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_carousels_id_seq OWNED BY public.components_sura_carousels.id;
+ALTER SEQUENCE public.components_portal_carousels_id_seq OWNED BY public.components_portal_carousels.id;
 
 
 --
--- Name: components_sura_chips; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_chips; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_chips (
+CREATE TABLE public.components_portal_chips (
     id integer NOT NULL,
     color character varying(255),
     name character varying(255)
 );
 
 
-ALTER TABLE public.components_sura_chips OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_chips OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_chips_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_chips_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_chips_id_seq
+CREATE SEQUENCE public.components_portal_chips_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -6773,20 +6773,20 @@ CREATE SEQUENCE public.components_sura_chips_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_chips_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_chips_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_chips_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_chips_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_chips_id_seq OWNED BY public.components_sura_chips.id;
+ALTER SEQUENCE public.components_portal_chips_id_seq OWNED BY public.components_portal_chips.id;
 
 
 --
--- Name: components_sura_items; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_items; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_items (
+CREATE TABLE public.components_portal_items (
     id integer NOT NULL,
     title character varying(255),
     description text,
@@ -6794,13 +6794,13 @@ CREATE TABLE public.components_sura_items (
 );
 
 
-ALTER TABLE public.components_sura_items OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_items OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_items_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_items_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_items_id_seq
+CREATE SEQUENCE public.components_portal_items_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -6809,48 +6809,48 @@ CREATE SEQUENCE public.components_sura_items_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_items_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_items_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_items_id_seq OWNED BY public.components_sura_items.id;
+ALTER SEQUENCE public.components_portal_items_id_seq OWNED BY public.components_portal_items.id;
 
 
 --
--- Name: components_sura_list_filters; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_list_filters (
+CREATE TABLE public.components_portal_list_filters (
     id integer NOT NULL,
     "Title" character varying(255)
 );
 
 
-ALTER TABLE public.components_sura_list_filters OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_list_filters OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_list_filters_components; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_components; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_list_filters_components (
+CREATE TABLE public.components_portal_list_filters_components (
     id integer NOT NULL,
     field character varying(255) NOT NULL,
     "order" integer NOT NULL,
     component_type character varying(255) NOT NULL,
     component_id integer NOT NULL,
-    components_sura_list_filter_id integer NOT NULL
+    components_portal_list_filter_id integer NOT NULL
 );
 
 
-ALTER TABLE public.components_sura_list_filters_components OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_list_filters_components OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_list_filters_components_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_components_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_list_filters_components_id_seq
+CREATE SEQUENCE public.components_portal_list_filters_components_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -6859,20 +6859,20 @@ CREATE SEQUENCE public.components_sura_list_filters_components_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_list_filters_components_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_list_filters_components_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_list_filters_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_list_filters_components_id_seq OWNED BY public.components_sura_list_filters_components.id;
+ALTER SEQUENCE public.components_portal_list_filters_components_id_seq OWNED BY public.components_portal_list_filters_components.id;
 
 
 --
--- Name: components_sura_list_filters_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_list_filters_id_seq
+CREATE SEQUENCE public.components_portal_list_filters_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -6881,48 +6881,48 @@ CREATE SEQUENCE public.components_sura_list_filters_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_list_filters_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_list_filters_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_list_filters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_list_filters_id_seq OWNED BY public.components_sura_list_filters.id;
+ALTER SEQUENCE public.components_portal_list_filters_id_seq OWNED BY public.components_portal_list_filters.id;
 
 
 --
--- Name: components_sura_list_recents; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_list_recents (
+CREATE TABLE public.components_portal_list_recents (
     id integer NOT NULL,
     title character varying(255)
 );
 
 
-ALTER TABLE public.components_sura_list_recents OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_list_recents OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_list_recents_components; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents_components; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_list_recents_components (
+CREATE TABLE public.components_portal_list_recents_components (
     id integer NOT NULL,
     field character varying(255) NOT NULL,
     "order" integer NOT NULL,
     component_type character varying(255) NOT NULL,
     component_id integer NOT NULL,
-    components_sura_list_recent_id integer NOT NULL
+    components_portal_list_recent_id integer NOT NULL
 );
 
 
-ALTER TABLE public.components_sura_list_recents_components OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_list_recents_components OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_list_recents_components_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents_components_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_list_recents_components_id_seq
+CREATE SEQUENCE public.components_portal_list_recents_components_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -6931,20 +6931,20 @@ CREATE SEQUENCE public.components_sura_list_recents_components_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_list_recents_components_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_list_recents_components_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_list_recents_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_list_recents_components_id_seq OWNED BY public.components_sura_list_recents_components.id;
+ALTER SEQUENCE public.components_portal_list_recents_components_id_seq OWNED BY public.components_portal_list_recents_components.id;
 
 
 --
--- Name: components_sura_list_recents_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_list_recents_id_seq
+CREATE SEQUENCE public.components_portal_list_recents_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -6953,20 +6953,20 @@ CREATE SEQUENCE public.components_sura_list_recents_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_list_recents_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_list_recents_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_list_recents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_list_recents_id_seq OWNED BY public.components_sura_list_recents.id;
+ALTER SEQUENCE public.components_portal_list_recents_id_seq OWNED BY public.components_portal_list_recents.id;
 
 
 --
--- Name: components_sura_questions; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_questions; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_questions (
+CREATE TABLE public.components_portal_questions (
     id integer NOT NULL,
     question character varying(255),
     description character varying(255),
@@ -6975,13 +6975,13 @@ CREATE TABLE public.components_sura_questions (
 );
 
 
-ALTER TABLE public.components_sura_questions OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_questions OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_questions_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_questions_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_questions_id_seq
+CREATE SEQUENCE public.components_portal_questions_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -6990,33 +6990,33 @@ CREATE SEQUENCE public.components_sura_questions_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_questions_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_questions_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_questions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_questions_id_seq OWNED BY public.components_sura_questions.id;
+ALTER SEQUENCE public.components_portal_questions_id_seq OWNED BY public.components_portal_questions.id;
 
 
 --
--- Name: components_sura_section_cards; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_section_cards; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_section_cards (
+CREATE TABLE public.components_portal_section_cards (
     id integer NOT NULL,
     title character varying(255),
     description text
 );
 
 
-ALTER TABLE public.components_sura_section_cards OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_section_cards OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_section_cards_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_section_cards_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_section_cards_id_seq
+CREATE SEQUENCE public.components_portal_section_cards_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -7025,49 +7025,49 @@ CREATE SEQUENCE public.components_sura_section_cards_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_section_cards_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_section_cards_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_section_cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_section_cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_section_cards_id_seq OWNED BY public.components_sura_section_cards.id;
+ALTER SEQUENCE public.components_portal_section_cards_id_seq OWNED BY public.components_portal_section_cards.id;
 
 
 --
--- Name: components_sura_tab_cards; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_tab_cards; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_tab_cards (
+CREATE TABLE public.components_portal_tab_cards (
     id integer NOT NULL,
     name character varying(255),
     tab character varying(255)
 );
 
 
-ALTER TABLE public.components_sura_tab_cards OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_tab_cards OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_tab_cards_components; Type: TABLE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_tab_cards_components; Type: TABLE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE TABLE public.components_sura_tab_cards_components (
+CREATE TABLE public.components_portal_tab_cards_components (
     id integer NOT NULL,
     field character varying(255) NOT NULL,
     "order" integer NOT NULL,
     component_type character varying(255) NOT NULL,
     component_id integer NOT NULL,
-    components_sura_tab_card_id integer NOT NULL
+    components_portal_tab_card_id integer NOT NULL
 );
 
 
-ALTER TABLE public.components_sura_tab_cards_components OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_tab_cards_components OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_tab_cards_components_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_tab_cards_components_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_tab_cards_components_id_seq
+CREATE SEQUENCE public.components_portal_tab_cards_components_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -7076,20 +7076,20 @@ CREATE SEQUENCE public.components_sura_tab_cards_components_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_tab_cards_components_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_tab_cards_components_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_tab_cards_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_tab_cards_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_tab_cards_components_id_seq OWNED BY public.components_sura_tab_cards_components.id;
+ALTER SEQUENCE public.components_portal_tab_cards_components_id_seq OWNED BY public.components_portal_tab_cards_components.id;
 
 
 --
--- Name: components_sura_tab_cards_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_tab_cards_id_seq; Type: SEQUENCE; Schema: public; Owner: user_developer_portal
 --
 
-CREATE SEQUENCE public.components_sura_tab_cards_id_seq
+CREATE SEQUENCE public.components_portal_tab_cards_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -7098,13 +7098,13 @@ CREATE SEQUENCE public.components_sura_tab_cards_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.components_sura_tab_cards_id_seq OWNER TO user_developer_portal;
+ALTER TABLE public.components_portal_tab_cards_id_seq OWNER TO user_developer_portal;
 
 --
--- Name: components_sura_tab_cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_tab_cards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: user_developer_portal
 --
 
-ALTER SEQUENCE public.components_sura_tab_cards_id_seq OWNED BY public.components_sura_tab_cards.id;
+ALTER SEQUENCE public.components_portal_tab_cards_id_seq OWNED BY public.components_portal_tab_cards.id;
 
 
 --
@@ -9657,87 +9657,87 @@ ALTER TABLE ONLY public.components_slices_testimonials_groups_components ALTER C
 
 
 --
--- Name: components_sura_carousels id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_carousels ALTER COLUMN id SET DEFAULT nextval('public.components_sura_carousels_id_seq'::regclass);
-
-
---
--- Name: components_sura_carousels_components id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_carousels_components ALTER COLUMN id SET DEFAULT nextval('public.components_sura_carousels_components_id_seq'::regclass);
+ALTER TABLE ONLY public.components_portal_carousels ALTER COLUMN id SET DEFAULT nextval('public.components_portal_carousels_id_seq'::regclass);
 
 
 --
--- Name: components_sura_chips id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_components id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_chips ALTER COLUMN id SET DEFAULT nextval('public.components_sura_chips_id_seq'::regclass);
-
-
---
--- Name: components_sura_items id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_items ALTER COLUMN id SET DEFAULT nextval('public.components_sura_items_id_seq'::regclass);
+ALTER TABLE ONLY public.components_portal_carousels_components ALTER COLUMN id SET DEFAULT nextval('public.components_portal_carousels_components_id_seq'::regclass);
 
 
 --
--- Name: components_sura_list_filters id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_chips id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_list_filters ALTER COLUMN id SET DEFAULT nextval('public.components_sura_list_filters_id_seq'::regclass);
-
-
---
--- Name: components_sura_list_filters_components id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_list_filters_components ALTER COLUMN id SET DEFAULT nextval('public.components_sura_list_filters_components_id_seq'::regclass);
+ALTER TABLE ONLY public.components_portal_chips ALTER COLUMN id SET DEFAULT nextval('public.components_portal_chips_id_seq'::regclass);
 
 
 --
--- Name: components_sura_list_recents id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_items id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_list_recents ALTER COLUMN id SET DEFAULT nextval('public.components_sura_list_recents_id_seq'::regclass);
-
-
---
--- Name: components_sura_list_recents_components id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_list_recents_components ALTER COLUMN id SET DEFAULT nextval('public.components_sura_list_recents_components_id_seq'::regclass);
+ALTER TABLE ONLY public.components_portal_items ALTER COLUMN id SET DEFAULT nextval('public.components_portal_items_id_seq'::regclass);
 
 
 --
--- Name: components_sura_questions id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_questions ALTER COLUMN id SET DEFAULT nextval('public.components_sura_questions_id_seq'::regclass);
-
-
---
--- Name: components_sura_section_cards id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_section_cards ALTER COLUMN id SET DEFAULT nextval('public.components_sura_section_cards_id_seq'::regclass);
+ALTER TABLE ONLY public.components_portal_list_filters ALTER COLUMN id SET DEFAULT nextval('public.components_portal_list_filters_id_seq'::regclass);
 
 
 --
--- Name: components_sura_tab_cards id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_components id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_tab_cards ALTER COLUMN id SET DEFAULT nextval('public.components_sura_tab_cards_id_seq'::regclass);
+ALTER TABLE ONLY public.components_portal_list_filters_components ALTER COLUMN id SET DEFAULT nextval('public.components_portal_list_filters_components_id_seq'::regclass);
 
 
 --
--- Name: components_sura_tab_cards_components id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_tab_cards_components ALTER COLUMN id SET DEFAULT nextval('public.components_sura_tab_cards_components_id_seq'::regclass);
+ALTER TABLE ONLY public.components_portal_list_recents ALTER COLUMN id SET DEFAULT nextval('public.components_portal_list_recents_id_seq'::regclass);
+
+
+--
+-- Name: components_portal_list_recents_components id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_list_recents_components ALTER COLUMN id SET DEFAULT nextval('public.components_portal_list_recents_components_id_seq'::regclass);
+
+
+--
+-- Name: components_portal_questions id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_questions ALTER COLUMN id SET DEFAULT nextval('public.components_portal_questions_id_seq'::regclass);
+
+
+--
+-- Name: components_portal_section_cards id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_section_cards ALTER COLUMN id SET DEFAULT nextval('public.components_portal_section_cards_id_seq'::regclass);
+
+
+--
+-- Name: components_portal_tab_cards id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_tab_cards ALTER COLUMN id SET DEFAULT nextval('public.components_portal_tab_cards_id_seq'::regclass);
+
+
+--
+-- Name: components_portal_tab_cards_components id; Type: DEFAULT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_tab_cards_components ALTER COLUMN id SET DEFAULT nextval('public.components_portal_tab_cards_components_id_seq'::regclass);
 
 
 --
@@ -11497,19 +11497,19 @@ COPY public.components_slices_testimonials_groups_components (id, field, "order"
 
 
 --
--- Data for Name: components_sura_carousels; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_carousels; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_carousels (id, slider) FROM stdin;
+COPY public.components_portal_carousels (id, slider) FROM stdin;
 1	\N
 \.
 
 
 --
--- Data for Name: components_sura_carousels_components; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_carousels_components; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_carousels_components (id, field, "order", component_type, component_id, components_sura_carousel_id) FROM stdin;
+COPY public.components_portal_carousels_components (id, field, "order", component_type, component_id, components_portal_carousel_id) FROM stdin;
 1	sliderCarousel	1	components_elements_sliders	1	1
 2	sliderCarousel	2	components_elements_sliders	2	1
 3	sliderCarousel	3	components_elements_sliders	3	1
@@ -11517,74 +11517,74 @@ COPY public.components_sura_carousels_components (id, field, "order", component_
 
 
 --
--- Data for Name: components_sura_chips; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_chips; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_chips (id, color, name) FROM stdin;
+COPY public.components_portal_chips (id, color, name) FROM stdin;
 \.
 
 
 --
--- Data for Name: components_sura_items; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_items; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_items (id, title, description, icon) FROM stdin;
+COPY public.components_portal_items (id, title, description, icon) FROM stdin;
 \.
 
 
 --
--- Data for Name: components_sura_list_filters; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_list_filters; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_list_filters (id, "Title") FROM stdin;
+COPY public.components_portal_list_filters (id, "Title") FROM stdin;
 \.
 
 
 --
--- Data for Name: components_sura_list_filters_components; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_list_filters_components; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_list_filters_components (id, field, "order", component_type, component_id, components_sura_list_filter_id) FROM stdin;
+COPY public.components_portal_list_filters_components (id, field, "order", component_type, component_id, components_portal_list_filter_id) FROM stdin;
 \.
 
 
 --
--- Data for Name: components_sura_list_recents; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_list_recents; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_list_recents (id, title) FROM stdin;
+COPY public.components_portal_list_recents (id, title) FROM stdin;
 \.
 
 
 --
--- Data for Name: components_sura_list_recents_components; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_list_recents_components; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_list_recents_components (id, field, "order", component_type, component_id, components_sura_list_recent_id) FROM stdin;
+COPY public.components_portal_list_recents_components (id, field, "order", component_type, component_id, components_portal_list_recent_id) FROM stdin;
 \.
 
 
 --
--- Data for Name: components_sura_questions; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_questions; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_questions (id, question, description, seccion, description_two) FROM stdin;
+COPY public.components_portal_questions (id, question, description, seccion, description_two) FROM stdin;
 \.
 
 
 --
--- Data for Name: components_sura_section_cards; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_section_cards; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_section_cards (id, title, description) FROM stdin;
+COPY public.components_portal_section_cards (id, title, description) FROM stdin;
 \.
 
 
 --
--- Data for Name: components_sura_tab_cards; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_tab_cards; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_tab_cards (id, name, tab) FROM stdin;
+COPY public.components_portal_tab_cards (id, name, tab) FROM stdin;
 9	Categoría 3	\N
 3	Categoría 1	\N
 4	Categoría 2	\N
@@ -11592,10 +11592,10 @@ COPY public.components_sura_tab_cards (id, name, tab) FROM stdin;
 
 
 --
--- Data for Name: components_sura_tab_cards_components; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
+-- Data for Name: components_portal_tab_cards_components; Type: TABLE DATA; Schema: public; Owner: user_developer_portal
 --
 
-COPY public.components_sura_tab_cards_components (id, field, "order", component_type, component_id, components_sura_tab_card_id) FROM stdin;
+COPY public.components_portal_tab_cards_components (id, field, "order", component_type, component_id, components_portal_tab_card_id) FROM stdin;
 11	cards	1	components_cards_cards	11	9
 4	cards	1	components_cards_cards	4	3
 5	cards	1	components_cards_cards	5	4
@@ -11730,14 +11730,14 @@ COPY public.core_store (id, key, value, type, environment, tag) FROM stdin;
 5	model_def_cards.card	{"uid":"cards.card","collectionName":"components_cards_cards","info":{"name":"card","icon":"sim-card","description":""},"options":{"timestamps":false},"attributes":{"title":{"type":"string"},"description":{"type":"text"},"icon":{"type":"string"},"titleFooter":{"type":"string"},"descriptionFooter":{"type":"string"},"image":{"collection":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}},"LinkName":{"type":"string"},"LinkUrl":{"type":"string"},"version":{"type":"string"},"steps":{"type":"json"},"descriptionHeader":{"type":"string"},"timeRead":{"type":"string"}}}	object	\N	\N
 6	model_def_cards.product-link-card	{"uid":"cards.product-link-card","collectionName":"components_cards_product_link_cards","info":{"name":"ProductLinkCard","icon":"id-card-alt"},"options":{"timestamps":false},"attributes":{"link":{"type":"component","repeatable":false,"component":"links.basic-link"},"title":{"type":"string"},"subtitle":{"type":"text"},"icon":{"model":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}}}}	object	\N	\N
 7	model_def_cards.use-case-card	{"uid":"cards.use-case-card","collectionName":"components_cards_use_case_cards","info":{"name":"useCaseCard","icon":"arrow-alt-circle-up","description":""},"options":{"timestamps":false},"attributes":{"estatus":{"type":"enumeration","enum":["available","deprecated","comming_soon"]},"title":{"type":"string"},"description":{"type":"text"},"picture":{"model":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}},"linkUrl":{"type":"string"},"linkText":{"type":"string"},"badge":{"type":"text"},"statusText":{"type":"string"}}}	object	\N	\N
-8	model_def_custom.carousel	{"uid":"custom.carousel","collectionName":"components_sura_carousels","info":{"name":"carousel","icon":"caret-right"},"options":{"timestamps":false},"attributes":{"slider":{"type":"string"},"sliderCarousel":{"type":"component","repeatable":true,"component":"elements.slider"}}}	object	\N	\N
-9	model_def_custom.chips	{"uid":"custom.chips","collectionName":"components_sura_chips","info":{"name":"chips","icon":"child"},"options":{"timestamps":false},"attributes":{"color":{"type":"string"},"name":{"type":"string"}}}	object	\N	\N
-10	model_def_custom.items	{"uid":"custom.items","collectionName":"components_sura_items","info":{"name":"items","icon":"th-list","description":""},"options":{"timestamps":false},"attributes":{"title":{"type":"string"},"description":{"type":"text"},"image":{"collection":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}},"icon":{"type":"string"}}}	object	\N	\N
-11	model_def_custom.list-filter	{"uid":"custom.list-filter","collectionName":"components_sura_list_filters","info":{"name":"ListFilter","icon":"list"},"options":{"timestamps":false},"attributes":{"Title":{"type":"string"},"items":{"type":"component","repeatable":true,"component":"elements.titles"}}}	object	\N	\N
-12	model_def_custom.list-recent	{"uid":"custom.list-recent","collectionName":"components_sura_list_recents","info":{"name":"ListRecent","icon":"list-ol","description":""},"options":{"timestamps":false},"attributes":{"title":{"type":"string"},"items":{"type":"component","repeatable":true,"component":"custom.items"}}}	object	\N	\N
-13	model_def_custom.questions	{"uid":"custom.questions","collectionName":"components_sura_questions","info":{"name":"questions","icon":"question","description":""},"options":{"timestamps":false},"attributes":{"question":{"type":"string"},"description":{"type":"string"},"img":{"collection":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}},"seccion":{"type":"enumeration","enum":["Reverse","Normal","NoImage"]},"description_two":{"type":"richtext"}}}	object	\N	\N
-14	model_def_custom.section-card	{"uid":"custom.section-card","collectionName":"components_sura_section_cards","info":{"name":"sectionCard","icon":"vr-cardboard"},"options":{"timestamps":false},"attributes":{"title":{"type":"string"},"description":{"type":"text"}}}	object	\N	\N
-15	model_def_custom.tab-card	{"uid":"custom.tab-card","collectionName":"components_sura_tab_cards","info":{"name":"tabCard","icon":"sd-card","description":""},"options":{"timestamps":false},"attributes":{"name":{"type":"string"},"img":{"collection":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}},"cards":{"type":"component","repeatable":true,"component":"cards.card"},"tab":{"type":"enumeration","enum":["zero","one","two","three","four","five"]}}}	object	\N	\N
+8	model_def_custom.carousel	{"uid":"custom.carousel","collectionName":"components_portal_carousels","info":{"name":"carousel","icon":"caret-right"},"options":{"timestamps":false},"attributes":{"slider":{"type":"string"},"sliderCarousel":{"type":"component","repeatable":true,"component":"elements.slider"}}}	object	\N	\N
+9	model_def_custom.chips	{"uid":"custom.chips","collectionName":"components_portal_chips","info":{"name":"chips","icon":"child"},"options":{"timestamps":false},"attributes":{"color":{"type":"string"},"name":{"type":"string"}}}	object	\N	\N
+10	model_def_custom.items	{"uid":"custom.items","collectionName":"components_portal_items","info":{"name":"items","icon":"th-list","description":""},"options":{"timestamps":false},"attributes":{"title":{"type":"string"},"description":{"type":"text"},"image":{"collection":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}},"icon":{"type":"string"}}}	object	\N	\N
+11	model_def_custom.list-filter	{"uid":"custom.list-filter","collectionName":"components_portal_list_filters","info":{"name":"ListFilter","icon":"list"},"options":{"timestamps":false},"attributes":{"Title":{"type":"string"},"items":{"type":"component","repeatable":true,"component":"elements.titles"}}}	object	\N	\N
+12	model_def_custom.list-recent	{"uid":"custom.list-recent","collectionName":"components_portal_list_recents","info":{"name":"ListRecent","icon":"list-ol","description":""},"options":{"timestamps":false},"attributes":{"title":{"type":"string"},"items":{"type":"component","repeatable":true,"component":"custom.items"}}}	object	\N	\N
+13	model_def_custom.questions	{"uid":"custom.questions","collectionName":"components_portal_questions","info":{"name":"questions","icon":"question","description":""},"options":{"timestamps":false},"attributes":{"question":{"type":"string"},"description":{"type":"string"},"img":{"collection":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}},"seccion":{"type":"enumeration","enum":["Reverse","Normal","NoImage"]},"description_two":{"type":"richtext"}}}	object	\N	\N
+14	model_def_custom.section-card	{"uid":"custom.section-card","collectionName":"components_portal_section_cards","info":{"name":"sectionCard","icon":"vr-cardboard"},"options":{"timestamps":false},"attributes":{"title":{"type":"string"},"description":{"type":"text"}}}	object	\N	\N
+15	model_def_custom.tab-card	{"uid":"custom.tab-card","collectionName":"components_portal_tab_cards","info":{"name":"tabCard","icon":"sd-card","description":""},"options":{"timestamps":false},"attributes":{"name":{"type":"string"},"img":{"collection":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}},"cards":{"type":"component","repeatable":true,"component":"cards.card"},"tab":{"type":"enumeration","enum":["zero","one","two","three","four","five"]}}}	object	\N	\N
 16	model_def_elements.badget	{"uid":"elements.badget","collectionName":"components_elements_badgets","info":{"name":"Badge","icon":"ad","description":""},"options":{"timestamps":false},"attributes":{"title":{"type":"string"}}}	object	\N	\N
 17	model_def_elements.basic-card	{"uid":"elements.basic-card","collectionName":"components_elements_basic_cards","info":{"name":"basicCard","icon":"baseball-ball"},"options":{"timestamps":false},"attributes":{"title":{"type":"string"},"subtitle":{"type":"string"},"description":{"type":"text"},"icon":{"collection":"file","via":"related","allowedTypes":["images","files","videos"],"plugin":"upload","required":false,"pluginOptions":{}},"link":{"type":"component","repeatable":false,"component":"links.basic-link"}}}	object	\N	\N
 18	model_def_elements.big-feature	{"uid":"elements.big-feature","collectionName":"components_elements_big_features","info":{"name":"bigFeature","icon":"battery-quarter","description":""},"options":{"timestamps":false},"attributes":{"title":{"type":"string"},"description":{"type":"text"},"position":{"type":"string"}}}	object	\N	\N
@@ -12091,9 +12091,9 @@ COPY public.pages_components (id, field, "order", component_type, component_id, 
 5	contentSections	1	components_sections_rich_texts	2	3
 6	contentSections	1	components_sections_rich_texts	1	4
 7	contentSections	2	components_slices_bottom_actions	1	4
-32	contentSections	4	components_sura_tab_cards	9	7
-26	contentSections	2	components_sura_tab_cards	3	7
-31	contentSections	3	components_sura_tab_cards	4	7
+32	contentSections	4	components_portal_tab_cards	9	7
+26	contentSections	2	components_portal_tab_cards	3	7
+31	contentSections	3	components_portal_tab_cards	4	7
 13	contentSections	5	components_home_discover_sections	2	5
 22	metadata	1	components_meta_metadata	6	6
 23	contentSections	1	components_home_banner_sections	2	6
@@ -12103,7 +12103,7 @@ COPY public.pages_components (id, field, "order", component_type, component_id, 
 20	contentSections	7	components_home_banner_sections	1	5
 10	contentSections	2	components_home_work_sections	1	5
 19	contentSections	6	components_sections_section_use_cases	2	5
-9	contentSections	1	components_sura_carousels	1	5
+9	contentSections	1	components_portal_carousels	1	5
 12	contentSections	4	components_home_discover_sections	1	5
 \.
 
@@ -13830,87 +13830,87 @@ SELECT pg_catalog.setval('public.components_slices_testimonials_id_seq', 1, fals
 
 
 --
--- Name: components_sura_carousels_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
 --
 
-SELECT pg_catalog.setval('public.components_sura_carousels_components_id_seq', 3, true);
-
-
---
--- Name: components_sura_carousels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
---
-
-SELECT pg_catalog.setval('public.components_sura_carousels_id_seq', 1, true);
+SELECT pg_catalog.setval('public.components_portal_carousels_components_id_seq', 3, true);
 
 
 --
--- Name: components_sura_chips_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
 --
 
-SELECT pg_catalog.setval('public.components_sura_chips_id_seq', 1, false);
-
-
---
--- Name: components_sura_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
---
-
-SELECT pg_catalog.setval('public.components_sura_items_id_seq', 1, false);
+SELECT pg_catalog.setval('public.components_portal_carousels_id_seq', 1, true);
 
 
 --
--- Name: components_sura_list_filters_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_chips_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
 --
 
-SELECT pg_catalog.setval('public.components_sura_list_filters_components_id_seq', 1, false);
-
-
---
--- Name: components_sura_list_filters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
---
-
-SELECT pg_catalog.setval('public.components_sura_list_filters_id_seq', 1, false);
+SELECT pg_catalog.setval('public.components_portal_chips_id_seq', 1, false);
 
 
 --
--- Name: components_sura_list_recents_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
 --
 
-SELECT pg_catalog.setval('public.components_sura_list_recents_components_id_seq', 1, false);
-
-
---
--- Name: components_sura_list_recents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
---
-
-SELECT pg_catalog.setval('public.components_sura_list_recents_id_seq', 1, false);
+SELECT pg_catalog.setval('public.components_portal_items_id_seq', 1, false);
 
 
 --
--- Name: components_sura_questions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
 --
 
-SELECT pg_catalog.setval('public.components_sura_questions_id_seq', 1, false);
-
-
---
--- Name: components_sura_section_cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
---
-
-SELECT pg_catalog.setval('public.components_sura_section_cards_id_seq', 1, false);
+SELECT pg_catalog.setval('public.components_portal_list_filters_components_id_seq', 1, false);
 
 
 --
--- Name: components_sura_tab_cards_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
 --
 
-SELECT pg_catalog.setval('public.components_sura_tab_cards_components_id_seq', 11, true);
+SELECT pg_catalog.setval('public.components_portal_list_filters_id_seq', 1, false);
 
 
 --
--- Name: components_sura_tab_cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
 --
 
-SELECT pg_catalog.setval('public.components_sura_tab_cards_id_seq', 9, true);
+SELECT pg_catalog.setval('public.components_portal_list_recents_components_id_seq', 1, false);
+
+
+--
+-- Name: components_portal_list_recents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+--
+
+SELECT pg_catalog.setval('public.components_portal_list_recents_id_seq', 1, false);
+
+
+--
+-- Name: components_portal_questions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+--
+
+SELECT pg_catalog.setval('public.components_portal_questions_id_seq', 1, false);
+
+
+--
+-- Name: components_portal_section_cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+--
+
+SELECT pg_catalog.setval('public.components_portal_section_cards_id_seq', 1, false);
+
+
+--
+-- Name: components_portal_tab_cards_components_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+--
+
+SELECT pg_catalog.setval('public.components_portal_tab_cards_components_id_seq', 11, true);
+
+
+--
+-- Name: components_portal_tab_cards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: user_developer_portal
+--
+
+SELECT pg_catalog.setval('public.components_portal_tab_cards_id_seq', 9, true);
 
 
 --
@@ -15801,99 +15801,99 @@ ALTER TABLE ONLY public.components_slices_testimonials
 
 
 --
--- Name: components_sura_carousels_components components_sura_carousels_components_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_components components_portal_carousels_components_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_carousels_components
-    ADD CONSTRAINT components_sura_carousels_components_pkey PRIMARY KEY (id);
-
-
---
--- Name: components_sura_carousels components_sura_carousels_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_carousels
-    ADD CONSTRAINT components_sura_carousels_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.components_portal_carousels_components
+    ADD CONSTRAINT components_portal_carousels_components_pkey PRIMARY KEY (id);
 
 
 --
--- Name: components_sura_chips components_sura_chips_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels components_portal_carousels_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_chips
-    ADD CONSTRAINT components_sura_chips_pkey PRIMARY KEY (id);
-
-
---
--- Name: components_sura_items components_sura_items_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_items
-    ADD CONSTRAINT components_sura_items_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.components_portal_carousels
+    ADD CONSTRAINT components_portal_carousels_pkey PRIMARY KEY (id);
 
 
 --
--- Name: components_sura_list_filters_components components_sura_list_filters_components_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_chips components_portal_chips_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_list_filters_components
-    ADD CONSTRAINT components_sura_list_filters_components_pkey PRIMARY KEY (id);
-
-
---
--- Name: components_sura_list_filters components_sura_list_filters_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_list_filters
-    ADD CONSTRAINT components_sura_list_filters_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.components_portal_chips
+    ADD CONSTRAINT components_portal_chips_pkey PRIMARY KEY (id);
 
 
 --
--- Name: components_sura_list_recents_components components_sura_list_recents_components_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_items components_portal_items_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_list_recents_components
-    ADD CONSTRAINT components_sura_list_recents_components_pkey PRIMARY KEY (id);
-
-
---
--- Name: components_sura_list_recents components_sura_list_recents_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_list_recents
-    ADD CONSTRAINT components_sura_list_recents_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.components_portal_items
+    ADD CONSTRAINT components_portal_items_pkey PRIMARY KEY (id);
 
 
 --
--- Name: components_sura_questions components_sura_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_components components_portal_list_filters_components_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_questions
-    ADD CONSTRAINT components_sura_questions_pkey PRIMARY KEY (id);
-
-
---
--- Name: components_sura_section_cards components_sura_section_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_section_cards
-    ADD CONSTRAINT components_sura_section_cards_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.components_portal_list_filters_components
+    ADD CONSTRAINT components_portal_list_filters_components_pkey PRIMARY KEY (id);
 
 
 --
--- Name: components_sura_tab_cards_components components_sura_tab_cards_components_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters components_portal_list_filters_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_tab_cards_components
-    ADD CONSTRAINT components_sura_tab_cards_components_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.components_portal_list_filters
+    ADD CONSTRAINT components_portal_list_filters_pkey PRIMARY KEY (id);
 
 
 --
--- Name: components_sura_tab_cards components_sura_tab_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents_components components_portal_list_recents_components_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_tab_cards
-    ADD CONSTRAINT components_sura_tab_cards_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.components_portal_list_recents_components
+    ADD CONSTRAINT components_portal_list_recents_components_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: components_portal_list_recents components_portal_list_recents_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_list_recents
+    ADD CONSTRAINT components_portal_list_recents_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: components_portal_questions components_portal_questions_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_questions
+    ADD CONSTRAINT components_portal_questions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: components_portal_section_cards components_portal_section_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_section_cards
+    ADD CONSTRAINT components_portal_section_cards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: components_portal_tab_cards_components components_portal_tab_cards_components_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_tab_cards_components
+    ADD CONSTRAINT components_portal_tab_cards_components_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: components_portal_tab_cards components_portal_tab_cards_pkey; Type: CONSTRAINT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_tab_cards
+    ADD CONSTRAINT components_portal_tab_cards_pkey PRIMARY KEY (id);
 
 
 --
@@ -16801,35 +16801,35 @@ ALTER TABLE ONLY public.components_slices_testimonials_groups_components
 
 
 --
--- Name: components_sura_carousels_components components_sura_carousel_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_carousels_components components_portal_carousel_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_carousels_components
-    ADD CONSTRAINT components_sura_carousel_id_fk FOREIGN KEY (components_sura_carousel_id) REFERENCES public.components_sura_carousels(id) ON DELETE CASCADE;
-
-
---
--- Name: components_sura_list_filters_components components_sura_list_filter_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: user_developer_portal
---
-
-ALTER TABLE ONLY public.components_sura_list_filters_components
-    ADD CONSTRAINT components_sura_list_filter_id_fk FOREIGN KEY (components_sura_list_filter_id) REFERENCES public.components_sura_list_filters(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.components_portal_carousels_components
+    ADD CONSTRAINT components_portal_carousel_id_fk FOREIGN KEY (components_portal_carousel_id) REFERENCES public.components_portal_carousels(id) ON DELETE CASCADE;
 
 
 --
--- Name: components_sura_list_recents_components components_sura_list_recent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_filters_components components_portal_list_filter_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_list_recents_components
-    ADD CONSTRAINT components_sura_list_recent_id_fk FOREIGN KEY (components_sura_list_recent_id) REFERENCES public.components_sura_list_recents(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.components_portal_list_filters_components
+    ADD CONSTRAINT components_portal_list_filter_id_fk FOREIGN KEY (components_portal_list_filter_id) REFERENCES public.components_portal_list_filters(id) ON DELETE CASCADE;
 
 
 --
--- Name: components_sura_tab_cards_components components_sura_tab_card_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: user_developer_portal
+-- Name: components_portal_list_recents_components components_portal_list_recent_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: user_developer_portal
 --
 
-ALTER TABLE ONLY public.components_sura_tab_cards_components
-    ADD CONSTRAINT components_sura_tab_card_id_fk FOREIGN KEY (components_sura_tab_card_id) REFERENCES public.components_sura_tab_cards(id) ON DELETE CASCADE;
+ALTER TABLE ONLY public.components_portal_list_recents_components
+    ADD CONSTRAINT components_portal_list_recent_id_fk FOREIGN KEY (components_portal_list_recent_id) REFERENCES public.components_portal_list_recents(id) ON DELETE CASCADE;
+
+
+--
+-- Name: components_portal_tab_cards_components components_portal_tab_card_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: user_developer_portal
+--
+
+ALTER TABLE ONLY public.components_portal_tab_cards_components
+    ADD CONSTRAINT components_portal_tab_card_id_fk FOREIGN KEY (components_portal_tab_card_id) REFERENCES public.components_portal_tab_cards(id) ON DELETE CASCADE;
 
 
 --
