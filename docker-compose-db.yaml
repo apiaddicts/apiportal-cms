@@ -1,0 +1,41 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql_container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DATABASE_CLIENT}"
+      MYSQL_DATABASE: "${DATABASE_NAME}"
+      MYSQL_USER: "${DATABASE_USERNAME}"
+      MYSQL_PASSWORD: "${DATABASE_PASSWORD}"
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+  strapi:
+    container_name: devportal_strapi_latest
+    depends_on:
+      - mysql
+    build: .
+    environment:
+      DATABASE_CLIENT: "${DATABASE_CLIENT}"
+      DATABASE_HOST: "${DATABASE_HOST}"
+      DATABASE_PORT: "${DATABASE_PORT}"
+      DATABASE_NAME: "${DATABASE_NAME}"
+      DATABASE_USERNAME: "${DATABASE_USERNAME}"
+      DATABASE_PASSWORD: "${DATABASE_PASSWORD}"
+      # AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      # AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+      # AWS_REGION: "${AWS_REGION}"
+      # AWS_BUCKET: "${AWS_BUCKET}"
+      # AWS_BUCKET_SUBDIRECTORY: "${AWS_BUCKET_SUBDIRECTORY}"
+      # AWS_CDN_DOMAIN: "${AWS_CDN_DOMAIN}"
+    volumes:
+      - /usr/src/app/node_modules
+    ports:
+      - ${PORT}:1337
+    restart: always
+
+volumes:
+  mysql_data:
