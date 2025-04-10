@@ -1,2 +1,2 @@
 const { createCoreController } = require('@strapi/strapi').factories;
-module.exports = createCoreController('api::blog-item.blog_items')
+module.exports = createCoreController('api::blog-item.blog-item')

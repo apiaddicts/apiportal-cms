@@ -1,2 +1,2 @@
 const { createCoreService } = require('@strapi/strapi').factories;
-module.exports = createCoreService('api::blog-item.blog_items')
+module.exports = createCoreService('api::blog-item.blog-item')

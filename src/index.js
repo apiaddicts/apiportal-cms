@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const { pages, global, leadFormSubmissions } = require("../../data/data.json");
+const { pages, global, leadFormSubmissions } = require("./data/data.json");
 
 async function isFirstRun() {
   const pluginStore = strapi.store({
