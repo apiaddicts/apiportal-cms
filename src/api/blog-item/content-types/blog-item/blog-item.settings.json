@@ -2,8 +2,10 @@
   "kind": "collectionType",
   "collectionName": "blog_items",
   "info": {
-    "name": "BlogItem",
-    "description": ""
+    "singularName": "blog-item",
+    "pluralName": "blog-items",
+    "displayName": "BlogItem",
+    "name": "BlogItem"
   },
   "options": {
     "increments": true,

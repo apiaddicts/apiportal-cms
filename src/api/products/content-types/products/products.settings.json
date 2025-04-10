@@ -2,6 +2,9 @@
   "kind": "collectionType",
   "collectionName": "products",
   "info": {
+    "singleName": "product",
+    "pluralName": "products",
+    "displayName": "Products",
     "name": "Products",
     "description": ""
   },

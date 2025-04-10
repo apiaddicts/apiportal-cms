@@ -2,6 +2,9 @@
   "kind": "collectionType",
   "collectionName": "library_apis",
   "info": {
+    "singularName": "library-api",
+    "pluralName": "library-apis",
+    "displayName": "LibraryApi",
     "name": "LibraryApi",
     "description": ""
   },
