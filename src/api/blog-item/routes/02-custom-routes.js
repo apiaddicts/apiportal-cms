@@ -10,14 +10,6 @@ module.exports = {
     },
     {
       method: "GET",
-      path: "/blog-items/count",
-      handler: "blog-item.count",
-      config: {
-        policies: []
-      }
-    },
-    {
-      method: "GET",
       path: "/blog-items/:id",
       handler: "blog-item.findOne",
       config: {

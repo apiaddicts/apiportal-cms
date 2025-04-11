@@ -10,14 +10,6 @@ module.exports = {
     },
     {
       method: "GET",
-      path: "/pages/count",
-      handler: "page.count",
-      config: {
-        policies: []
-      }
-    },
-    {
-      method: "GET",
       path: "/pages/:id",
       handler: "page.findOne",
       config: {

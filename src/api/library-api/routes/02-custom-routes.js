@@ -10,14 +10,6 @@ module.exports = {
     },
     {
       method: "GET",
-      path: "/library-apis/count",
-      handler: "library-api.count",
-      config: {
-        policies: []
-      }
-    },
-    {
-      method: "GET",
       path: "/library-apis/:id",
       handler: "library-api.findOne",
       config: {
