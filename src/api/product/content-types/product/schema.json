@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "products",
+  "collectionName": "product",
   "info": {
     "singularName": "product",
     "pluralName": "products",
@@ -13,7 +13,6 @@
     "timestamps": true,
     "draftAndPublish": true
   },
-  "pluginOptions": {},
   "attributes": {
     "price": {
       "type": "integer"
@@ -61,9 +60,10 @@
       ]
     },
     "library_apis": {
-      "via": "products",
-      "collection": "library-api",
-      "dominant": true
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::library-api.library-api",
+      "inversedBy": "products"
     },
     "formSetting": {
       "type": "json"

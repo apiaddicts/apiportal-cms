@@ -12,7 +12,6 @@
     "timestamps": true,
     "draftAndPublish": true
   },
-  "pluginOptions": {},
   "attributes": {
     "title": {
       "type": "string"
@@ -21,16 +20,10 @@
       "type": "uid"
     },
     "image": {
-      "collection": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
+      "type": "media",
+      "allowedTypes": ["images", "files", "videos"],
+      "multiple": true,
+      "required": false
     },
     "timeRead": {
       "type": "string"
@@ -49,16 +42,10 @@
       "type": "string"
     },
     "photoUser": {
-      "collection": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
+      "type": "media",
+      "allowedTypes": ["images", "files", "videos"],
+      "multiple": true,
+      "required": false
     },
     "jobUser": {
       "type": "string"

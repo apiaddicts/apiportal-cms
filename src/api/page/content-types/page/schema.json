@@ -13,11 +13,6 @@
     "timestamps": true,
     "draftAndPublish": false
   },
-  "pluginOptions": {
-    "i18n": {
-      "localized": true
-    }
-  },
   "attributes": {
     "slug": {
       "type": "uid",
@@ -26,23 +21,13 @@
     },
     "shortName": {
       "type": "string",
-      "required": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
+      "required": true
     },
     "metadata": {
       "type": "component",
       "repeatable": false,
       "component": "meta.metadata",
-      "required": true,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
+      "required": true
     },
     "contentSections": {
       "type": "dynamiczone",
@@ -68,12 +53,7 @@
         "custom.list-filter",
         "custom.tab-card",
         "custom.list-recent"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
+      ]
     }
   }
 }

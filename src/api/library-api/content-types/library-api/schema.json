@@ -13,7 +13,6 @@
     "timestamps": true,
     "draftAndPublish": true
   },
-  "pluginOptions": {},
   "attributes": {
     "title": {
       "type": "string"
@@ -31,16 +30,10 @@
       "type": "string"
     },
     "image": {
-      "collection": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
+      "type": "media",
+      "allowedTypes": ["images", "files", "videos"],
+      "multiple": true,
+      "required": false
     },
     "version": {
       "type": "string"
@@ -67,8 +60,10 @@
       "type": "richtext"
     },
     "products": {
-      "via": "library_apis",
-      "collection": "products"
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "mappedBy": "library_apis"
     },
     "status": {
       "type": "enumeration",

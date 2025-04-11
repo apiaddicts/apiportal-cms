@@ -1,3 +1,3 @@
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::products.product');
+module.exports = createCoreRouter('api::product.product');
