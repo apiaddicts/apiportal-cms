@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_portal_questions",
   "info": {
     "name": "questions",
@@ -14,16 +15,14 @@
       "type": "string"
     },
     "img": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "seccion": {
       "type": "enumeration",

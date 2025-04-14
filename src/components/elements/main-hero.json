@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_elements_main_heroes",
   "info": {
     "name": "mainHero",

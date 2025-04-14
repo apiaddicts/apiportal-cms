@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_elements_social_networks",
   "info": {
     "name": "socialNetwork",
@@ -20,16 +21,14 @@
       ]
     },
     "icon": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     }
   }
 }

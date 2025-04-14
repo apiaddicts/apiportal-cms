@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_cards_product_link_cards",
   "info": {
     "name": "ProductLinkCard",
@@ -18,16 +19,14 @@
       "type": "text"
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     }
   }
 }

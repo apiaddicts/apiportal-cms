@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_elements_form_checkboxes",
   "info": {
     "name": "formCheckbox",

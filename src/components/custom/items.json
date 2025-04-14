@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_portal_items",
   "info": {
     "name": "items",
@@ -14,16 +15,14 @@
       "type": "text"
     },
     "image": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "icon": {
       "type": "string"

@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_apis_paginations",
   "info": {
     "name": "Pagination",

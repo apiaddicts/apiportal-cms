@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_elements_cards",
   "info": {
     "name": "Card",
@@ -13,16 +14,14 @@
       "type": "string"
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     }
   }
 }

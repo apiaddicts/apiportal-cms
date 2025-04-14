@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_elements_sliders",
   "info": {
     "name": "slider",
@@ -10,16 +11,14 @@
       "type": "string"
     },
     "imgSrc": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "actionButtons": {
       "type": "json"

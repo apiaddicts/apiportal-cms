@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_cards_cards",
   "info": {
     "name": "card",
@@ -23,16 +24,14 @@
       "type": "string"
     },
     "image": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "LinkName": {
       "type": "string"

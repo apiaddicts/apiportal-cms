@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_elements_basic_cards",
   "info": {
     "name": "basicCard",
@@ -16,16 +17,14 @@
       "type": "text"
     },
     "icon": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "link": {
       "type": "component",

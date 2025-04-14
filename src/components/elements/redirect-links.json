@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_elements_redirect_links",
   "info": {
     "name": "redirectLinks",
