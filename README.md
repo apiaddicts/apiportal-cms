@@ -4,7 +4,7 @@ DevPortal is an open-source developer portal designed to manage multiple APIs ef
 
 ## 📦 Requirements
 
-- **Node.js v14.20.1** ⚙️
+- **Node.js v18.20.8** ⚙️
 
 ## 🔧 Environment Variables
 
