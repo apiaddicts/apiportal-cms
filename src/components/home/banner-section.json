@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_home_banner_sections",
   "info": {
     "name": "BannerSection",
@@ -14,16 +15,14 @@
       "type": "text"
     },
     "background": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "search": {
       "type": "string"

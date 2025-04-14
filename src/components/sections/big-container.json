@@ -1,4 +1,5 @@
 {
+  "type": "container",
   "collectionName": "components_sections_big_containers",
   "info": {
     "name": "bigContainer",
@@ -15,16 +16,14 @@
       "component": "elements.main-hero"
     },
     "icon": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     }
   }
 }

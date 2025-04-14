@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_questions_list_sections",
   "info": {
     "name": "QuestionsListSection",

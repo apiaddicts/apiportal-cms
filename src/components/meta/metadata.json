@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_meta_metadata",
   "info": {
     "name": "Metadata",

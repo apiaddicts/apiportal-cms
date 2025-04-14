@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_how_works",
   "info": {
     "name": "howWorks",
@@ -15,25 +16,22 @@
       "component": "elements.main-hero"
     },
     "background": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images"
       ],
-      "plugin": "upload",
-      "required": false
+      "required": false,
+      "multiple": false
     },
     "subtext": {
       "type": "string"

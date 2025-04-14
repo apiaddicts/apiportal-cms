@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_links_icon_links",
   "info": {
     "name": "iconLink",
@@ -12,16 +13,14 @@
       "component": "links.link"
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     }
   }
 }

@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_rich_texts",
   "info": {
     "name": "RichText",

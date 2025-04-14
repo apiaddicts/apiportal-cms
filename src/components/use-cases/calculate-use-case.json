@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_use_cases_calculate_use_cases",
   "info": {
     "name": "CalculateUseCase",
@@ -16,16 +17,14 @@
       "component": "links.basic-link"
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "smallText": {
       "type": "string"

@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_home_discover_sections",
   "info": {
     "name": "DiscoverSection",
@@ -24,16 +25,14 @@
       "component": "home.status-api"
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "smallText": {
       "type": "string"

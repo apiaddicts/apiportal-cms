@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_links_big_links",
   "info": {
     "name": "bigLink",
@@ -13,16 +14,14 @@
       "component": "links.link"
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "altText": {
       "type": "string"

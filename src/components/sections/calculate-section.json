@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_calculate_sections",
   "info": {
     "name": "CalculateSection",
@@ -14,16 +15,14 @@
       "type": "string"
     },
     "image": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "button": {
       "type": "component",

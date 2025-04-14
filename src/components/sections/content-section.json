@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_content_sections",
   "info": {
     "name": "contentSection",

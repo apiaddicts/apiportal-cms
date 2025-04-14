@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_slices_feature_columns_groups",
   "info": {
     "name": "FeatureColumnsGroup",
@@ -22,15 +23,14 @@
       "type": "richtext"
     },
     "icon": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
-      "required": false
+      "required": false,
+      "multiple": false
     },
     "keyword": {
       "type": "string"

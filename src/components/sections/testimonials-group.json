@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_slices_testimonials_groups",
   "info": {
     "name": "TestimonialsGroup",
@@ -35,15 +36,14 @@
       "component": "elements.main-hero"
     },
     "icon": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
-      "required": false
+      "required": false,
+      "multiple": false
     }
   }
 }

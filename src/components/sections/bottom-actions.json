@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_slices_bottom_actions",
   "info": {
     "name": "BottomActions",

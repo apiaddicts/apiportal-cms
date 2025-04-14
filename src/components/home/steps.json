@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_home_steps",
   "info": {
     "name": "Steps",

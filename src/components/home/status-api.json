@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_home_status_apis",
   "info": {
     "name": "StatusApi",

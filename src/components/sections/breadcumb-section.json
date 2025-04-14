@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_breadcumb_sections",
   "info": {
     "name": "BreadcumbSection",

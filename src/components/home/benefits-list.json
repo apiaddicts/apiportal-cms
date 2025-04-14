@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_home_benefits_lists",
   "info": {
     "name": "benefitsList",
@@ -13,16 +14,14 @@
       "type": "text"
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     }
   }
 }

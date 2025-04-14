@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_entries_lists",
   "info": {
     "name": "EntriesList",
@@ -17,15 +18,14 @@
       "type": "string"
     },
     "icon": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
-      "required": false
+      "required": false,
+      "multiple": false
     },
     "Entries": {
       "type": "component",

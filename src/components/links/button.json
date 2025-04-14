@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_links_simple_buttons",
   "info": {
     "name": "Button",

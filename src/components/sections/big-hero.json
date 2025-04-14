@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_big_heroes",
   "info": {
     "name": "bigHero",
@@ -18,16 +19,14 @@
       "type": "text"
     },
     "icon": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "button": {
       "type": "component",

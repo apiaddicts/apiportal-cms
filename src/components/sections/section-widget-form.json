@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_section_widget_forms",
   "info": {
     "name": "sectionWidgetForm",
@@ -10,16 +11,14 @@
       "type": "text"
     },
     "picture": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "form": {
       "type": "component",

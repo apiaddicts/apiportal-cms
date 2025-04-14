@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_time_sections",
   "info": {
     "name": "TimeSection",
@@ -19,16 +20,14 @@
       "component": "links.basic-link"
     },
     "images": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     }
   }
 }

@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_main_containers",
   "info": {
     "name": "MainContainer",

@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_searches",
   "info": {
     "name": "Search",
@@ -18,6 +19,6 @@
       "type": "component",
       "repeatable": false,
       "component": "elements.search-output"
-    }  
+    }
   }
 }

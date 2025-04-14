@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_home_widget_sections",
   "info": {
     "name": "WidgetSection",
@@ -16,28 +17,24 @@
       "component": "links.basic-link"
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "image": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "subtitle": {
       "type": "richtext"

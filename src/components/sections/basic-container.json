@@ -1,4 +1,5 @@
 {
+  "type": "container",
   "collectionName": "components_sections_basic_containers",
   "info": {
     "name": "basicContainer",
@@ -11,6 +12,6 @@
     },
     "title": {
       "type": "string"
-    }   
+    }
   }
 }

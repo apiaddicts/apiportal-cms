@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_use_cases_banners",
   "info": {
     "name": "banner",
@@ -12,16 +13,14 @@
       "unique": true
     },
     "image": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "title": {
       "type": "string"

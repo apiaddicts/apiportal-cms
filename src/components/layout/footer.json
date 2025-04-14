@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_layout_footers",
   "info": {
     "name": "Footer",
@@ -26,6 +27,6 @@
       "type": "component",
       "repeatable": true,
       "component": "elements.social-network"
-    }        
+    }
   }
 }

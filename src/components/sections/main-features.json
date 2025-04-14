@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_main_features",
   "info": {
     "name": "mainFeatures",
@@ -20,16 +21,14 @@
       "component": "elements.big-feature"
     },
     "icon": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "button": {
       "type": "component",

@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_for_all_sections",
   "info": {
     "name": "ForAllSection",
@@ -19,16 +20,14 @@
       "component": "links.basic-link"
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "cards": {
       "type": "component",

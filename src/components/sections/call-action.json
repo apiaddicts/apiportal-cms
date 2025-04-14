@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_sections_call_actions",
   "info": {
     "name": "callAction",
@@ -11,28 +12,24 @@
       "type": "string"
     },
     "backgroundIcon": {
-      "collection": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "icon": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     }
   }
 }

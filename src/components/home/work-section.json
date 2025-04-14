@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_home_work_sections",
   "info": {
     "name": "WorkSection",
@@ -16,16 +17,14 @@
       "component": "home.steps"
     },
     "background": {
-      "model": "file",
-      "via": "related",
+      "type": "media",
       "allowedTypes": [
         "images",
         "files",
         "videos"
       ],
-      "plugin": "upload",
       "required": false,
-      "pluginOptions": {}
+      "multiple": false
     },
     "buttons": {
       "type": "component",

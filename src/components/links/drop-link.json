@@ -1,4 +1,5 @@
 {
+  "type": "component",
   "collectionName": "components_links_drop_links",
   "info": {
     "name": "dropLink",
