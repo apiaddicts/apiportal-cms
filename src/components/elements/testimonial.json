@@ -32,7 +32,7 @@
       "multiple": false
     },
     "bigIcon": {
-      "type": "modia",
+      "type": "media",
       "allowedTypes": [
         "images"
       ],
