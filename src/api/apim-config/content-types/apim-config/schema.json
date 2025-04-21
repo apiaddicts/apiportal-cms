@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "apim_configs",
+  "info": {
+    "singularName": "apim-config",
+    "pluralName": "apim-configs",
+    "displayName": "ApimConfig",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "clientId": {
+      "type": "string"
+    },
+    "clientSecret": {
+      "type": "string"
+    },
+    "apiToken": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "required": true
+    },
+    "active": {
+      "type": "boolean"
+    }
+  }
+}
