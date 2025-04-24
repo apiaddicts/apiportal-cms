@@ -15,7 +15,6 @@
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
     "x-generation-date": "2025-04-24T17:17:24.000Z"
-    "x-generation-date": "2025-04-23T21:23:36.899Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -26,7 +25,6 @@
   "servers": [
     {
       "url": "http://localhost:1337/api",
-      "url": "http://localhost:1337/",
       "description": "Development server"
     }
   ],
@@ -7986,6 +7984,7 @@
   "paths": {
     "/blog-items": {
       "get": {
+        "summary": "Retrieve a list of blog items",
         "responses": {
           "200": {
             "description": "OK",
