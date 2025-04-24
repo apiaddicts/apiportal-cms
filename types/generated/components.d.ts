@@ -261,6 +261,18 @@ export interface ElementsCard extends Schema.Component {
   };
 }
 
+export interface ElementsConfigurationSection extends Schema.Component {
+  collectionName: 'components_elements_configuration_sections';
+  info: {
+    displayName: 'ConfigurationSection';
+  };
+  attributes: {
+    ConfiguringVariables: Attribute.Text & Attribute.Required;
+    ImportingPackages: Attribute.Text & Attribute.Required;
+    InstallingDependencies: Attribute.Text & Attribute.Required;
+  };
+}
+
 export interface ElementsContainer extends Schema.Component {
   collectionName: 'components_elements_containers';
   info: {
@@ -300,6 +312,16 @@ export interface ElementsEntry extends Schema.Component {
   attributes: {
     content: Attribute.RichText;
     title: Attribute.String;
+  };
+}
+
+export interface ElementsExecutionSection extends Schema.Component {
+  collectionName: 'components_elements_execution_sections';
+  info: {
+    displayName: 'ExecutionSection';
+  };
+  attributes: {
+    ExampleFunction: Attribute.Text & Attribute.Required;
   };
 }
 
@@ -516,6 +538,16 @@ export interface ElementsRedirectLinks extends Schema.Component {
   attributes: {
     links: Attribute.Component<'links.basic-link', true>;
     title: Attribute.String;
+  };
+}
+
+export interface ElementsResultSection extends Schema.Component {
+  collectionName: 'components_elements_result_sections';
+  info: {
+    displayName: 'ResultSection';
+  };
+  attributes: {
+    DTOWithExampleResponseResultInJSON: Attribute.JSON & Attribute.Required;
   };
 }
 
@@ -1870,9 +1902,11 @@ declare module '@strapi/types' {
       'elements.basic-card': ElementsBasicCard;
       'elements.big-feature': ElementsBigFeature;
       'elements.card': ElementsCard;
+      'elements.configuration-section': ElementsConfigurationSection;
       'elements.container': ElementsContainer;
       'elements.custom-radio': ElementsCustomRadio;
       'elements.entry': ElementsEntry;
+      'elements.execution-section': ElementsExecutionSection;
       'elements.feature-column': ElementsFeatureColumn;
       'elements.feature-row': ElementsFeatureRow;
       'elements.filter-versions': ElementsFilterVersions;
@@ -1888,6 +1922,7 @@ declare module '@strapi/types' {
       'elements.notification-banner': ElementsNotificationBanner;
       'elements.placeholder': ElementsPlaceholder;
       'elements.redirect-links': ElementsRedirectLinks;
+      'elements.result-section': ElementsResultSection;
       'elements.search-input': ElementsSearchInput;
       'elements.search-output': ElementsSearchOutput;
       'elements.select': ElementsSelect;

@@ -406,6 +406,45 @@ export interface ApiBlogItemBlogItem extends Schema.CollectionType {
   };
 }
 
+export interface ApiCodeSampleCodeSample extends Schema.CollectionType {
+  collectionName: 'code_samples';
+  info: {
+    description: '';
+    displayName: 'CodeSamples';
+    pluralName: 'code-samples';
+    singularName: 'code-sample';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    ConfigurationSection: Attribute.Component<'elements.configuration-section'>;
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::code-sample.code-sample',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    DescriptionOfTheExample: Attribute.Text & Attribute.Required;
+    ExecutionSection: Attribute.Component<'elements.execution-section'> &
+      Attribute.Required;
+    id_integrationApi: Attribute.BigInteger;
+    id_libraryApi: Attribute.BigInteger;
+    Language: Attribute.String & Attribute.Required;
+    publishedAt: Attribute.DateTime;
+    ResultSection: Attribute.Component<'elements.result-section'> &
+      Attribute.Required;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::code-sample.code-sample',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiLibraryApiLibraryApi extends Schema.CollectionType {
   collectionName: 'library_apis';
   info: {
@@ -998,6 +1037,7 @@ declare module '@strapi/types' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::blog-item.blog-item': ApiBlogItemBlogItem;
+      'api::code-sample.code-sample': ApiCodeSampleCodeSample;
       'api::library-api.library-api': ApiLibraryApiLibraryApi;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;

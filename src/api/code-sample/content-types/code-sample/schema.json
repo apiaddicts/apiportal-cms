@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "code_samples",
+  "info": {
+    "singularName": "code-sample",
+    "pluralName": "code-samples",
+    "displayName": "CodeSamples",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "id_libraryApi": {
+      "type": "biginteger"
+    },
+    "id_integrationApi": {
+      "type": "biginteger"
+    },
+    "DescriptionOfTheExample": {
+      "type": "text",
+      "required": true
+    },
+    "Language": {
+      "type": "string",
+      "required": true
+    },
+    "ConfigurationSection": {
+      "displayName": "ConfigurationSection",
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.configuration-section"
+    },
+    "ExecutionSection": {
+      "displayName": "ExecutionSection",
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.execution-section",
+      "required": true
+    },
+    "ResultSection": {
+      "displayName": "ResultSection",
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.result-section",
+      "required": true
+    }
+  }
+}

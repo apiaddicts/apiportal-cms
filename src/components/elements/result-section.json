@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_elements_result_sections",
+  "info": {
+    "displayName": "ResultSection"
+  },
+  "options": {},
+  "attributes": {
+    "DTOWithExampleResponseResultInJSON": {
+      "type": "json",
+      "required": true
+    }
+  }
+}
