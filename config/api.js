@@ -3,6 +3,6 @@ module.exports = ({ env }) => ({
     privateAttributes: [''],
   },
   rest: {
-    prefix: '/',
+    prefix: '/api',
   },
 });
