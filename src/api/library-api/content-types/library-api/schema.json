@@ -9,6 +9,8 @@
     "description": ""
   },
   "options": {
+    "increments": true,
+    "timestamps": true,
     "draftAndPublish": true
   },
   "attributes": {
@@ -30,7 +32,12 @@
     "image": {
       "type": "media",
       "multiple": true,
-      "required": false
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
     },
     "version": {
       "type": "string"
