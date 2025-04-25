@@ -420,37 +420,35 @@ export interface ApiBlogItemBlogItem extends Struct.CollectionTypeSchema {
     timestamps: true;
   };
   attributes: {
-    content: Attribute.RichText;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::blog-item.blog-item',
-      'oneToOne',
-      'admin::user'
+    content: Schema.Attribute.RichText;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    date: Schema.Attribute.Date;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    jobUser: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::blog-item.blog-item'
     > &
-      Attribute.Private;
-    date: Attribute.Date;
-    description: Attribute.Text;
-    image: Attribute.Media<'images' | 'files' | 'videos', true>;
-    jobUser: Attribute.String;
-    nameUser: Attribute.String;
-    photoUser: Attribute.Media<'images' | 'files' | 'videos', true>;
-    publishedAt: Attribute.DateTime;
-    questions: Attribute.Component<'custom.questions', true>;
-    slug: Attribute.UID;
-    tags: Attribute.Component<'elements.titles', true>;
-    timeRead: Attribute.String;
-    title: Attribute.String;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::blog-item.blog-item',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    nameUser: Schema.Attribute.String;
+    photoUser: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Component<'custom.questions', true>;
+    slug: Schema.Attribute.UID;
+    tags: Schema.Attribute.Component<'elements.titles', true>;
+    timeRead: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
-export interface ApiCodeSampleCodeSample extends Schema.CollectionType {
+export interface ApiCodeSampleCodeSample extends Struct.CollectionTypeSchema {
   collectionName: 'code_samples';
   info: {
     description: '';
@@ -462,30 +460,37 @@ export interface ApiCodeSampleCodeSample extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    ConfigurationSection: Attribute.Component<'elements.configuration-section'>;
-    createdAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::code-sample.code-sample',
-      'oneToOne',
-      'admin::user'
+    ConfigurationSection: Schema.Attribute.Component<
+      'elements.configuration-section',
+      false
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    DescriptionOfTheExample: Schema.Attribute.Text & Schema.Attribute.Required;
+    ExecutionSection: Schema.Attribute.Component<
+      'elements.execution-section',
+      false
     > &
-      Attribute.Private;
-    DescriptionOfTheExample: Attribute.Text & Attribute.Required;
-    ExecutionSection: Attribute.Component<'elements.execution-section'> &
-      Attribute.Required;
-    id_integrationApi: Attribute.BigInteger;
-    id_libraryApi: Attribute.BigInteger;
-    Language: Attribute.String & Attribute.Required;
-    publishedAt: Attribute.DateTime;
-    ResultSection: Attribute.Component<'elements.result-section'> &
-      Attribute.Required;
-    updatedAt: Attribute.DateTime;
-    updatedBy: Attribute.Relation<
-      'api::code-sample.code-sample',
-      'oneToOne',
-      'admin::user'
+      Schema.Attribute.Required;
+    id_integrationApi: Schema.Attribute.String;
+    id_libraryApi: Schema.Attribute.BigInteger;
+    Language: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::code-sample.code-sample'
     > &
-      Attribute.Private;
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    ResultSection: Schema.Attribute.Component<
+      'elements.result-section',
+      false
+    > &
+      Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 

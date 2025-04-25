@@ -14,9 +14,6 @@
     "id_libraryApi": {
       "type": "biginteger"
     },
-    "id_integrationApi": {
-      "type": "biginteger"
-    },
     "DescriptionOfTheExample": {
       "type": "text",
       "required": true
@@ -44,6 +41,10 @@
       "repeatable": false,
       "component": "elements.result-section",
       "required": true
+    },
+    "id_integrationApi": {
+      "type": "string",
+      "unique": false
     }
   }
 }

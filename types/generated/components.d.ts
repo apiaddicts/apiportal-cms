@@ -265,19 +265,19 @@ export interface ElementsCard extends Struct.ComponentSchema {
   };
 }
 
-export interface ElementsConfigurationSection extends Schema.Component {
+export interface ElementsConfigurationSection extends Struct.ComponentSchema {
   collectionName: 'components_elements_configuration_sections';
   info: {
     displayName: 'ConfigurationSection';
   };
   attributes: {
-    ConfiguringVariables: Attribute.Text & Attribute.Required;
-    ImportingPackages: Attribute.Text & Attribute.Required;
-    InstallingDependencies: Attribute.Text & Attribute.Required;
+    ConfiguringVariables: Schema.Attribute.Text & Schema.Attribute.Required;
+    ImportingPackages: Schema.Attribute.Text & Schema.Attribute.Required;
+    InstallingDependencies: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }
 
-export interface ElementsContainer extends Schema.Component {
+export interface ElementsContainer extends Struct.ComponentSchema {
   collectionName: 'components_elements_containers';
   info: {
     description: '';
@@ -319,17 +319,17 @@ export interface ElementsEntry extends Struct.ComponentSchema {
   };
 }
 
-export interface ElementsExecutionSection extends Schema.Component {
+export interface ElementsExecutionSection extends Struct.ComponentSchema {
   collectionName: 'components_elements_execution_sections';
   info: {
     displayName: 'ExecutionSection';
   };
   attributes: {
-    ExampleFunction: Attribute.Text & Attribute.Required;
+    ExampleFunction: Schema.Attribute.Text & Schema.Attribute.Required;
   };
 }
 
-export interface ElementsFeatureColumn extends Schema.Component {
+export interface ElementsFeatureColumn extends Struct.ComponentSchema {
   collectionName: 'components_slices_feature_columns';
   info: {
     description: '';
@@ -545,17 +545,18 @@ export interface ElementsRedirectLinks extends Struct.ComponentSchema {
   };
 }
 
-export interface ElementsResultSection extends Schema.Component {
+export interface ElementsResultSection extends Struct.ComponentSchema {
   collectionName: 'components_elements_result_sections';
   info: {
     displayName: 'ResultSection';
   };
   attributes: {
-    DTOWithExampleResponseResultInJSON: Attribute.JSON & Attribute.Required;
+    DTOWithExampleResponseResultInJSON: Schema.Attribute.JSON &
+      Schema.Attribute.Required;
   };
 }
 
-export interface ElementsSearchInput extends Schema.Component {
+export interface ElementsSearchInput extends Struct.ComponentSchema {
   collectionName: 'components_elements_search_inputs';
   info: {
     description: '';
