@@ -31,9 +31,13 @@
     },
     "image": {
       "type": "media",
-      "allowedTypes": ["images", "files", "videos"],
       "multiple": true,
-      "required": false
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
     },
     "version": {
       "type": "string"
@@ -65,7 +69,7 @@
       "target": "api::product.product",
       "mappedBy": "library_apis"
     },
-    "status": {
+    "publish": {
       "type": "enumeration",
       "enum": [
         "publicado",
