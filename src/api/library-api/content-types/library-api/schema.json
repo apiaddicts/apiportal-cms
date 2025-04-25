@@ -9,8 +9,6 @@
     "description": ""
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
   "attributes": {
@@ -31,7 +29,6 @@
     },
     "image": {
       "type": "media",
-      "allowedTypes": ["images", "files", "videos"],
       "multiple": true,
       "required": false
     },
@@ -65,7 +62,7 @@
       "target": "api::product.product",
       "mappedBy": "library_apis"
     },
-    "status": {
+    "publish": {
       "type": "enumeration",
       "enum": [
         "publicado",
