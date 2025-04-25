@@ -1,0 +1,19 @@
+{
+  "type": "component",
+  "collectionName": "components_texts_link_texts",
+  "info": {
+    "name": "linkText",
+    "icon": "arrow-alt-circle-right"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.link"
+    }
+  }
+}

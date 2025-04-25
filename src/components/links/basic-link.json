@@ -1,0 +1,25 @@
+{
+  "type": "component",
+  "collectionName": "components_links_basic_links",
+  "info": {
+    "name": "basicLink",
+    "icon": "angle-double-left",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": [
+        "_self",
+        "_blank"
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_feature_basic_groups",
+  "info": {
+    "name": "featureBasicGroup",
+    "icon": "angle-double-up"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    }
+  }
+}

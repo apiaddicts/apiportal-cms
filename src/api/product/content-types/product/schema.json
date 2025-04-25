@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "product",
+  "info": {
+    "singularName": "product",
+    "pluralName": "products",
+    "displayName": "Products",
+    "name": "Products",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "price": {
+      "type": "integer"
+    },
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "btnLabel": {
+      "type": "string"
+    },
+    "benefits": {
+      "type": "json"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "description": {
+      "type": "text"
+    },
+    "status": {
+      "type": "boolean"
+    },
+    "requiredSubscription": {
+      "type": "boolean"
+    },
+    "requiredApproval": {
+      "type": "boolean"
+    },
+    "limitSubscription": {
+      "type": "integer"
+    },
+    "legalConditionals": {
+      "type": "richtext"
+    },
+    "accentColor": {
+      "type": "enumeration",
+      "enum": [
+        "primary",
+        "secondary",
+        "tertiary"
+      ]
+    },
+    "library_apis": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::library-api.library-api",
+      "inversedBy": "products"
+    },
+    "formSetting": {
+      "type": "json"
+    }
+  }
+}

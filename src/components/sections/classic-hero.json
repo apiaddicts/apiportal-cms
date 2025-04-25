@@ -1,0 +1,33 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_classic_heroes",
+  "info": {
+    "name": "classicHero",
+    "icon": "address-book"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "header": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.main-hero"
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    }
+
+  }
+}

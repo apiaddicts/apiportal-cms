@@ -1,0 +1,23 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_our_products_sections",
+  "info": {
+    "name": "OurProductsSection",
+    "icon": "clipboard-list",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "CardProduct": {
+      "type": "component",
+      "repeatable": true,
+      "component": "cards.card-product"
+    }
+  }
+}

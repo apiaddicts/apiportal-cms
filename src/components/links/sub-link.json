@@ -1,0 +1,27 @@
+{
+  "type": "component",
+  "collectionName": "components_links_sub_links",
+  "info": {
+    "name": "SubLink",
+    "icon": "arrow-right"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "descripcion": {
+      "type": "string"
+    }
+  }
+}

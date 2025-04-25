@@ -1,0 +1,28 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_breadcumb_sections",
+  "info": {
+    "name": "BreadcumbSection",
+    "icon": "code",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "DevelopersName": {
+      "type": "string"
+    },
+    "shareName": {
+      "type": "string"
+    },
+    "shareList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.share-list"
+    },
+    "ClimatetradeLink": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.link"
+    }
+  }
+}

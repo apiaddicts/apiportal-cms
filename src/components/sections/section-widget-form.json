@@ -1,0 +1,29 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_section_widget_forms",
+  "info": {
+    "name": "sectionWidgetForm",
+    "icon": "arrow-circle-up"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "text"
+    },
+    "picture": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "form": {
+      "type": "component",
+      "repeatable": false,
+      "component": "formulario.form"
+    }
+  }
+}

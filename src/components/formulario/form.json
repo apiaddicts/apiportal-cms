@@ -1,0 +1,38 @@
+{
+  "type": "component",
+  "collectionName": "components_formulario_forms",
+  "info": {
+    "name": "form",
+    "icon": "ambulance",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "text"
+    },
+    "subtitle": {
+      "type": "richtext"
+    },
+    "inputs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "formulario.input"
+    },
+    "checkboxes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "formulario.checkbox"
+    },
+    "select": {
+      "type": "component",
+      "repeatable": true,
+      "component": "formulario.select-option"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "formulario.button-form"
+    }
+  }
+}

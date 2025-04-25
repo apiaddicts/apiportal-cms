@@ -1,0 +1,21 @@
+{
+  "type": "component",
+  "collectionName": "components_home_status_apis",
+  "info": {
+    "name": "StatusApi",
+    "icon": "burn"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "active",
+        "desactive"
+      ]
+    }
+  }
+}

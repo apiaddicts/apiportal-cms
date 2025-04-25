@@ -1,0 +1,33 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_time_sections",
+  "info": {
+    "name": "TimeSection",
+    "icon": "history",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.basic-link"
+    },
+    "images": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    }
+  }
+}

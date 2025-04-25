@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "library_apis",
+  "info": {
+    "singularName": "library-api",
+    "pluralName": "library-apis",
+    "displayName": "LibraryApi",
+    "name": "LibraryApi",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "description": {
+      "type": "text"
+    },
+    "color_status": {
+      "type": "string"
+    },
+    "footerText": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "allowedTypes": ["images", "files", "videos"],
+      "multiple": true,
+      "required": false
+    },
+    "version": {
+      "type": "string"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button"
+    },
+    "benefits": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.work-section"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.titles"
+    },
+    "openDoc": {
+      "type": "json"
+    },
+    "markdown": {
+      "type": "richtext"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "mappedBy": "library_apis"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "publicado",
+        "noPublicado"
+      ]
+    }
+  }
+}

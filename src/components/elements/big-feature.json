@@ -1,0 +1,21 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_big_features",
+  "info": {
+    "name": "bigFeature",
+    "icon": "battery-quarter",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "position": {
+      "type": "string"
+    }
+  }
+}

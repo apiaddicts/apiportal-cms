@@ -1,0 +1,32 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_sliders",
+  "info": {
+    "name": "slider",
+    "icon": "book-open"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "imgSrc": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "actionButtons": {
+      "type": "json"
+    },
+    "subtitleList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.subtitle"
+    }
+  }
+}

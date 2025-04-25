@@ -1,0 +1,20 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_subtitles",
+  "info": {
+    "name": "subtitle",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "keyword": {
+      "type": "string"
+    }
+  }
+}

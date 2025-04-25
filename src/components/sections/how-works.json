@@ -1,0 +1,50 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_how_works",
+  "info": {
+    "name": "howWorks",
+    "icon": "bone"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.main-hero"
+    },
+    "background": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "subtext": {
+      "type": "string"
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.big-feature"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button-link"
+    }
+  }
+}

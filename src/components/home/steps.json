@@ -1,0 +1,20 @@
+{
+  "type": "component",
+  "collectionName": "components_home_steps",
+  "info": {
+    "name": "Steps",
+    "icon": "basketball-ball"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "number": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "component",
+  "collectionName": "components_home_benefits_lists",
+  "info": {
+    "name": "benefitsList",
+    "icon": "birthday-cake"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    }
+  }
+}

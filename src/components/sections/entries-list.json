@@ -1,0 +1,41 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_entries_lists",
+  "info": {
+    "name": "EntriesList",
+    "icon": "address-card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "Entries": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.entry"
+    },
+    "mainHero": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.main-hero"
+    }
+  }
+}

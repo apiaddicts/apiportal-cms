@@ -1,0 +1,41 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_for_all_sections",
+  "info": {
+    "name": "ForAllSection",
+    "icon": "check",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.basic-link"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.card"
+    },
+    "content": {
+      "type": "text"
+    }
+  }
+}

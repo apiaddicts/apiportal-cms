@@ -1,0 +1,17 @@
+{
+  "type": "component",
+  "collectionName": "components_portal_chips",
+  "info": {
+    "name": "chips",
+    "icon": "child"
+  },
+  "options": {},
+  "attributes": {
+    "color": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

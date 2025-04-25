@@ -1,0 +1,31 @@
+{
+  "type": "component",
+  "collectionName": "components_portal_items",
+  "info": {
+    "name": "items",
+    "icon": "th-list",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "icon": {
+      "type": "string"
+    }
+  }
+}

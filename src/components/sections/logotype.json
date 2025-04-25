@@ -1,0 +1,19 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_logotypes",
+  "info": {
+    "name": "logotype",
+    "icon": "bong"
+  },
+  "options": {},
+  "attributes": {
+    "mainText": {
+      "type": "component",
+      "repeatable": false,
+      "component": "texts.icon-text"
+    },
+    "altText": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "component",
+  "collectionName": "components_new_cards_lists",
+  "info": {
+    "name": "cardsList",
+    "icon": "box-open"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    }
+  }
+}

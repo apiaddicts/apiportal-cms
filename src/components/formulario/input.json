@@ -1,0 +1,43 @@
+{
+  "type": "component",
+  "collectionName": "components_formulario_inputs",
+  "info": {
+    "name": "Input",
+    "icon": "sticky-note",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "placeholder": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "isRequired": {
+      "type": "boolean"
+    },
+    "errorMessage": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "string"
+    }
+  }
+}

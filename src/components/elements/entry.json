@@ -1,0 +1,18 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_entries",
+  "info": {
+    "name": "Entry",
+    "icon": "arrows-alt-v",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

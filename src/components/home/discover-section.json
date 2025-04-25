@@ -1,0 +1,49 @@
+{
+  "type": "component",
+  "collectionName": "components_home_discover_sections",
+  "info": {
+    "name": "DiscoverSection",
+    "icon": "at",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.basic-link"
+    },
+    "statusApi": {
+      "type": "component",
+      "repeatable": false,
+      "component": "home.status-api"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "smallText": {
+      "type": "string"
+    },
+    "Products": {
+      "type": "component",
+      "repeatable": true,
+      "component": "use-cases.products"
+    },
+    "iconText": {
+      "type": "string"
+    }
+  }
+}

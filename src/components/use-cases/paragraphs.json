@@ -1,0 +1,14 @@
+{
+  "type": "component",
+  "collectionName": "components_use_cases_paragraphs",
+  "info": {
+    "name": "Paragraphs",
+    "icon": "server"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "text"
+    }
+  }
+}

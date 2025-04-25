@@ -1,0 +1,14 @@
+{
+  "type": "component",
+  "collectionName": "components_use_cases_labels",
+  "info": {
+    "name": "labels",
+    "icon": "ellipsis-h"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "component",
+  "collectionName": "components_use_cases_badge_lists",
+  "info": {
+    "name": "badgeList",
+    "icon": "bacon"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

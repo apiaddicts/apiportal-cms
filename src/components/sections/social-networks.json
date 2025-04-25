@@ -1,0 +1,16 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_social_networks",
+  "info": {
+    "name": "socialNetworks",
+    "icon": "arrows-alt"
+  },
+  "options": {},
+  "attributes": {
+    "sharingContent": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.social-network"
+    }
+  }
+}

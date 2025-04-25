@@ -1,0 +1,39 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_main_features",
+  "info": {
+    "name": "mainFeatures",
+    "icon": "binoculars"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.main-hero"
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.big-feature"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button-link"
+    }
+  }
+}

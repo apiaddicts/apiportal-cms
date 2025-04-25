@@ -1,0 +1,55 @@
+{
+  "type": "component",
+  "collectionName": "components_cards_cards",
+  "info": {
+    "name": "card",
+    "icon": "sim-card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "titleFooter": {
+      "type": "string"
+    },
+    "descriptionFooter": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "LinkName": {
+      "type": "string"
+    },
+    "LinkUrl": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "steps": {
+      "type": "json"
+    },
+    "descriptionHeader": {
+      "type": "string"
+    },
+    "timeRead": {
+      "type": "string"
+    }
+  }
+}

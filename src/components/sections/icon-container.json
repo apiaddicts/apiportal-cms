@@ -1,0 +1,27 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_icon_containers",
+  "info": {
+    "name": "iconContainer",
+    "icon": "baby"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "title": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    }
+  }
+}

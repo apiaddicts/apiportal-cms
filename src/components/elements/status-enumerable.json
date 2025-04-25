@@ -1,0 +1,18 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_status_enumerables",
+  "info": {
+    "name": "statusEnumerable",
+    "icon": "adjust"
+  },
+  "options": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "enable",
+        "disable"
+      ]
+    }
+  }
+}

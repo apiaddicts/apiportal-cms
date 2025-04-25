@@ -1,0 +1,48 @@
+{
+  "type": "component",
+  "collectionName": "components_slices_testimonials",
+  "info": {
+    "name": "Testimonial",
+    "icon": "user-check",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "keyword": {
+      "type": "string"
+    },
+    "authorName": {
+      "type": "string"
+    },
+    "authorTitle": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "bigIcon": {
+      "type": "media",
+      "allowedTypes": [
+        "images"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "buttonLink": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button-link"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blog_items",
+  "info": {
+    "singularName": "blog-item",
+    "pluralName": "blog-items",
+    "displayName": "BlogItem",
+    "name": "BlogItem"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "image": {
+      "type": "media",
+      "allowedTypes": ["images", "files", "videos"],
+      "multiple": true,
+      "required": false
+    },
+    "timeRead": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.titles"
+    },
+    "questions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "custom.questions"
+    },
+    "nameUser": {
+      "type": "string"
+    },
+    "photoUser": {
+      "type": "media",
+      "allowedTypes": ["images", "files", "videos"],
+      "multiple": true,
+      "required": false
+    },
+    "jobUser": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    },
+    "description": {
+      "type": "text"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

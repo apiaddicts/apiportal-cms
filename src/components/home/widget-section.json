@@ -1,0 +1,43 @@
+{
+  "type": "component",
+  "collectionName": "components_home_widget_sections",
+  "info": {
+    "name": "WidgetSection",
+    "icon": "bus",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.basic-link"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "image": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "subtitle": {
+      "type": "richtext"
+    }
+  }
+}

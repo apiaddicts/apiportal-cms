@@ -1,0 +1,34 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_social_networks",
+  "info": {
+    "name": "socialNetwork",
+    "icon": "align-right"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Facebook",
+        "Instagram",
+        "Twitter",
+        "LinkedIn",
+        "Youtube"
+      ]
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    }
+  }
+}

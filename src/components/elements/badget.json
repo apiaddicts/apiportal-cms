@@ -1,0 +1,15 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_badgets",
+  "info": {
+    "name": "Badge",
+    "icon": "ad",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

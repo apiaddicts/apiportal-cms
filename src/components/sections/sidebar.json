@@ -1,0 +1,20 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_sidebars",
+  "info": {
+    "name": "Sidebar",
+    "icon": "angle-double-down",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "Entries": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.entry"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "type": "component",
+  "collectionName": "components_use_cases_calculate_use_cases",
+  "info": {
+    "name": "CalculateUseCase",
+    "icon": "circle-notch",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.basic-link"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "smallText": {
+      "type": "string"
+    },
+    "Paragraphs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "use-cases.paragraphs"
+    },
+    "Products": {
+      "type": "component",
+      "repeatable": true,
+      "component": "use-cases.products"
+    }
+  }
+}

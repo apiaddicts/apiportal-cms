@@ -1,0 +1,20 @@
+{
+  "type": "component",
+  "collectionName": "components_portal_list_recents",
+  "info": {
+    "name": "ListRecent",
+    "icon": "list-ol",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "custom.items"
+    }
+  }
+}

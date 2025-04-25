@@ -1,0 +1,41 @@
+{
+  "type": "component",
+  "collectionName": "components_portal_tab_cards",
+  "info": {
+    "name": "tabCard",
+    "icon": "sd-card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "img": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "cards.card"
+    },
+    "tab": {
+      "type": "enumeration",
+      "enum": [
+        "zero",
+        "one",
+        "two",
+        "three",
+        "four",
+        "five"
+      ]
+    }
+  }
+}

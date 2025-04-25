@@ -1,0 +1,26 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_logos",
+  "info": {
+    "name": "Logo",
+    "icon": "angry"
+  },
+  "options": {},
+  "attributes": {
+    "titles": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.link"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    }
+  }
+}

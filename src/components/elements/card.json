@@ -1,0 +1,27 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_cards",
+  "info": {
+    "name": "Card",
+    "icon": "money-check"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    }
+  }
+}

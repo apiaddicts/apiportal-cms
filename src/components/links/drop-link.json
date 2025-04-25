@@ -1,0 +1,21 @@
+{
+  "type": "component",
+  "collectionName": "components_links_drop_links",
+  "info": {
+    "name": "dropLink",
+    "icon": "database"
+  },
+  "options": {},
+  "attributes": {
+    "mainLink": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.link"
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.link"
+    }
+  }
+}

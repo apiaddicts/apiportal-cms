@@ -1,0 +1,35 @@
+{
+  "type": "component",
+  "collectionName": "components_home_work_sections",
+  "info": {
+    "name": "WorkSection",
+    "icon": "book-dead",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.steps"
+    },
+    "background": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "buttons": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button"
+    }
+  }
+}

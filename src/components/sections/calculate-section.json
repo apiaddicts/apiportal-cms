@@ -1,0 +1,33 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_calculate_sections",
+  "info": {
+    "name": "CalculateSection",
+    "icon": "strikethrough",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "button": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.basic-link"
+    }
+  }
+}

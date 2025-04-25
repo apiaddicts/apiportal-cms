@@ -1,0 +1,31 @@
+{
+  "type": "component",
+  "collectionName": "components_links_share_lists",
+  "info": {
+    "name": "ShareList",
+    "icon": "bread-slice"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "text"
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": [
+        "_self",
+        "_blank"
+      ]
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    }
+  }
+}

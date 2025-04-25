@@ -1,0 +1,34 @@
+{
+  "type": "component",
+  "collectionName": "components_home_key_sections",
+  "info": {
+    "name": "KeySection",
+    "icon": "bell"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "images": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "benefitsList": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.benefits-list"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.basic-link"
+    }
+  }
+}

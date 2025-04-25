@@ -1,0 +1,33 @@
+{
+  "type": "component",
+  "collectionName": "components_sections_link_heroes",
+  "info": {
+    "name": "LinkHero",
+    "icon": "angle-right"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.main-hero"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.link"
+    },
+    "sideText": {
+      "type": "string"
+    },
+    "imgSideText": {
+      "type": "string"
+    }
+  }
+}

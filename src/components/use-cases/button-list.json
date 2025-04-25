@@ -1,0 +1,17 @@
+{
+  "type": "component",
+  "collectionName": "components_use_cases_button_lists",
+  "info": {
+    "name": "buttonList",
+    "icon": "bullseye"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  }
+}

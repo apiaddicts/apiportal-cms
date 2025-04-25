@@ -1,0 +1,49 @@
+{
+  "type": "component",
+  "collectionName": "components_slices_feature_columns_groups",
+  "info": {
+    "name": "FeatureColumnsGroup",
+    "icon": "star-of-life",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "features": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.feature-column"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "keyword": {
+      "type": "string"
+    },
+    "mainHero": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.main-hero"
+    },
+    "button": {
+      "type": "component",
+      "repeatable": true,
+      "component": "links.button-link"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "container",
+  "collectionName": "components_sections_basic_containers",
+  "info": {
+    "name": "basicContainer",
+    "icon": "atom"
+  },
+  "options": {},
+  "attributes": {
+    "idContentType": {
+      "type": "uid"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

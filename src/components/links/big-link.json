@@ -1,0 +1,37 @@
+{
+  "type": "component",
+  "collectionName": "components_links_big_links",
+  "info": {
+    "name": "bigLink",
+    "icon": "asterisk",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.link"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "altText": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "enabled",
+        "disabled"
+      ]
+    }
+  }
+}

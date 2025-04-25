@@ -1,0 +1,30 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_logotypes",
+  "info": {
+    "name": "logotype",
+    "icon": "american-sign-language-interpreting",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "info": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.main-hero"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "altText": {
+      "type": "string"
+    }
+  }
+}

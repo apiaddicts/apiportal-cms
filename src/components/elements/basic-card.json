@@ -1,0 +1,35 @@
+{
+  "type": "component",
+  "collectionName": "components_elements_basic_cards",
+  "info": {
+    "name": "basicCard",
+    "icon": "baseball-ball"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "icon": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "required": false,
+      "multiple": false
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "links.basic-link"
+    }
+  }
+}
