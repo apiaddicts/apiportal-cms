@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_elements_configuration_sections",
+  "info": {
+    "displayName": "ConfigurationSection"
+  },
+  "options": {},
+  "attributes": {
+    "InstallingDependencies": {
+      "type": "text",
+      "required": true
+    },
+    "ImportingPackages": {
+      "type": "text",
+      "required": true
+    },
+    "ConfiguringVariables": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

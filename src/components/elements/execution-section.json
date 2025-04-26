@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_elements_execution_sections",
+  "info": {
+    "displayName": "ExecutionSection"
+  },
+  "options": {},
+  "attributes": {
+    "ExampleFunction": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
