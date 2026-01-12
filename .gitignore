@@ -9,6 +9,11 @@ exports
 build
 .strapi-updater.json
 .strapi
+config/ca-certificate.crt
+ca.pem
+docker-compose-template.yaml
+sql/dev-strapi-back.sql
+sql/strapi-bk.sql
 
 ############################
 # OS X
