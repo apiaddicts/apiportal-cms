@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "setting_pages",
+  "info": {
+    "singularName": "setting-page",
+    "pluralName": "setting-pages",
+    "displayName": "Setting Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "mainColor": {
+      "type": "string",
+      "required": true
+    },
+    "secondaryColor": {
+      "type": "string"
+    },
+    "Logo": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "typography": {
+      "type": "string"
+    }
+  }
+}

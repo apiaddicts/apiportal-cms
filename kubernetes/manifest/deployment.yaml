@@ -24,11 +24,11 @@ spec:
               protocol: TCP
           resources:
             requests:
-              memory: "128Mi"
-              cpu: "75m"
+              memory: "500Mi"
+              cpu: "200m"
             limits:
-              memory: "256Mi"
-              cpu: "150m"
+              memory: "750Mi"
+              cpu: "350m"
           envFrom:
             - secretRef:
                 name: $APP_NAME

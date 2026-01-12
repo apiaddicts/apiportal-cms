@@ -31,13 +31,9 @@
     },
     "image": {
       "type": "media",
+      "allowedTypes": ["images", "files", "videos"],
       "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
-      ]
+      "required": false
     },
     "version": {
       "type": "string"

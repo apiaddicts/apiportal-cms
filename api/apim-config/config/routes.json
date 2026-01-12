@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/apim-configs",
+      "handler": "apim-config.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/apim-configs/count",
+      "handler": "apim-config.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/apim-configs/:slug",
+      "handler": "apim-config.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/apim-configs",
+      "handler": "apim-config.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/apim-configs/:id",
+      "handler": "apim-config.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/apim-configs/:id",
+      "handler": "apim-config.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
