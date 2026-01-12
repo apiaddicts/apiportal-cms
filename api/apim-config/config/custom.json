@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/apim-configs/:slug",
+      "handler": "apim-config.findOne",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
