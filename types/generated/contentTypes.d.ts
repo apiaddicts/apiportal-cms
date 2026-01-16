@@ -680,6 +680,8 @@ export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
     mainColor: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     secondaryColor: Schema.Attribute.String;
+    showAuthButtons: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
     typography: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

@@ -1,6 +1,18 @@
 module.exports = [
   'strapi::body',
-  'strapi::cors',
+  {
+    name: 'strapi::cors',
+    config: {
+      origin: '*',
+      headers: [
+        'Content-Type',
+        'Authorization',
+        'apikey'
+      ],
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      credentials: true,
+    },
+  },
   'strapi::errors',
   'strapi::favicon',
   'strapi::query',
