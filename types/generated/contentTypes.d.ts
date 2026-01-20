@@ -625,6 +625,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
     formSetting: Schema.Attribute.JSON;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     legalConditionals: Schema.Attribute.RichText;
     library_apis: Schema.Attribute.Relation<
       'manyToMany',
@@ -639,10 +640,11 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     price: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
-    requiredApproval: Schema.Attribute.Boolean;
-    requiredSubscription: Schema.Attribute.Boolean;
+    requiredApproval: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    requiredSubscription: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID<'title'>;
-    status: Schema.Attribute.Boolean;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
