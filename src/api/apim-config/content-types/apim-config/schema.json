@@ -40,6 +40,15 @@
     },
     "environmentId": {
       "type": "string"
+    },
+    "platform": {
+      "type": "enumeration",
+      "enum": [
+        "MuleSoft",
+        "Azure"
+      ],
+      "required": true,
+      "default": "MuleSoft"
     }
   }
 }
