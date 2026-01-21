@@ -6343,7 +6343,7 @@
                     "description": {
                       "type": "string"
                     },
-                    "status": {
+                    "isActive": {
                       "type": "boolean"
                     },
                     "requiredSubscription": {
@@ -7711,7 +7711,7 @@
                 "description": {
                   "type": "string"
                 },
-                "status": {
+                "isActive": {
                   "type": "boolean"
                 },
                 "requiredSubscription": {

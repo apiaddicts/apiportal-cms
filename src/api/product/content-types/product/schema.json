@@ -36,14 +36,17 @@
     "description": {
       "type": "text"
     },
-    "status": {
-      "type": "boolean"
+    "isActive": {
+      "type": "boolean",
+      "default": false
     },
     "requiredSubscription": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "requiredApproval": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": false
     },
     "limitSubscription": {
       "type": "integer"
