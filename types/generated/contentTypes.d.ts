@@ -397,6 +397,9 @@ export interface ApiApimConfigApimConfig extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     organizationId: Schema.Attribute.String;
+    platform: Schema.Attribute.Enumeration<['MuleSoft', 'Azure']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'MuleSoft'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
