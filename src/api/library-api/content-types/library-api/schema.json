@@ -43,18 +43,23 @@
       "repeatable": true,
       "component": "links.button"
     },
-    "benefits": {
-      "type": "component",
-      "repeatable": true,
-      "component": "home.work-section"
-    },
     "tags": {
       "type": "component",
       "repeatable": true,
       "component": "elements.titles"
     },
+    "openDocSource": {
+      "type": "enumeration",
+      "enum": ["api-json", "api-yaml"],
+      "required": true,
+      "default": "api-json"
+    },
     "openDoc": {
-      "type": "json"
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
     },
     "markdown": {
       "type": "richtext"
