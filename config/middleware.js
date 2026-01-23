@@ -29,6 +29,11 @@ module.exports = [
             's3.eu-west-1.amazonaws.com',
             'market-assets.strapi.io'
           ],
+          'script-src-elem': [
+            "'self'",
+            "'unsafe-inline'",
+            'cdn.jsdelivr.net'
+          ],
           upgradeInsecureRequests: null,
         },
       },

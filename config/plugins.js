@@ -37,4 +37,7 @@ module.exports = ({ env }) => ({
       },
     },
   },
+  'strapi-code-editor-custom-field': {
+    enabled: true,
+  },
 });
