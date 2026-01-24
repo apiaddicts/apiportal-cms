@@ -48,6 +48,12 @@
       "repeatable": true,
       "component": "elements.titles"
     },
+    "openDocType": {
+      "type": "enumeration",
+      "enum": ["api", "asyncapi"],
+      "required": true,
+      "default": "api"
+    },
     "openDocFormat": {
       "type": "enumeration",
       "enum": ["json", "yaml"],
