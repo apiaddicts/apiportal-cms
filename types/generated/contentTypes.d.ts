@@ -599,7 +599,11 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
         }
       >;
     openDocFormat: Schema.Attribute.Enumeration<['json', 'yaml']> &
-      Schema.Attribute.Required;
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'json'>;
+    openDocType: Schema.Attribute.Enumeration<['api', 'asyncapi']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'api'>;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
