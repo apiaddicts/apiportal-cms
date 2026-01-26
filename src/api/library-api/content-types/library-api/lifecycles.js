@@ -28,7 +28,7 @@ async function smartFormatConverter(event) {
   const input = data.openDoc.trim();
 
   try {
-    if (data.openDocSource === 'api-json') {
+    if (data.openDocFormat === 'json') {
       try {
         const obj = JSON.parse(input);
         data.openDoc = JSON.stringify(obj, null, 2);
@@ -40,7 +40,7 @@ async function smartFormatConverter(event) {
           throw new TypeError();
         }
       }
-    } else if (data.openDocSource === 'api-yaml') {
+    } else if (data.openDocFormat === 'yaml') {
       const obj = yaml.load(input);
       data.openDoc = yaml.dump(obj, {
         indent: 2,

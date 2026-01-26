@@ -6968,11 +6968,11 @@
                   "$ref": "#/components/schemas/ElementsTitlesComponent"
                 }
               },
-              "openDocSource": {
+              "openDocFormat": {
                 "type": "string",
                 "enum": [
-                  "api-json",
-                  "api-yaml"
+                  "json",
+                  "yaml"
                 ]
               },
               "openDoc": {
@@ -7525,7 +7525,7 @@
         "properties": {
           "data": {
             "required": [
-              "openDocSource"
+              "openDocFormat"
             ],
             "type": "object",
             "properties": {
@@ -7573,11 +7573,11 @@
                   "$ref": "#/components/schemas/ElementsTitlesComponent"
                 }
               },
-              "openDocSource": {
+              "openDocFormat": {
                 "type": "string",
                 "enum": [
-                  "api-json",
-                  "api-yaml"
+                  "json",
+                  "yaml"
                 ]
               },
               "openDoc": {
@@ -7666,7 +7666,7 @@
       "LibraryApi": {
         "type": "object",
         "required": [
-          "openDocSource"
+          "openDocFormat"
         ],
         "properties": {
           "id": {
@@ -8523,11 +8523,11 @@
               "$ref": "#/components/schemas/ElementsTitlesComponent"
             }
           },
-          "openDocSource": {
+          "openDocFormat": {
             "type": "string",
             "enum": [
-              "api-json",
-              "api-yaml"
+              "json",
+              "yaml"
             ]
           },
           "openDoc": {
@@ -8818,11 +8818,11 @@
                           "$ref": "#/components/schemas/ElementsTitlesComponent"
                         }
                       },
-                      "openDocSource": {
+                      "openDocFormat": {
                         "type": "string",
                         "enum": [
-                          "api-json",
-                          "api-yaml"
+                          "json",
+                          "yaml"
                         ]
                       },
                       "openDoc": {

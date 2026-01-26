@@ -48,11 +48,11 @@
       "repeatable": true,
       "component": "elements.titles"
     },
-    "openDocSource": {
+    "openDocFormat": {
       "type": "enumeration",
-      "enum": ["api-json", "api-yaml"],
+      "enum": ["json", "yaml"],
       "required": true,
-      "default": "api-json"
+      "default": "json"
     },
     "openDoc": {
       "type": "customField",

@@ -598,7 +598,7 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
           language: 'plaintext';
         }
       >;
-    openDocSource: Schema.Attribute.Enumeration<['api-json', 'api-yaml']> &
+    openDocFormat: Schema.Attribute.Enumeration<['json', 'yaml']> &
       Schema.Attribute.Required;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
