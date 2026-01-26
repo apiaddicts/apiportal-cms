@@ -6,6 +6,7 @@ module.exports = [
   'strapi::query',
   'strapi::responses',
   'strapi::public',
+  'global::disable-role-policy',
   {
     name: 'strapi::security',
     config: {
