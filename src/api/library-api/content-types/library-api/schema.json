@@ -82,6 +82,10 @@
       "type": "enumeration",
       "enum": ["A", "B", "C", "D", "E"]
     },
+    "globalRating": {
+      "type": "enumeration",
+      "enum": ["A", "B", "C", "D", "E"]
+    },
     "aiReady": {
       "type": "boolean",
       "default": false
