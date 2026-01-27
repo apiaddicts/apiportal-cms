@@ -576,11 +576,13 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     timestamps: true;
   };
   attributes: {
+    aiReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     buttons: Schema.Attribute.Component<'links.button', true>;
     color_status: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    definitionRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     description: Schema.Attribute.Text;
     footerText: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
@@ -607,6 +609,8 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
+    qualityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
+    securityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     slug: Schema.Attribute.UID;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
@@ -747,6 +751,7 @@ export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    customCss: Schema.Attribute.Media<'files'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
