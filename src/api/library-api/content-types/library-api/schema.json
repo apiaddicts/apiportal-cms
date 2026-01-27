@@ -65,6 +65,22 @@
       "target": "api::product.product",
       "mappedBy": "library_apis"
     },
+    "definitionRating": {
+      "type": "enumeration",
+      "enum": ["A", "B", "C", "D", "E"]
+    },
+    "securityRating": {
+      "type": "enumeration",
+      "enum": ["A", "B", "C", "D", "E"]
+    },
+    "qualityRating": {
+      "type": "enumeration",
+      "enum": ["A", "B", "C", "D", "E"]
+    },
+    "aiReady": {
+      "type": "boolean",
+      "default": false
+    },
     "publish": {
       "type": "enumeration",
       "enum": [
