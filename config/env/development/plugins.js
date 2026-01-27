@@ -20,5 +20,8 @@ module.exports = ({ env }) => ({
         defaultReplyTo: env('EMAIL_DEFAULT_FROM'),
       },
     },
-  }
+  },
+  'strapi-code-editor-custom-field': {
+    enabled: true,
+  },
 });

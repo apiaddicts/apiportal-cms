@@ -577,7 +577,6 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
   };
   attributes: {
     aiReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    benefits: Schema.Attribute.Component<'home.work-section', true>;
     buttons: Schema.Attribute.Component<'links.button', true>;
     color_status: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
@@ -594,7 +593,15 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     markdown: Schema.Attribute.RichText;
-    openDoc: Schema.Attribute.JSON;
+    openDoc: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
+    openDocFormat: Schema.Attribute.Enumeration<['json', 'yaml']> &
+      Schema.Attribute.Required;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
