@@ -54,6 +54,10 @@
       "required": true,
       "default": "json"
     },
+    "openDocUrl": {
+      "type": "string",
+      "regex": "^(https?:\\/\\/).+"
+    },
     "openDoc": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
