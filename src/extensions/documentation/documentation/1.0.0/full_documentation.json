@@ -6968,6 +6968,13 @@
                   "$ref": "#/components/schemas/ElementsTitlesComponent"
                 }
               },
+              "openDocType": {
+                "type": "string",
+                "enum": [
+                  "api",
+                  "asyncapi"
+                ]
+              },
               "openDocFormat": {
                 "type": "string",
                 "enum": [
@@ -7568,6 +7575,7 @@
         "properties": {
           "data": {
             "required": [
+              "openDocType",
               "openDocFormat"
             ],
             "type": "object",
@@ -7615,6 +7623,13 @@
                 "items": {
                   "$ref": "#/components/schemas/ElementsTitlesComponent"
                 }
+              },
+              "openDocType": {
+                "type": "string",
+                "enum": [
+                  "api",
+                  "asyncapi"
+                ]
               },
               "openDocFormat": {
                 "type": "string",
@@ -7752,6 +7767,7 @@
       "LibraryApi": {
         "type": "object",
         "required": [
+          "openDocType",
           "openDocFormat"
         ],
         "properties": {
@@ -8609,6 +8625,13 @@
               "$ref": "#/components/schemas/ElementsTitlesComponent"
             }
           },
+          "openDocType": {
+            "type": "string",
+            "enum": [
+              "api",
+              "asyncapi"
+            ]
+          },
           "openDocFormat": {
             "type": "string",
             "enum": [
@@ -8903,6 +8926,13 @@
                         "items": {
                           "$ref": "#/components/schemas/ElementsTitlesComponent"
                         }
+                      },
+                      "openDocType": {
+                        "type": "string",
+                        "enum": [
+                          "api",
+                          "asyncapi"
+                        ]
                       },
                       "openDocFormat": {
                         "type": "string",
