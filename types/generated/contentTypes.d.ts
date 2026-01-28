@@ -585,6 +585,7 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     definitionRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     description: Schema.Attribute.Text;
     footerText: Schema.Attribute.String;
+    globalRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -601,7 +602,8 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
         }
       >;
     openDocFormat: Schema.Attribute.Enumeration<['json', 'yaml']> &
-      Schema.Attribute.Required;
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'json'>;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
