@@ -607,6 +607,7 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     openDocType: Schema.Attribute.Enumeration<['api', 'asyncapi']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'api'>;
+    openDocUrl: Schema.Attribute.String;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
@@ -1227,10 +1228,10 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    companyName: Schema.Attribute.String;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1241,6 +1242,8 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    firstName: Schema.Attribute.String;
+    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
