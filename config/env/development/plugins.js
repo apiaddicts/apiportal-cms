@@ -24,4 +24,11 @@ module.exports = ({ env }) => ({
   'strapi-code-editor-custom-field': {
     enabled: true,
   },
+  "users-permissions": {
+    "config": {
+      "register": {
+        "allowedFields": ["firstName", "lastName", "companyName"],
+      }
+    }
+  },
 });

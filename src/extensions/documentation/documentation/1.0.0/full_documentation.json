@@ -6982,6 +6982,9 @@
                   "yaml"
                 ]
               },
+              "openDocUrl": {
+                "type": "string"
+              },
               "openDoc": {
                 "type": "string"
               },
@@ -7637,6 +7640,9 @@
                   "json",
                   "yaml"
                 ]
+              },
+              "openDocUrl": {
+                "type": "string"
               },
               "openDoc": {
                 "type": "string"
@@ -8639,6 +8645,9 @@
               "yaml"
             ]
           },
+          "openDocUrl": {
+            "type": "string"
+          },
           "openDoc": {
             "type": "string"
           },
@@ -8940,6 +8949,9 @@
                           "json",
                           "yaml"
                         ]
+                      },
+                      "openDocUrl": {
+                        "type": "string"
                       },
                       "openDoc": {
                         "type": "string"

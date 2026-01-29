@@ -200,8 +200,20 @@ async function importSeedData() {
 }
 
 module.exports = {
-  async register() {
-    // some async code
+  async register({ strapi }) {
+    const extensionService = strapi.plugin('graphql').service('extension');
+    extensionService.use(({ nexus }) => ({
+      types: [
+        nexus.extendType({
+          type: 'UsersPermissionsMe',
+          definition(t) {
+            t.string('firstName');
+            t.string('lastName');
+            t.string('companyName');
+          },
+        }),
+      ]
+    }));
   },
   async bootstrap() {
     const shouldImportSeedData = await isFirstRun();
