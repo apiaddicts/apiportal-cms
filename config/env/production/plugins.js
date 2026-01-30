@@ -25,11 +25,14 @@ module.exports = ({ env }) => ({
   },
   email: {
     config: {
-      provider: 'amazon-ses',
+      provider: '@strapi/provider-email-nodemailer',
       providerOptions: {
-        key: env('AWS_ACCESS_KEY_ID_SES'),
-        secret: env('AWS_SECRET_ACCESS_KEY_SES'),
-        amazon: env('AWS_URL_SES'),
+        host: env('AWS_URL_SES'),
+        port: env.int('AWS_URL_PORT'),
+        auth: {
+          user: env('AWS_ACCESS_KEY_ID_SES'),
+          pass: env('AWS_SECRET_ACCESS_KEY_SES'),
+        }
       },
       settings: {
         defaultFrom: env('EMAIL_DEFAULT_FROM'),
