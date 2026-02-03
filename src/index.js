@@ -215,7 +215,7 @@ module.exports = {
       ]
     }));
   },
-  async bootstrap() {
+  async bootstrap({ strapi }) {
     const shouldImportSeedData = await isFirstRun();
     if (shouldImportSeedData) {
       try {
@@ -225,6 +225,81 @@ module.exports = {
         console.error(error);
       }
     }
+
+    try {
+      const idpConfig = await strapi.db.query('api::idp-config.idp-config').findOne({
+        where: { active: true, provider: 'Keycloak' }
+      });
+      const pluginStore = strapi.store({ type: 'plugin', name: 'users-permissions', key: 'grant' });
+      const config = await pluginStore.get();
+
+      if (idpConfig) {
+          const cleanHost = idpConfig.host.replace(/^(https?:\/\/)/, '').replace(/\/$/, '');
+          const realm = idpConfig.realm; 
+          const protocol = idpConfig.protocol || 'http';
+          const baseUrl = `${protocol}://${cleanHost}/realms/${realm}`;
+
+          config.keycloak.enabled = true;
+          config.keycloak.clientId = idpConfig.clientId;
+          config.keycloak.clientSecret = idpConfig.clientSecret || "";
+
+          config.keycloak.key = idpConfig.clientId;
+          config.keycloak.secret = idpConfig.clientSecret || "";
+          config.keycloak.subdomain = "";
+          config.keycloak.protocol = protocol;
+          config.keycloak.host = cleanHost;
+
+          config.keycloak.authorize_url = `${baseUrl}/protocol/openid-connect/auth`;
+          config.keycloak.access_url = `${baseUrl}/protocol/openid-connect/token`;
+          config.keycloak.profile_url = `${baseUrl}/protocol/openid-connect/userinfo`;
+
+          config.keycloak.jwksurl = `${baseUrl}/protocol/openid-connect/certs`;
+
+          await pluginStore.set({ value: config });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    strapi.db.lifecycles.subscribe({
+      models: ['plugin::users-permissions.user'],
+
+      async afterCreate(event) {
+        const { result, params } = event;
+        const plainPassword = params.data.password;
+
+        try {
+          const keycloakService = strapi.service('api::keycloak.keycloak');
+          if (keycloakService) {
+            await keycloakService.syncUser(result, plainPassword);
+          }
+        } catch (error) {
+          throw error;
+        }
+      },
+
+      async beforeUpdate(event) {
+        const { where, data } = event.params;
+
+        if (!data) return;
+
+        try {
+          const currentUser = await strapi.query('plugin::users-permissions.user').findOne({ where });
+          if (!currentUser) return;
+
+          const updatedData = { ...currentUser, ...data };
+
+          const plainPassword = data.password || null;
+
+          const keycloakService = strapi.service('api::keycloak.keycloak');
+          if (keycloakService) {
+            await keycloakService.syncUser(updatedData, plainPassword);
+          }
+        } catch (error) {
+          throw error;
+        }
+      }
+    });
   },
   async destroy() {
     // some async code

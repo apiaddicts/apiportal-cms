@@ -561,6 +561,46 @@ export interface ApiCodeSampleCodeSample extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiIdpConfigIdpConfig extends Struct.CollectionTypeSchema {
+  collectionName: 'idp_configs';
+  info: {
+    displayName: 'IdpConfig';
+    pluralName: 'idp-configs';
+    singularName: 'idp-config';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    clientId: Schema.Attribute.String & Schema.Attribute.Required;
+    clientSecret: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    host: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::idp-config.idp-config'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    protocol: Schema.Attribute.Enumeration<['http', 'https']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'http'>;
+    provider: Schema.Attribute.Enumeration<['Keycloak']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Keycloak'>;
+    publishedAt: Schema.Attribute.DateTime;
+    realm: Schema.Attribute.String & Schema.Attribute.Required;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
   collectionName: 'library_apis';
   info: {
@@ -1288,6 +1328,7 @@ declare module '@strapi/strapi' {
       'api::apim-config.apim-config': ApiApimConfigApimConfig;
       'api::blog-item.blog-item': ApiBlogItemBlogItem;
       'api::code-sample.code-sample': ApiCodeSampleCodeSample;
+      'api::idp-config.idp-config': ApiIdpConfigIdpConfig;
       'api::library-api.library-api': ApiLibraryApiLibraryApi;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;

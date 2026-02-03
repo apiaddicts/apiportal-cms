@@ -1,24 +1,5 @@
 module.exports = [
-  'strapi::body',
-  {
-    name: 'strapi::cors',
-    config: {
-      origin: '*',
-      headers: [
-        'Content-Type',
-        'Authorization',
-        'apikey'
-      ],
-      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-      credentials: true,
-    },
-  },
   'strapi::errors',
-  'strapi::favicon',
-  'strapi::query',
-  'strapi::responses',
-  'strapi::public',
-  'global::disable-role-policy',
   {
     name: 'strapi::security',
     config: {
@@ -52,4 +33,20 @@ module.exports = [
       },
     },
   },
+  {
+    name: 'strapi::cors',
+    config: {
+      origin: '*',
+      headers: ['Content-Type', 'Authorization', 'apikey'],
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      credentials: true,
+    },
+  },
+  'strapi::session',
+  'strapi::body',
+  'strapi::query',
+  'strapi::responses',
+  'strapi::favicon',
+  'strapi::public',
+  'global::disable-role-policy',
 ];

@@ -1,12 +1,5 @@
 module.exports = [
-  'strapi::body',
-  'strapi::cors',
   'strapi::errors',
-  'strapi::favicon',
-  'strapi::query',
-  'strapi::responses',
-  'strapi::public',
-  'global::disable-role-policy',
   {
     name: 'strapi::security',
     config: {
@@ -40,4 +33,12 @@ module.exports = [
       },
     },
   },
+  'strapi::cors',
+  'strapi::session',
+  'strapi::body',
+  'strapi::query',
+  'strapi::responses',
+  'strapi::favicon',
+  'strapi::public',
+  'global::disable-role-policy',
 ];
