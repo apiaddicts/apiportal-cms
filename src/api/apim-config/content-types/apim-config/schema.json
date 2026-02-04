@@ -41,7 +41,7 @@
     "environmentId": {
       "type": "string"
     },
-    "platform": {
+    "provider": {
       "type": "enumeration",
       "enum": [
         "MuleSoft",

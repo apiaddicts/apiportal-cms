@@ -13,6 +13,10 @@ module.exports = createCoreController('api::apim-config.apim-config', ({strapi})
       where: {slug}
     })
 
+    if (!entity) {
+      return ctx.notFound('Configuration not found');
+    }
+
     const sanitizedEntity = await this.sanitizeOutput(entity);
     return this.transformResponse(sanitizedEntity);
   }

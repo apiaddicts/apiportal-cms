@@ -20,6 +20,9 @@
     "slug": {
       "type": "uid"
     },
+    "provider": {
+      "type": "string"
+    },
     "description": {
       "type": "text"
     },
@@ -50,13 +53,19 @@
     },
     "openDocType": {
       "type": "enumeration",
-      "enum": ["api", "asyncapi"],
+      "enum": [
+        "api",
+        "asyncapi"
+      ],
       "required": true,
       "default": "api"
     },
     "openDocFormat": {
       "type": "enumeration",
-      "enum": ["json", "yaml"],
+      "enum": [
+        "json",
+        "yaml"
+      ],
       "required": true,
       "default": "json"
     },

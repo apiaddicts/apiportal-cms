@@ -44,24 +44,13 @@ module.exports = createCoreController('api::library-api.library-api', ({ strapi 
       return response;
     },
 
+    async find(ctx) {
+      await strapi.service('api::library-api.library-api').syncFromIntegrator();
+      return await super.find(ctx);
+    },
+
     async findOne(ctx) {
       const response = await super.findOne(ctx);
-
-      const entity = response?.data;
-      const attrs = entity?.attributes;
-
-      if (attrs?.openDoc && attrs?.openDocFormat) {
-        try {
-          attrs.openDocParsed = parseOpenDoc(
-            attrs.openDoc,
-            attrs.openDocFormat
-          );
-        } catch (err) {
-          attrs.openDocParsed = null;
-          attrs.openDocParseError = err.message;
-        }
-      }
-
       return response;
     },
   })
