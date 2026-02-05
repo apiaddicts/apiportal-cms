@@ -1,11 +1,5 @@
 module.exports = [
-  'strapi::body',
-  'strapi::cors',
   'strapi::errors',
-  'strapi::favicon',
-  'strapi::query',
-  'strapi::responses',
-  'strapi::public',
   {
     name: 'strapi::security',
     config: {
@@ -29,9 +23,22 @@ module.exports = [
             's3.eu-west-1.amazonaws.com',
             'market-assets.strapi.io'
           ],
+          'script-src-elem': [
+            "'self'",
+            "'unsafe-inline'",
+            'cdn.jsdelivr.net'
+          ],
           upgradeInsecureRequests: null,
         },
       },
     },
   },
+  'strapi::cors',
+  'strapi::session',
+  'strapi::body',
+  'strapi::query',
+  'strapi::responses',
+  'strapi::favicon',
+  'strapi::public',
+  'global::disable-role-policy',
 ];

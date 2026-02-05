@@ -34,6 +34,10 @@ export interface AdminApiToken extends Struct.CollectionTypeSchema {
         minLength: 1;
       }> &
       Schema.Attribute.DefaultTo<''>;
+    encryptedKey: Schema.Attribute.Text &
+      Schema.Attribute.SetMinMaxLength<{
+        minLength: 1;
+      }>;
     expiresAt: Schema.Attribute.DateTime;
     lastUsedAt: Schema.Attribute.DateTime;
     lifespan: Schema.Attribute.BigInteger;
@@ -196,6 +200,63 @@ export interface AdminRole extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     users: Schema.Attribute.Relation<'manyToMany', 'admin::user'>;
+  };
+}
+
+export interface AdminSession extends Struct.CollectionTypeSchema {
+  collectionName: 'strapi_sessions';
+  info: {
+    description: 'Session Manager storage';
+    displayName: 'Session';
+    name: 'Session';
+    pluralName: 'sessions';
+    singularName: 'session';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+    i18n: {
+      localized: false;
+    };
+  };
+  attributes: {
+    absoluteExpiresAt: Schema.Attribute.DateTime & Schema.Attribute.Private;
+    childId: Schema.Attribute.String & Schema.Attribute.Private;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    deviceId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    expiresAt: Schema.Attribute.DateTime &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'admin::session'> &
+      Schema.Attribute.Private;
+    origin: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sessionId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private &
+      Schema.Attribute.Unique;
+    status: Schema.Attribute.String & Schema.Attribute.Private;
+    type: Schema.Attribute.String & Schema.Attribute.Private;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    userId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
   };
 }
 
@@ -397,6 +458,9 @@ export interface ApiApimConfigApimConfig extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     organizationId: Schema.Attribute.String;
+    platform: Schema.Attribute.Enumeration<['MuleSoft', 'Azure']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'MuleSoft'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -497,6 +561,46 @@ export interface ApiCodeSampleCodeSample extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiIdpConfigIdpConfig extends Struct.CollectionTypeSchema {
+  collectionName: 'idp_configs';
+  info: {
+    displayName: 'IdpConfig';
+    pluralName: 'idp-configs';
+    singularName: 'idp-config';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    clientId: Schema.Attribute.String & Schema.Attribute.Required;
+    clientSecret: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    host: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::idp-config.idp-config'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String;
+    protocol: Schema.Attribute.Enumeration<['http', 'https']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'http'>;
+    provider: Schema.Attribute.Enumeration<['Keycloak']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'Keycloak'>;
+    publishedAt: Schema.Attribute.DateTime;
+    realm: Schema.Attribute.String & Schema.Attribute.Required;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
   collectionName: 'library_apis';
   info: {
@@ -512,14 +616,16 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     timestamps: true;
   };
   attributes: {
-    benefits: Schema.Attribute.Component<'home.work-section', true>;
+    aiReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     buttons: Schema.Attribute.Component<'links.button', true>;
     color_status: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    definitionRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     description: Schema.Attribute.Text;
     footerText: Schema.Attribute.String;
+    globalRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -528,10 +634,25 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     markdown: Schema.Attribute.RichText;
-    openDoc: Schema.Attribute.JSON;
+    openDoc: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
+    openDocFormat: Schema.Attribute.Enumeration<['json', 'yaml']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'json'>;
+    openDocType: Schema.Attribute.Enumeration<['api', 'asyncapi']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'api'>;
+    openDocUrl: Schema.Attribute.String;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
+    qualityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
+    securityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     slug: Schema.Attribute.UID;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
@@ -625,6 +746,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
     formSetting: Schema.Attribute.JSON;
+    isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     legalConditionals: Schema.Attribute.RichText;
     library_apis: Schema.Attribute.Relation<
       'manyToMany',
@@ -639,10 +761,11 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     price: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
-    requiredApproval: Schema.Attribute.Boolean;
-    requiredSubscription: Schema.Attribute.Boolean;
+    requiredApproval: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    requiredSubscription: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID<'title'>;
-    status: Schema.Attribute.Boolean;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -670,6 +793,7 @@ export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    customCss: Schema.Attribute.Media<'files'>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -946,8 +1070,8 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    alternativeText: Schema.Attribute.String;
-    caption: Schema.Attribute.String;
+    alternativeText: Schema.Attribute.Text;
+    caption: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -971,7 +1095,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     mime: Schema.Attribute.String & Schema.Attribute.Required;
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    previewUrl: Schema.Attribute.String;
+    previewUrl: Schema.Attribute.Text;
     provider: Schema.Attribute.String & Schema.Attribute.Required;
     provider_metadata: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
@@ -980,7 +1104,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    url: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
     width: Schema.Attribute.Integer;
   };
 }
@@ -1144,10 +1268,10 @@ export interface PluginUsersPermissionsUser
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    companyName: Schema.Attribute.String;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
@@ -1158,6 +1282,8 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    firstName: Schema.Attribute.String;
+    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -1195,12 +1321,14 @@ declare module '@strapi/strapi' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::permission': AdminPermission;
       'admin::role': AdminRole;
+      'admin::session': AdminSession;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::apim-config.apim-config': ApiApimConfigApimConfig;
       'api::blog-item.blog-item': ApiBlogItemBlogItem;
       'api::code-sample.code-sample': ApiCodeSampleCodeSample;
+      'api::idp-config.idp-config': ApiIdpConfigIdpConfig;
       'api::library-api.library-api': ApiLibraryApiLibraryApi;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;

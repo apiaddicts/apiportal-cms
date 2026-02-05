@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "idp_configs",
+  "info": {
+    "singularName": "idp-config",
+    "pluralName": "idp-configs",
+    "displayName": "IdpConfig"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "provider": {
+      "type": "enumeration",
+      "enum": ["Keycloak"],
+      "required": true,
+      "default": "Keycloak"
+    },
+    "protocol": {
+      "type": "enumeration",
+      "enum": ["http", "https"],
+      "required": true,
+      "default": "http"
+    },
+    "host": {
+      "type": "string",
+      "required": true,
+      "hint": "localhost:8081"
+    },
+    "realm": {
+      "type": "string",
+      "required": true
+    },
+    "clientId": {
+      "type": "string",
+      "required": true
+    },
+    "clientSecret": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "required": true,
+      "targetField": "name"
+    },
+    "active": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

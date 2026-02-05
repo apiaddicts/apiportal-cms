@@ -1,23 +1,5 @@
 module.exports = [
-  'strapi::body',
-  {
-    name: 'strapi::cors',
-    config: {
-      origin: '*',
-      headers: [
-        'Content-Type',
-        'Authorization',
-        'apikey'
-      ],
-      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-      credentials: true,
-    },
-  },
   'strapi::errors',
-  'strapi::favicon',
-  'strapi::query',
-  'strapi::responses',
-  'strapi::public',
   {
     name: 'strapi::security',
     config: {
@@ -41,9 +23,30 @@ module.exports = [
             's3.eu-west-1.amazonaws.com',
             'market-assets.strapi.io'
           ],
+          'script-src-elem': [
+            "'self'",
+            "'unsafe-inline'",
+            'cdn.jsdelivr.net'
+          ],
           upgradeInsecureRequests: null,
         },
       },
     },
   },
+  {
+    name: 'strapi::cors',
+    config: {
+      origin: '*',
+      headers: ['Content-Type', 'Authorization', 'apikey'],
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      credentials: true,
+    },
+  },
+  'strapi::session',
+  'strapi::body',
+  'strapi::query',
+  'strapi::responses',
+  'strapi::favicon',
+  'strapi::public',
+  'global::disable-role-policy',
 ];

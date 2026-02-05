@@ -43,18 +43,33 @@
       "repeatable": true,
       "component": "links.button"
     },
-    "benefits": {
-      "type": "component",
-      "repeatable": true,
-      "component": "home.work-section"
-    },
     "tags": {
       "type": "component",
       "repeatable": true,
       "component": "elements.titles"
     },
+    "openDocType": {
+      "type": "enumeration",
+      "enum": ["api", "asyncapi"],
+      "required": true,
+      "default": "api"
+    },
+    "openDocFormat": {
+      "type": "enumeration",
+      "enum": ["json", "yaml"],
+      "required": true,
+      "default": "json"
+    },
+    "openDocUrl": {
+      "type": "string",
+      "regex": "^(https?:\\/\\/).+"
+    },
     "openDoc": {
-      "type": "json"
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
     },
     "markdown": {
       "type": "richtext"
@@ -64,6 +79,26 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "mappedBy": "library_apis"
+    },
+    "definitionRating": {
+      "type": "enumeration",
+      "enum": ["A", "B", "C", "D", "E"]
+    },
+    "securityRating": {
+      "type": "enumeration",
+      "enum": ["A", "B", "C", "D", "E"]
+    },
+    "qualityRating": {
+      "type": "enumeration",
+      "enum": ["A", "B", "C", "D", "E"]
+    },
+    "globalRating": {
+      "type": "enumeration",
+      "enum": ["A", "B", "C", "D", "E"]
+    },
+    "aiReady": {
+      "type": "boolean",
+      "default": false
     },
     "publish": {
       "type": "enumeration",
