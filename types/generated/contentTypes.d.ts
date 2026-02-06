@@ -644,7 +644,7 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     openDocFormat: Schema.Attribute.Enumeration<['json', 'yaml']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'json'>;
-    openDocType: Schema.Attribute.Enumeration<['api', 'asyncapi']> &
+    openDocType: Schema.Attribute.Enumeration<['api', 'asyncapi', 'catalog']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'api'>;
     openDocUrl: Schema.Attribute.String;

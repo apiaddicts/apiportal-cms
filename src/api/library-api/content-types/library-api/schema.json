@@ -50,7 +50,7 @@
     },
     "openDocType": {
       "type": "enumeration",
-      "enum": ["api", "asyncapi"],
+      "enum": ["api", "asyncapi", "catalog"],
       "required": true,
       "default": "api"
     },
