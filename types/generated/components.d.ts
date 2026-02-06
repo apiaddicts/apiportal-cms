@@ -674,9 +674,9 @@ export interface ElementsTitles extends Struct.ComponentSchema {
   };
   attributes: {
     class: Schema.Attribute.String;
-    label: Schema.Attribute.String;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
     tab: Schema.Attribute.Enumeration<['one', 'two', 'three', 'four', 'five']>;
-    title: Schema.Attribute.String;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
