@@ -71,6 +71,13 @@
         "language": "plaintext"
       }
     },
+    "openDocTaxonomy": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
+    },
     "markdown": {
       "type": "richtext"
     },
