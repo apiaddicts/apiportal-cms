@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { ApplicationError } = require('@strapi/utils').errors;
 const { pages, global, leadFormSubmissions } = require("./data/data.json");
 
 async function isFirstRun() {
@@ -299,6 +300,31 @@ module.exports = {
           throw error;
         }
       }
+    });
+
+    strapi.db.lifecycles.subscribe({
+      models: ['elements.titles'],
+
+      async beforeCreate(event) {
+        const { data } = event.params;
+        if (!data?.title?.trim()) {
+          throw new ApplicationError('The "title" field in Tags cannot be empty.');
+        }
+
+        if (!data?.label?.trim()) {
+          throw new ApplicationError('The "label" field in Tags cannot be empty.');
+        }
+      },
+
+      async beforeUpdate(event) {
+        const { data } = event.params;
+        if (Object.hasOwn(data, 'title') && (!data?.title.trim())) {
+          throw new ApplicationError('The "title" field in Tags cannot be empty.');
+        }
+        if (Object.hasOwn(data, 'label') && (!data?.label.trim())) {
+          throw new ApplicationError('The "label" field in Tags cannot be empty.');
+        }
+      },
     });
   },
   async destroy() {
