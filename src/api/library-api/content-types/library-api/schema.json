@@ -50,7 +50,7 @@
     },
     "openDocType": {
       "type": "enumeration",
-      "enum": ["api", "asyncapi", "catalog"],
+      "enum": ["api", "asyncapi"],
       "required": true,
       "default": "api"
     },
@@ -65,13 +65,6 @@
       "regex": "^(https?:\\/\\/).+"
     },
     "openDoc": {
-      "type": "customField",
-      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
-      "options": {
-        "language": "plaintext"
-      }
-    },
-    "openDocTaxonomy": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
