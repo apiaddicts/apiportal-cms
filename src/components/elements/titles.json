@@ -9,10 +9,14 @@
   "options": {},
   "attributes": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "regex": "^(?!\\s*$).+"
     },
     "label": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "regex": "^(?!\\s*$).+"
     },
     "class": {
       "type": "string"
