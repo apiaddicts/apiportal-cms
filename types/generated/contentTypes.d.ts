@@ -644,7 +644,7 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     openDocFormat: Schema.Attribute.Enumeration<['json', 'yaml']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'json'>;
-    openDocType: Schema.Attribute.Enumeration<['api', 'asyncapi', 'catalog']> &
+    openDocType: Schema.Attribute.Enumeration<['api', 'asyncapi']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'api'>;
     openDocUrl: Schema.Attribute.String;
@@ -653,6 +653,55 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     qualityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     securityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
+    slug: Schema.Attribute.UID;
+    tags: Schema.Attribute.Component<'elements.titles', true>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    version: Schema.Attribute.String;
+  };
+}
+
+export interface ApiLibraryCatalogLibraryCatalog
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'library_catalogs';
+  info: {
+    description: '';
+    displayName: 'LibraryCatalog';
+    name: 'LibraryCatalog';
+    pluralName: 'library-catalogs';
+    singularName: 'library-catalog';
+  };
+  options: {
+    draftAndPublish: true;
+    increments: true;
+    timestamps: true;
+  };
+  attributes: {
+    aiReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    buttons: Schema.Attribute.Component<'links.button', true>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    dataSource: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::library-catalog.library-catalog'
+    > &
+      Schema.Attribute.Private;
+    markdown: Schema.Attribute.RichText;
+    publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
+    publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
@@ -1076,6 +1125,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     ext: Schema.Attribute.String;
+    focalPoint: Schema.Attribute.JSON;
     folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
       Schema.Attribute.Private;
     folderPath: Schema.Attribute.String &
@@ -1330,6 +1380,7 @@ declare module '@strapi/strapi' {
       'api::code-sample.code-sample': ApiCodeSampleCodeSample;
       'api::idp-config.idp-config': ApiIdpConfigIdpConfig;
       'api::library-api.library-api': ApiLibraryApiLibraryApi;
+      'api::library-catalog.library-catalog': ApiLibraryCatalogLibraryCatalog;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;
       'api::setting-page.setting-page': ApiSettingPageSettingPage;
