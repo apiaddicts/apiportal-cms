@@ -23,6 +23,19 @@
     "description": {
       "type": "text"
     },
+    "organization": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "enumeration",
+      "enum": [
+        "Software",
+        "Healthcare IIDT",
+        "Sales",
+        "Marketing",
+        "Finance"
+      ]
+    },
     "image": {
       "type": "media",
       "allowedTypes": ["images", "files", "videos"],
@@ -43,6 +56,55 @@
       "component": "elements.titles"
     },
     "dataSource": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
+    },
+    "contracstDefinition": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
+    },
+    "assets": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
+    },
+    "services": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
+    },
+    "participants": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
+    },
+    "policies": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
+    },
+    "softwareResource": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      }
+    },
+    "infrastructureResource": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {

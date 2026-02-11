@@ -680,7 +680,21 @@ export interface ApiLibraryCatalogLibraryCatalog
   };
   attributes: {
     aiReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    assets: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
     buttons: Schema.Attribute.Component<'links.button', true>;
+    contracstDefinition: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -692,7 +706,17 @@ export interface ApiLibraryCatalogLibraryCatalog
         }
       >;
     description: Schema.Attribute.Text;
+    domain: Schema.Attribute.Enumeration<
+      ['Software', 'Healthcare IIDT', 'Sales', 'Marketing', 'Finance']
+    >;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    infrastructureResource: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -700,9 +724,38 @@ export interface ApiLibraryCatalogLibraryCatalog
     > &
       Schema.Attribute.Private;
     markdown: Schema.Attribute.RichText;
+    organization: Schema.Attribute.String;
+    participants: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
+    policies: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
+    services: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
     slug: Schema.Attribute.UID;
+    softwareResource: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
