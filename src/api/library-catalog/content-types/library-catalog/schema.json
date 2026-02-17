@@ -24,7 +24,8 @@
       "type": "text"
     },
     "organization": {
-      "type": "string"
+      "type": "string",
+      "description": "Este campo es nuevo"
     },
     "domain": {
       "type": "enumeration",
@@ -34,7 +35,8 @@
         "Sales",
         "Marketing",
         "Finance"
-      ]
+      ],
+      "description": "Este campo es nuevo"
     },
     "image": {
       "type": "media",
@@ -60,56 +62,64 @@
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
         "language": "plaintext"
-      }
+      },
+      "description": "Este campo es nuevo"
     },
     "contracstDefinition": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
         "language": "plaintext"
-      }
+      },
+      "description": "Este campo es nuevo"
     },
     "assets": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
         "language": "plaintext"
-      }
+      },
+      "description": "Este campo es nuevo"
     },
     "services": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
         "language": "plaintext"
-      }
+      },
+      "description": "Este campo es nuevo"
     },
     "participants": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
         "language": "plaintext"
-      }
+      },
+      "description": "Este campo es nuevo"
     },
     "policies": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
         "language": "plaintext"
-      }
+      },
+      "description": "Este campo es nuevo"
     },
     "softwareResource": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
         "language": "plaintext"
-      }
+      },
+      "description": "Este campo es nuevo"
     },
     "infrastructureResource": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
         "language": "plaintext"
-      }
+      },
+      "description": "Este campo es nuevo"
     },
     "markdown": {
       "type": "richtext"
