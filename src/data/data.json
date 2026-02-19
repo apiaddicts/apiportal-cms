@@ -120,276 +120,223 @@
   ],
   "pages": [
     {
-      "slug":"",
-      "shortName":"Home",
-      "status":"published",
-      "metadata":{
-        "metaTitle":"Strapi corporate site starter",
-        "metaDescription":"Build a fully editable site with Strapi",
-        "twitterCardType":"summary",
-        "twitterUsername":null,
-        "shareImage":null
-      },
-      "contentSections":[
-        {
-          "__component":"sections.hero",
-          "title":"The best way to build your Corporate Site",
-          "label":"New Strapi starter",
-          "description":"Get started with your Strapi business website in seconds.",
-          "smallTextWithLink":"Want to build your own from scratch? Tutorial coming soon",
-          "buttons":[
+      "slug": "home",
+      "shortName": "home",
+      "metadata": { "metaTitle": "API Market - Inicio" },
+      "contentSections": [
+        { "__component": "custom.carousel", "slider": "carousel",
+          "sliderCarousel": [
             {
-              "url":"https://github.com/strapi/strapi-template-corporate",
-              "newTab":false,
-              "text":"Get started",
-              "type":"primary"
+              "title": "El primer API Market open source",
+              "actionButtons": [
+                { "type": "tertiary", "label": "Empezar ahora", "route": "" },
+                { "type": "ghost", "label": "Ver APIS", "route": "/apis" }
+              ]
             },
             {
-              "url":"https://github.com/strapi/strapi-template-corporate",
-              "newTab":true,
-              "text":"See the code",
-              "type":"secondary"
+              "title": "Descubre las novedades",
+              "actionButtons": [
+                { "type": "ghost", "label": "Ver", "route": "/blog" }
+              ]
             }
-          ],
-          "picture":null
+          ]
+        },
+        { "__component": "home.work-section", "title": "Beneficios principales",
+          "Steps": [
+            {
+              "title": "Integración agíl y dinámica",
+              "subtitle": "Reduce los tiempos de integración y empieza a vender y gestionar de forma rápida y fácil.",
+              "number": "integration"
+            },
+            {
+              "title": "Amplio catálogo de soluciones y APIs",
+              "subtitle": "Podrás gestionar todo tipo de operaciones de negocio a través de tu cuenta y apps.",
+              "number": "catalogo"
+            },
+            {
+              "title": "Recursos y documentación developers",
+              "subtitle": "Ten siempre disponible toda la documentación de tus APIs y apóyate en las guías elaboradas para ti.",
+              "number": "elearning"
+            }
+          ]
+        },
+        { "__component": "sections.title-section", "title": "¿Cómo funciona?" },
+        { "__component": "home.discover-section", "title": "Desarrollador", "smallText": "laptopcode",
+          "Products": [
+            {
+              "title": "Regístrate",
+              "subtitle": "Crea una cuenta para tu organización y accede al catálogo completos de APIs.",
+              "iconText": "adduser",
+              "num": "1"
+            },
+            {
+              "title": "Personaliza",
+              "subtitle": "Selecciona las APIs que mejor se ajustan a tus necesidades y descubre todo lo que puedes conseguir con ellas.",
+              "iconText": "settings",
+              "num": "2"
+            },
+            {
+              "title": "Desarrolla",
+              "subtitle": "En breve tendrás integradas las APIs en tu plataforma para comenzar a vender y gestionar los productos.",
+              "iconText": "code",
+              "num": "3"
+            }
+          ]
+        },
+        { "__component": "sections.button-hero", "header": [ { "title": "Empezar ahora", "keyword": "tertiary", "isKeywordInverted": null }, { "title": "Ver APIs", "keyword": "ghost", "isKeywordInverted": true } ] },
+        {
+          "__component": "sections.section-use-case",
+          "title": "Descubre nuestras APIs",
+          "subtitle": "Encuentra las mejores APIs para tu negocio.\nNuestras APIs son fáciles de personalizar e integrar, para comenzar a vender y gestionar los productos."
         },
         {
-          "__component":"sections.feature-rows-group",
-          "features":[
+          "__component": "home.banner-section",
+          "title": "Integra tus sistemas con las APIs",
+          "subtitle": "Documentación y entorno de prueba en un solo lugar"
+        }
+      ]
+    },
+    {
+      "slug": "apis",
+      "shortName": "apis",
+      "metadata": { "metaTitle": "API Market - Biblioteca de APIs" },
+      "contentSections": [
+        { "__component": "home.banner-section" }
+      ]
+    },
+    {
+      "slug": "blog",
+      "shortName": "blog",
+      "metadata": { "metaTitle": "API Market - Blog" },
+      "contentSections": [
+        { "__component": "home.banner-section", "title": "Descubre las novedades", "search": "Buscar" },
+        {
+          "__component": "custom.tab-card",
+          "name": "Todos",
+          "tab": "zero",
+          "cards": [
             {
-              "title":"Let marketing teams build their pages",
-              "description":"Thanks to a pre-built list of UI sections, marketers can design exactly the pages they want.",
-              "link":{
-                "url":"#",
-                "newTab":false,
-                "text":"View the list of UI sections"
-              },
-              "media":null
-            },
-            {
-              "title":"Leave your developers alone",
-              "description":"You can publish, edit and delete pages without help from developers. Your technical team can finally focus on their tasks.",
-              "link":{
-                "url":"#",
-                "newTab":false,
-                "text":"View how to create a page"
-              },
-              "media":null
+              "title": "Conoce nuestras APIs de auto flexible",
+              "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
             }
           ]
         },
         {
-          "__component":"sections.feature-columns-group",
-          "features":[
+          "__component": "custom.tab-card",
+          "name": "Novedades",
+          "tab": "one",
+          "cards": [
             {
-              "title":"Preview your changes",
-              "description":"Thanks to an integrated Preview Mode, you can visualize your pages before publishing them.",
-              "icon":null
-            },
-            {
-              "title":"Fully responsive",
-              "description":"This starter works well on all screens, whether it's mobile, tablet or desktop.",
-              "icon":null
-            },
-            {
-              "title":"Easy to customize",
-              "description":"We use Tailwind for styling. You can change your site's theme without digging through the code.",
-              "icon":null
+              "title": "Conoce nuestras novedades",
+              "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+              "timeRead": "LECTURA DE 5 MIN."
             }
           ]
         },
         {
-          "__component":"sections.testimonials-group",
-          "title":"Your customer testimonials here",
-          "description":"This section is where you can showcase your customers. Insert quotes, and show the logos of companies who like your product",
-          "link":{
-            "url":"#",
-            "newTab":false,
-            "text":"All testimonials"
-          },
-          "logos":[
+          "__component": "custom.tab-card",
+          "name": "Desarrolladores",
+          "tab": "two",
+          "cards": [
             {
-              "title":"Strapi",
-              "logo":null
-            },
-            {
-              "title":"Strapi 2",
-              "logo":null
-            },
-            {
-              "title":"Strapi 3",
-              "logo":null
-            }
-          ],
-          "testimonials":[
-            {
-              "text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-              "authorName":"Your Customer Name",
-              "authorTitle":"A happy customer",
-              "link":"#",
-              "logo":null,
-              "picture":null
+              "title": "Conoce nuestros desarrollos de apis",
+              "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+              "timeRead": "LECTURA DE 5 MIN."
             }
           ]
         },
         {
-          "__component":"sections.lead-form",
-          "title": "Subscribe To Our Newsletter",
-          "emailPlaceholder": "email@company.com",
-          "submitButton": {
-            "__component": "links.button",
-            "text": "Subscribe",
-            "type": "primary"
-          },
-          "location": "Home Page Bottom"
-        },
-        {
-          "__component":"sections.bottom-actions",
-          "title":"Start building your website",
-          "buttons":[
+          "__component": "custom.tab-card",
+          "name": "APIs",
+          "tab": "three",
+          "cards": [
             {
-              "url":"https://github.com/strapi/strapi-template-corporate",
-              "newTab":false,
-              "text":"Get started",
-              "type":"primary"
-            },
-            {
-              "url":"https://github.com/strapi/strapi-template-corporate",
-              "newTab":false,
-              "text":"See the code",
-              "type":"secondary"
+              "title": "Nuestras APIs",
+              "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+              "timeRead": "LECTURA DE 10 MIN."
             }
           ]
         }
       ]
     },
     {
-      "slug":"pricing",
-      "shortName":"Pricing",
-      "status":"published",
-      "metadata":{
-        "metaTitle":"Pricing",
-        "metaDescription":"The different plans",
-        "twitterCardType":"summary",
-        "twitterUsername":null,
-        "shareImage":null
-      },
-      "contentSections":[
-        {
-          "__component":"sections.pricing",
-          "title":"Clear pricing table",
-          "plans":[
-            {
-              "name":"Hobby",
-              "description":"Perfect for side projects",
-              "isRecommended":null,
-              "price":0,
-              "pricePeriod":"forever",
-              "features":[
-                {
-                  "name":"A cool feature"
-                },
-                {
-                  "name":"Another cool feature"
-                },
-                {
-                  "name":"Some other cool feature"
-                }
-              ]
-            },
-            {
-              "name":"Premium",
-              "description":"A more advanced plan for SMBs",
-              "isRecommended":true,
-              "price":20,
-              "pricePeriod":"per month",
-              "features":[
-                {
-                  "name":"The coolest feature"
-                },
-                {
-                  "name":"Nice feature"
-                },
-                {
-                  "name":"Fun feature"
-                }
-              ]
-            },
-            {
-              "name":"Enterprise",
-              "description":"For large companies needs",
-              "isRecommended":null,
-              "price":299,
-              "pricePeriod":"per month",
-              "features":[
-                {
-                  "name":"Amazing feature"
-                },
-                {
-                  "name":"Wow effect feature"
-                },
-                {
-                  "name":"Mesmerizing feature"
-                }
-              ]
-            }
+      "slug": "faq",
+      "shortName": "faq",
+      "metadata": { "metaTitle": "API Market - Preguntas Frecuentes" },
+      "contentSections": [
+        { "__component": "home.banner-section", "title": "Preguntas frecuentes" },
+        { "__component": "custom.list-filter", "Title": "¿Cómo empezar?",
+          "items": [
+            { "title": "Información", "label": "Información" },
+            { "title": "Primeros pasos", "label": "Primeros pasos" },
+            { "title": "Integración", "label": "Integración" }
           ]
-        }
-      ]
-    },
-    {
-      "slug":"secret",
-      "shortName":"Secret",
-      "status":"draft",
-      "metadata":{
-        "metaTitle":"Secret page",
-        "metaDescription":"Preview-only page",
-        "twitterCardType":"summary",
-        "twitterUsername":null,
-        "shareImage":null
-      },
-      "contentSections":[
-        {
-          "__component":"sections.rich-text",
-          "content":"## Secret page\n\nYou can only view this page in Preview Mode."
-        }
-      ]
-    },
-    {
-      "slug":"contact",
-      "shortName":"Contact",
-      "status":"published",
-      "metadata":{
-        "metaTitle":"Contact",
-        "metaDescription":"Get in touch with our team",
-        "twitterCardType":"summary",
-        "twitterUsername":null,
-        "shareImage":null
-      },
-      "contentSections":[
-        {
-          "__component":"sections.rich-text",
-          "content":"# Get in touch\n\n> This is an example of a page that relies almost entirely on the RichText section. It's useful for blog articles, or content-heavy pages like legal terms.\n\nWe'd love to hear from you.\n\n## Social media\n\n* [Twitter](#)\n* [Twitter](#)\n* [Twitter](#)\n\n## Postal address\n\n404 Headless Street\n__92210__ **Saint Cloud**, *France*\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         },
+        { "__component": "elements.entry", "title": "Información", "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
+        { "__component": "elements.entry", "title": "Primeros pasos", "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
+        { "__component": "elements.entry", "title": "Integración", "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." }
+      ]
+    },
+    {
+      "slug": "terms",
+      "shortName": "terms",
+      "metadata": { "metaTitle": "Términos y Condiciones" },
+      "contentSections": [
         {
-          "__component":"sections.bottom-actions",
-          "title":"Get in touch",
-          "buttons":[
-            {
-              "url":"#",
-              "newTab":false,
-              "text":"Send an email",
-              "type":"primary"
-            },
-            {
-              "url":"#",
-              "newTab":false,
-              "text":"DM us on Twitter",
-              "type":"secondary"
-            }
-          ]
+          "__component": "elements.entry",
+          "title": "Términos y condiciones",
+          "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
         }
       ]
+    },
+    {
+      "slug": "policy-privacy",
+      "shortName": "policy-privacy",
+      "metadata": { "metaTitle": "Políticas de Privacidad" },
+      "contentSections": [
+        {
+          "__component": "elements.entry",
+          "title": "Políticas de privacidad",
+          "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        }
+      ]
+    }
+  ],
+  "libraryApis": [
+    {
+      "title": "API Greetings Test",
+      "slug": "api-greetings-test",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "version": "1.0.0",
+      "openDocType": "api",
+      "openDocFormat": "json",
+      "publish": "publicado",
+      "openDoc": "{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Local Test API\",\"version\":\"1.0.0\"},\"paths\":{\"/hello\":{\"get\":{\"summary\":\"Static greeting\",\"responses\":{\"200\":{\"description\":\"Successful operation\",\"content\":{\"application/json\":{\"example\":{\"status\":\"success\",\"message\":\"Functional integration\"}}}}}}}}}",
+      "tags": [
+        { "title": "REST", "label": "REST" },
+        { "title": "Testing", "label": "Testing" }
+      ],
+      "definitionRating": "A",
+      "securityRating": "B",
+      "qualityRating": "A",
+      "globalRating": "A"
+    }
+  ],
+  "blogItems": [
+    {
+      "title": "Conoce nuestras APIs",
+      "slug": "nuestras-apis",
+      "timeRead": "Lectura de 5 Min.",
+      "nameUser": "María Mercedes",
+      "jobUser": "Directora",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. standard dummy text.",
+      "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "tags": [
+        { "title": "Novedades", "label": "Novedades", "tab": "one" },
+        { "title": "Desarrolladores", "label": "Desarrolladores", "tab": "two" },
+        { "title": "APIs", "label": "APIs", "tab": "three" }
+      ],
+      "questions": []
     }
   ]
 }

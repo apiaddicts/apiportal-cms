@@ -799,13 +799,12 @@ export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::setting-page.setting-page'
     >;
-    Logo: Schema.Attribute.Media<'images' | 'files'> &
-      Schema.Attribute.Required;
+    Logo: Schema.Attribute.Media<'images' | 'files'>;
     mainColor: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     secondaryColor: Schema.Attribute.String;
     showAuthButtons: Schema.Attribute.Boolean &
-      Schema.Attribute.DefaultTo<true>;
+      Schema.Attribute.DefaultTo<false>;
     typography: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
