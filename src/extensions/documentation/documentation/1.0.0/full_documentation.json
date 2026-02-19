@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-01-23T02:41:03.445Z"
+    "x-generation-date": "2026-02-19T00:34:26.304Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -15047,8 +15047,7 @@
         "properties": {
           "data": {
             "required": [
-              "mainColor",
-              "Logo"
+              "mainColor"
             ],
             "type": "object",
             "properties": {
@@ -15145,8 +15144,7 @@
       "SettingPage": {
         "type": "object",
         "required": [
-          "mainColor",
-          "Logo"
+          "mainColor"
         ],
         "properties": {
           "id": {
