@@ -32,7 +32,6 @@
     "Logo": {
       "type": "media",
       "multiple": false,
-      "required": true,
       "allowedTypes": [
         "images",
         "files"
@@ -43,7 +42,7 @@
     },
     "showAuthButtons": {
       "type": "boolean",
-      "default": true
+      "default": false
     }
   }
 }
