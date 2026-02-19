@@ -1,23 +1,61 @@
-version: "3"
+version: '3.8'
+
 services:
-  strapi:
-    container_name: devportal_strapi_latest
-    build: .
-    environment:
-      DATABASE_CLIENT: "${DATABASE_CLIENT}"
-      DATABASE_HOST: "${DATABASE_HOST}"
-      DATABASE_PORT: "${DATABASE_PORT}"
-      DATABASE_NAME: "${DATABASE_NAME}"
-      DATABASE_USERNAME: "${DATABASE_USERNAME}"
-      DATABASE_PASSWORD: "${DATABASE_PASSWORD}"
-      # AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
-      # AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
-      # AWS_REGION: "${AWS_REGION}"
-      # AWS_BUCKET: "${AWS_BUCKET}"
-      # AWS_BUCKET_SUBDIRECTORY: "${AWS_BUCKET_SUBDIRECTORY}"
-      # AWS_CDN_DOMAIN: "${AWS_CDN_DOMAIN}"
-    volumes:
-      - /urs/src/app/node_modules
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: apiportal-cms
     ports:
-      - ${PORT}:1337
-    restart: always
+      - "${PORT}:${PORT}"
+    environment:
+      HOST: 0.0.0.0
+      PORT: ${PORT}
+      APP_KEYS: ${APP_KEYS}
+      DATABASE_CLIENT: ${DATABASE_CLIENT}
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_SSL: ${DATABASE_SSL}
+      EMAIL_DEFAULT_FROM: ${EMAIL_DEFAULT_FROM}
+      AWS_ACCESS_KEY_ID_SES: ${AWS_ACCESS_KEY_ID_SES}
+      AWS_SECRET_ACCESS_KEY_SES: ${AWS_SECRET_ACCESS_KEY_SES}
+      AWS_URL_SES: ${AWS_URL_SES}
+      AWS_URL_PORT: ${AWS_URL_PORT}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_REGION: ${AWS_REGION}
+      AWS_BUCKET: ${AWS_BUCKET}
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - apimarket-net
+
+  database:
+    image: postgres:13-alpine
+    container_name: apiportal-db
+    ports:
+      - "${DATABASE_PORT}:5432"
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - apimarket-net
+
+volumes:
+  db-data:
+
+networks:
+  apimarket-net:
+    driver: bridge
