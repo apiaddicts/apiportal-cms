@@ -1,7 +1,7 @@
-const fs = require("fs");
-const path = require("path");
-const { ApplicationError } = require('@strapi/utils').errors;
-const { pages, global, leadFormSubmissions } = require("./data/data.json");
+'use strict';
+
+const { pages, global, libraryApis, blogItems } = require("./data/data.json");
+const { setupAuthSettings } = require("./setup/email-config");
 
 async function isFirstRun() {
   const pluginStore = strapi.store({
@@ -9,195 +9,137 @@ async function isFirstRun() {
     type: "type",
     name: "setup",
   });
+
   const initHasRun = await pluginStore.get({ key: "initHasRun" });
+
+  if (initHasRun) {
+    return false;
+  }
+
   await pluginStore.set({ key: "initHasRun", value: true });
-  return !initHasRun;
+  return true;
 }
 
-async function setPublicPermissions(newPermissions) {
-  // Find the ID of the public role
-  const publicRole = await strapi
-    .query("role", "users-permissions")
-    .findOne({ type: "public" });
-
-  // List all available permissions
-  const publicPermissions = await strapi
-    .query("permission", "users-permissions")
-    .find({ type: "application", role: publicRole.id });
-
-  // Update permission to match new config
-  const controllersToUpdate = Object.keys(newPermissions);
-  const updatePromises = publicPermissions
-    .filter((permission) => {
-      // Only update permissions included in newConfig
-      if (!controllersToUpdate.includes(permission.controller)) {
-        return false;
-      }
-      if (!newPermissions[permission.controller].includes(permission.action)) {
-        return false;
-      }
-      return true;
-    })
-    .map((permission) => {
-      // Enable the selected permissions
-      return strapi
-        .query("permission", "users-permissions")
-        .update({ id: permission.id }, { enabled: true });
-    });
-  await Promise.all(updatePromises);
-}
-
-function getFileSizeInBytes(filePath) {
-  const stats = fs.statSync(filePath);
-  const fileSizeInBytes = stats["size"];
-  return fileSizeInBytes;
-}
-
-function getFileData(fileName) {
-  const filePath = `./data/uploads/${fileName}`;
-
-  // Parse the file metadata
-  const size = getFileSizeInBytes(filePath);
-  const ext = fileName.split(".").pop();
-  const mimeType = `image/${ext === "svg" ? "svg+xml" : ext}`;
-
-  return {
-    path: filePath,
-    name: fileName,
-    size,
-    type: mimeType,
-  };
-}
-
-// Create an entry and attach files if there are any
-async function createEntry(model, entry, files) {
+async function setPublicPermissions() {
   try {
-    const createdEntry = await strapi.query(model).create(entry);
-    if (files) {
-      await strapi.entityService.uploadFiles(createdEntry, files, {
-        model,
-      });
-      const uploads = await strapi.query('file', 'upload').find();
-      const uploadsWithInfo = uploads.map(upload => {
-        const [alternativeText] = upload.name.split(".")
-        return strapi.plugins.upload.services.upload.updateFileInfo(upload.id, {
-          alternativeText
-        })
-      })
-      await Promise.all(uploadsWithInfo)
+    const roles = await strapi.query("plugin::users-permissions.role").findMany({
+      where: { type: { $in: ["public", "authenticated"] } }
+    });
+
+    const actionsToEnable = [
+      "api::apim-config.apim-config.find",
+      "api::apim-config.apim-config.findOne",
+      "api::blog-item.blog-item.find",
+      "api::blog-item.blog-item.findOne",
+      "api::code-sample.code-sample.find",
+      "api::code-sample.code-sample.findOne",
+      "api::idp-config.idp-config.find",
+      "api::idp-config.idp-config.findOne",
+      "api::library-api.library-api.find",
+      "api::library-api.library-api.findOne",
+      "api::page.page.find",
+      "api::page.page.findOne",
+      "api::product.product.find",
+      "api::product.product.findOne",
+      "api::setting-page.setting-page.find",
+      "api::setting-page.setting-page.findOne",
+
+      "plugin::users-permissions.user.find",
+      "plugin::users-permissions.user.findOne",
+      "plugin::users-permissions.user.me"
+    ];
+
+    for (const role of roles) {
+      for (const action of actionsToEnable) {
+        const permission = await strapi.query("plugin::users-permissions.permission").findOne({
+          where: { role: role.id, action: action }
+        });
+
+        if (permission) {
+          await strapi.query("plugin::users-permissions.permission").update({
+            where: { id: permission.id },
+            data: { enabled: true },
+          });
+        } else {
+          await strapi.query("plugin::users-permissions.permission").create({
+            data: { action, enabled: true, role: role.id },
+          });
+        }
+      }
     }
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.error(err.message);
   }
 }
 
-async function importPages() {
-  const getPageCover = (slug) => {
-    switch (slug) {
-      case "":
-        return getFileData("undraw-content-team.png");
-      default:
-        return null;
-    }
-  };
+async function createEntry(model, data) {
+  try {
+    const uid = `api::${model}.${model}`;
+    if (!strapi.contentTypes[uid]) return;
 
-  return pages.map(async (page) => {
-    const files = {};
-    const shareImage = getPageCover(page.slug);
-    if (shareImage) {
-      files["metadata.shareImage"] = shareImage;
-    }
-    // Check if dynamic zone has attached files
-    page.contentSections.forEach((section, index) => {
-      if (section.__component === "sections.hero") {
-        files[`contentSections.${index}.picture`] = getFileData(
-          "undraw-content-team.svg"
-        );
-      } else if (section.__component === "sections.feature-rows-group") {
-        const getFeatureMedia = (featureIndex) => {
-          switch (featureIndex) {
-            case 0:
-              return getFileData("undraw-design-page.svg");
-            case 1:
-              return getFileData("undraw-create-page.svg");
-            default:
-              return null;
-          }
-        };
-        section.features.forEach((feature, featureIndex) => {
-          files[
-            `contentSections.${index}.features.${featureIndex}.media`
-          ] = getFeatureMedia(featureIndex);
-        });
-      } else if (section.__component === "sections.feature-columns-group") {
-        const getFeatureMedia = (featureIndex) => {
-          switch (featureIndex) {
-            case 0:
-              return getFileData("preview.svg");
-            case 1:
-              return getFileData("devices.svg");
-            case 2:
-              return getFileData("palette.svg");
-            default:
-              return null;
-          }
-        };
-        section.features.forEach((feature, featureIndex) => {
-          files[
-            `contentSections.${index}.features.${featureIndex}.icon`
-          ] = getFeatureMedia(featureIndex);
-        });
-      } else if (section.__component === "sections.testimonials-group") {
-        section.logos.forEach((logo, logoIndex) => {
-          files[
-            `contentSections.${index}.logos.${logoIndex}.logo`
-          ] = getFileData("logo.png");
-        });
-        section.testimonials.forEach((testimonial, testimonialIndex) => {
-          files[
-            `contentSections.${index}.testimonials.${testimonialIndex}.logo`
-          ] = getFileData("logo.png");
-          files[
-            `contentSections.${index}.testimonials.${testimonialIndex}.picture`
-          ] = getFileData("user.png");
-        });
-      }
+    return await strapi.documents(uid).create({
+      data: data,
+      status: 'published',
     });
-
-    await createEntry("page", page, files);
-  });
+  } catch (e) {
+    console.error(e.message);
+  }
 }
 
-async function importGlobal() {
-  // Add images
-  const files = {
-    favicon: getFileData("favicon.png"),
-    "metadata.shareImage": getFileData("undraw-content-team.png"),
-    "navbar.logo": getFileData("logo.png"),
-    "footer.logo": getFileData("logo.png"),
+async function setupLocales() {
+  try {
+    const localeService = strapi.plugin('i18n').service('locales');
+    const existingLocales = await localeService.find();
+    const hasSpanish = existingLocales.some(l => l.code === 'es');
+
+    if (!hasSpanish) {
+      await localeService.create({
+        name: 'Spanish (es)',
+        code: 'es',
+        isDefault: false,
+      });
+    }
+  } catch (err) {
+    console.error(err.message);
+  }
+}
+
+async function importSettings() {
+  const defaultSettings = {
+    mainColor: "#05172e",
+    secondaryColor: "#fb952a",
+    typography: "Montserrat",
+    showAuthButtons: false,
   };
-  // Create entry
-  await createEntry("global", global, files);
-}
 
-async function importLeadFormSubmissionData() {
-  leadFormSubmissions.forEach(async (submission) => {
-    await createEntry("lead-form-submissions", submission);
-  });
+  await createEntry("setting-page", defaultSettings);
 }
 
 async function importSeedData() {
-  // Allow read of application content types
-  await setPublicPermissions({
-    global: ["find"],
-    page: ["find", "findone"],
-    'lead-form-submissions': ["create"],
-  });
 
-  // Create all entries
-  await importGlobal();
-  await importPages();
-  await importLeadFormSubmissionData();
+  await setupLocales();
+
+  await setPublicPermissions();
+
+  await createEntry("global", global);
+
+  await importSettings();
+
+  for (const page of pages) {
+    await createEntry("page", page);
+  }
+
+  if (libraryApis) {
+    for (const api of libraryApis) {
+      await createEntry("library-api", api);
+    }
+  }
+
+  if (blogItems) {
+    for (const blog of blogItems) {
+      await createEntry("blog-item", blog);
+    }
+  }
 }
 
 module.exports = {
@@ -221,6 +163,7 @@ module.exports = {
     if (shouldImportSeedData) {
       try {
         await importSeedData();
+        await setupAuthSettings(strapi);
       } catch (error) {
         console.log("Could not import seed data");
         console.error(error);
