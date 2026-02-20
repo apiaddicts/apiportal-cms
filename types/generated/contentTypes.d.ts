@@ -458,7 +458,7 @@ export interface ApiApimConfigApimConfig extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     organizationId: Schema.Attribute.String;
-    platform: Schema.Attribute.Enumeration<['MuleSoft', 'Azure']> &
+    provider: Schema.Attribute.Enumeration<['MuleSoft', 'Azure']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'MuleSoft'>;
     publishedAt: Schema.Attribute.DateTime;
@@ -649,6 +649,7 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'api'>;
     openDocUrl: Schema.Attribute.String;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    provider: Schema.Attribute.String;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
     qualityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;

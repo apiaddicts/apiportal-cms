@@ -6133,6 +6133,9 @@
               "slug": {
                 "type": "string"
               },
+              "provider": {
+                "type": "string"
+              },
               "description": {
                 "type": "string"
               },
@@ -7589,6 +7592,9 @@
               "slug": {
                 "type": "string"
               },
+              "provider": {
+                "type": "string"
+              },
               "description": {
                 "type": "string"
               },
@@ -7794,6 +7800,9 @@
             "type": "string"
           },
           "slug": {
+            "type": "string"
+          },
+          "provider": {
             "type": "string"
           },
           "description": {
@@ -8736,6 +8745,9 @@
                         "type": "string"
                       },
                       "slug": {
+                        "type": "string"
+                      },
+                      "provider": {
                         "type": "string"
                       },
                       "description": {
