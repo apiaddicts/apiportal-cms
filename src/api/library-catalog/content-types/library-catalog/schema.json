@@ -121,6 +121,14 @@
       },
       "description": "Este campo es nuevo"
     },
+    "contracstDefinitionOperations": {
+      "type": "customField",
+      "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
+      "options": {
+        "language": "plaintext"
+      },
+      "description": "Este campo es nuevo"
+    },
     "markdown": {
       "type": "richtext"
     },
