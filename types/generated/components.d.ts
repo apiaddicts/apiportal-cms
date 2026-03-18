@@ -102,6 +102,72 @@ export interface CardsUseCaseCard extends Struct.ComponentSchema {
   };
 }
 
+export interface ConfigAws extends Struct.ComponentSchema {
+  collectionName: 'components_config_aws';
+  info: {
+    description: 'Configuraci\u00F3n para Amazon API Gateway';
+    displayName: 'AWS Config';
+    icon: 'cloud';
+    name: 'aws';
+  };
+  attributes: {
+    accessKeyId: Schema.Attribute.String;
+    region: Schema.Attribute.String;
+    secretAccessKey: Schema.Attribute.String;
+  };
+}
+
+export interface ConfigAzure extends Struct.ComponentSchema {
+  collectionName: 'components_config_azure';
+  info: {
+    description: 'Configuraci\u00F3n espec\u00EDfica para Azure';
+    displayName: 'Azure APIM Config';
+    icon: 'server';
+    name: 'azure';
+  };
+  attributes: {
+    resourceGroupName: Schema.Attribute.String;
+    serviceName: Schema.Attribute.String;
+    subscriptionId: Schema.Attribute.String;
+    tenantId: Schema.Attribute.String;
+  };
+}
+
+export interface ConfigKong extends Struct.ComponentSchema {
+  collectionName: 'components_config_kong';
+  info: {
+    description: 'Configuraci\u00F3n espec\u00EDfica para Kong';
+    displayName: 'Kong Config';
+    icon: 'code';
+    name: 'kong';
+  };
+  attributes: {
+    adminUrl: Schema.Attribute.String & Schema.Attribute.Required;
+    apiKey: Schema.Attribute.String;
+    environment: Schema.Attribute.Enumeration<
+      ['development', 'staging', 'production']
+    >;
+    workspace: Schema.Attribute.String & Schema.Attribute.DefaultTo<'default'>;
+  };
+}
+
+export interface ConfigMulesoft extends Struct.ComponentSchema {
+  collectionName: 'components_config_mulesoft';
+  info: {
+    description: 'Configuraci\u00F3n espec\u00EDfica para Mulesoft';
+    displayName: 'MuleSoft Config';
+    icon: 'cloud';
+    name: 'mulesoft';
+  };
+  attributes: {
+    clientId: Schema.Attribute.String;
+    clientSecret: Schema.Attribute.String;
+    environmentId: Schema.Attribute.String;
+    organizationId: Schema.Attribute.String;
+    url: Schema.Attribute.String;
+  };
+}
+
 export interface CustomCarousel extends Struct.ComponentSchema {
   collectionName: 'components_portal_carousels';
   info: {
@@ -1901,6 +1967,10 @@ declare module '@strapi/strapi' {
       'cards.card-product': CardsCardProduct;
       'cards.product-link-card': CardsProductLinkCard;
       'cards.use-case-card': CardsUseCaseCard;
+      'config.aws': ConfigAws;
+      'config.azure': ConfigAzure;
+      'config.kong': ConfigKong;
+      'config.mulesoft': ConfigMulesoft;
       'custom.carousel': CustomCarousel;
       'custom.chips': CustomChips;
       'custom.items': CustomItems;

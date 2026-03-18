@@ -27,7 +27,8 @@
       "type": "dynamiczone",
       "components": [
         "config.mulesoft",
-        "config.kong"
+        "config.kong",
+        "config.aws"
       ],
       "max": 1,
       "required": true
