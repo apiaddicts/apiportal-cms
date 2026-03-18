@@ -1,0 +1,28 @@
+{
+  "type": "component",
+  "collectionName": "components_config_mulesoft",
+  "info": {
+    "name": "mulesoft",
+    "displayName": "MuleSoft Config",
+    "icon": "cloud",
+    "description": "Configuración específica para Mulesoft"
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "clientId": {
+      "type": "string"
+    },
+    "clientSecret": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "environmentId": {
+      "type": "string"
+    }
+  }
+}

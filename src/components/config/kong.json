@@ -1,0 +1,32 @@
+{
+  "type": "component",
+  "collectionName": "components_config_kong",
+  "info": {
+    "name": "kong",
+    "displayName": "Kong Config",
+    "icon": "code",
+    "description": "Configuración específica para Kong"
+  },
+  "options": {},
+  "attributes": {
+    "adminUrl": {
+      "type": "string",
+      "required": true
+    },
+    "workspace": {
+      "type": "string",
+      "default": "default"
+    },
+    "apiKey": {
+      "type": "string"
+    },
+    "environment": {
+      "type": "enumeration",
+      "enum": [
+        "development",
+        "staging",
+        "production"
+      ]
+    }
+  }
+}
