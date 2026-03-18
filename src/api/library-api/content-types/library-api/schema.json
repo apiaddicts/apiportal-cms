@@ -107,6 +107,26 @@
       "type": "boolean",
       "default": false
     },
+    "devExperienceCheck": {
+      "type": "boolean",
+      "default": false
+    },
+    "securityCheck": {
+      "type": "boolean",
+      "default": false
+    },
+    "qualityCheck": {
+      "type": "boolean",
+      "default": false
+    },
+    "doraCheck": {
+      "type": "boolean",
+      "default": false
+    },
+    "openFinanceCheck": {
+      "type": "boolean",
+      "default": false
+    },
     "publish": {
       "type": "enumeration",
       "enum": [
