@@ -3,6 +3,7 @@
   "collectionName": "components_home_banner_sections",
   "info": {
     "name": "BannerSection",
+    "displayName": "BannerSection",
     "icon": "arrow-up",
     "description": ""
   },
