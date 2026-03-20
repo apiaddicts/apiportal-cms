@@ -442,14 +442,20 @@ export interface ApiApimConfigApimConfig extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    active: Schema.Attribute.Boolean;
-    apiToken: Schema.Attribute.String;
-    clientId: Schema.Attribute.String;
-    clientSecret: Schema.Attribute.String;
+    active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    configurations: Schema.Attribute.DynamicZone<
+      ['config.mulesoft', 'config.kong', 'config.aws']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+        },
+        number
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    environmentId: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -457,16 +463,11 @@ export interface ApiApimConfigApimConfig extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    organizationId: Schema.Attribute.String;
-    platform: Schema.Attribute.Enumeration<['MuleSoft', 'Azure']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'MuleSoft'>;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    slug: Schema.Attribute.UID<'name'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    url: Schema.Attribute.String;
   };
 }
 
@@ -624,7 +625,6 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     definitionRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     description: Schema.Attribute.Text;
-    footerText: Schema.Attribute.String;
     globalRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
@@ -649,6 +649,7 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'api'>;
     openDocUrl: Schema.Attribute.String;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    provider: Schema.Attribute.Enumeration<['mulesoft', 'kong', 'aws']>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
     qualityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;

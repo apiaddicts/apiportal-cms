@@ -28,7 +28,7 @@
     },
     "provider": {
       "type": "enumeration",
-      "enum": ["mulesoft", "kong"]
+      "enum": ["mulesoft", "kong", "aws"]
     },
     "image": {
       "type": "media",

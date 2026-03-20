@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-02-19T00:34:26.304Z"
+    "x-generation-date": "2026-03-17T20:18:49.384Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -6139,8 +6139,13 @@
               "color_status": {
                 "type": "string"
               },
-              "footerText": {
-                "type": "string"
+              "provider": {
+                "type": "string",
+                "enum": [
+                  "mulesoft",
+                  "kong",
+                  "aws"
+                ]
               },
               "image": {
                 "type": "array",
@@ -7595,8 +7600,13 @@
               "color_status": {
                 "type": "string"
               },
-              "footerText": {
-                "type": "string"
+              "provider": {
+                "type": "string",
+                "enum": [
+                  "mulesoft",
+                  "kong",
+                  "aws"
+                ]
               },
               "image": {
                 "type": "array",
@@ -7802,8 +7812,13 @@
           "color_status": {
             "type": "string"
           },
-          "footerText": {
-            "type": "string"
+          "provider": {
+            "type": "string",
+            "enum": [
+              "mulesoft",
+              "kong",
+              "aws"
+            ]
           },
           "image": {
             "type": "array",
@@ -8744,8 +8759,13 @@
                       "color_status": {
                         "type": "string"
                       },
-                      "footerText": {
-                        "type": "string"
+                      "provider": {
+                        "type": "string",
+                        "enum": [
+                          "mulesoft",
+                          "kong",
+                          "aws"
+                        ]
                       },
                       "image": {
                         "type": "array",
