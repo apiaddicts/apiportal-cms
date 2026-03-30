@@ -11,7 +11,6 @@ module.exports = createCoreService('api::library-api.library-api', ({ strapi }) 
       status: 'published',
     });
 
-    // await strapi.db.query('api::library-api.library-api').deleteMany({});
     const integratorUrl = process.env.INTEGRATOR_URL;
     const integratorApiKey = process.env.INTEGRATOR_KONG_API_KEY;
 
