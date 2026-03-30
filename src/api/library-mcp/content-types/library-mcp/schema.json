@@ -24,7 +24,11 @@
     },
     "image": {
       "type": "media",
-      "allowedTypes": ["images", "files", "videos"],
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
       "multiple": true,
       "required": false
     },
@@ -36,13 +40,36 @@
       "repeatable": true,
       "component": "elements.titles"
     },
+    "transport": {
+      "type": "enumeration",
+      "enum": [
+        "stdio",
+        "sse",
+        "http"
+      ],
+      "default": "stdio"
+    },
     "configSnippet": {
-      "type": "json"
+      "type": "json",
+      "required": true
     },
     "resources": {
       "type": "component",
       "repeatable": true,
       "component": "mcps.resources"
+    },
+    "tools": {
+      "type": "component",
+      "repeatable": true,
+      "component": "mcps.tools"
+    },
+    "prompts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "mcps.prompts"
+    },
+    "reportUrl": {
+      "type": "string"
     },
     "markdown": {
       "type": "richtext"

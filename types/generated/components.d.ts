@@ -29,6 +29,20 @@ export interface ApisPagination extends Struct.ComponentSchema {
   };
 }
 
+export interface ApisRatings extends Struct.ComponentSchema {
+  collectionName: 'components_apis_ratings';
+  info: {
+    displayName: 'Ratings';
+    icon: 'star';
+  };
+  attributes: {
+    definitionRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
+    globalRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
+    qualityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
+    securityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
+  };
+}
+
 export interface CardsCard extends Struct.ComponentSchema {
   collectionName: 'components_cards_cards';
   info: {
@@ -114,22 +128,6 @@ export interface ConfigAws extends Struct.ComponentSchema {
     accessKeyId: Schema.Attribute.String;
     region: Schema.Attribute.String;
     secretAccessKey: Schema.Attribute.String;
-  };
-}
-
-export interface ConfigAzure extends Struct.ComponentSchema {
-  collectionName: 'components_config_azure';
-  info: {
-    description: 'Configuraci\u00F3n espec\u00EDfica para Azure';
-    displayName: 'Azure APIM Config';
-    icon: 'server';
-    name: 'azure';
-  };
-  attributes: {
-    resourceGroupName: Schema.Attribute.String;
-    serviceName: Schema.Attribute.String;
-    subscriptionId: Schema.Attribute.String;
-    tenantId: Schema.Attribute.String;
   };
 }
 
@@ -864,6 +862,7 @@ export interface HomeBannerSection extends Struct.ComponentSchema {
   collectionName: 'components_home_banner_sections';
   info: {
     description: '';
+    displayName: 'BannerSection';
     icon: 'arrow-up';
     name: 'BannerSection';
   };
@@ -1152,6 +1151,49 @@ export interface LinksSubLink extends Struct.ComponentSchema {
     descripcion: Schema.Attribute.String;
     icon: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     name: Schema.Attribute.String;
+  };
+}
+
+export interface McpsPrompts extends Struct.ComponentSchema {
+  collectionName: 'components_mcp_prompts';
+  info: {
+    displayName: 'MCP Prompt';
+  };
+  attributes: {
+    arguments: Schema.Attribute.JSON;
+    description: Schema.Attribute.Text;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface McpsResources extends Struct.ComponentSchema {
+  collectionName: 'components_mcp_resources';
+  info: {
+    displayName: 'MCP Resource';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    mimeType: Schema.Attribute.String;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    size: Schema.Attribute.BigInteger;
+    title: Schema.Attribute.String;
+    uri: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface McpsTools extends Struct.ComponentSchema {
+  collectionName: 'components_mcp_tools';
+  info: {
+    displayName: 'MCP Tool';
+  };
+  attributes: {
+    annotations: Schema.Attribute.JSON;
+    description: Schema.Attribute.Text;
+    inputSchema: Schema.Attribute.JSON & Schema.Attribute.Required;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    outputSchema: Schema.Attribute.JSON;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -1963,12 +2005,12 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'apis.filters': ApisFilters;
       'apis.pagination': ApisPagination;
+      'apis.ratings': ApisRatings;
       'cards.card': CardsCard;
       'cards.card-product': CardsCardProduct;
       'cards.product-link-card': CardsProductLinkCard;
       'cards.use-case-card': CardsUseCaseCard;
       'config.aws': ConfigAws;
-      'config.azure': ConfigAzure;
       'config.kong': ConfigKong;
       'config.mulesoft': ConfigMulesoft;
       'custom.carousel': CustomCarousel;
@@ -2040,6 +2082,9 @@ declare module '@strapi/strapi' {
       'links.link': LinksLink;
       'links.share-list': LinksShareList;
       'links.sub-link': LinksSubLink;
+      'mcps.prompts': McpsPrompts;
+      'mcps.resources': McpsResources;
+      'mcps.tools': McpsTools;
       'meta.metadata': MetaMetadata;
       'new.card-list': NewCardList;
       'new.cards-list': NewCardsList;
