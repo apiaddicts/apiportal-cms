@@ -117,22 +117,6 @@ export interface ConfigAws extends Struct.ComponentSchema {
   };
 }
 
-export interface ConfigAzure extends Struct.ComponentSchema {
-  collectionName: 'components_config_azure';
-  info: {
-    description: 'Configuraci\u00F3n espec\u00EDfica para Azure';
-    displayName: 'Azure APIM Config';
-    icon: 'server';
-    name: 'azure';
-  };
-  attributes: {
-    resourceGroupName: Schema.Attribute.String;
-    serviceName: Schema.Attribute.String;
-    subscriptionId: Schema.Attribute.String;
-    tenantId: Schema.Attribute.String;
-  };
-}
-
 export interface ConfigKong extends Struct.ComponentSchema {
   collectionName: 'components_config_kong';
   info: {
@@ -144,10 +128,15 @@ export interface ConfigKong extends Struct.ComponentSchema {
   attributes: {
     adminUrl: Schema.Attribute.String & Schema.Attribute.Required;
     apiKey: Schema.Attribute.String;
-    environment: Schema.Attribute.Enumeration<
-      ['development', 'staging', 'production']
-    >;
-    workspace: Schema.Attribute.String & Schema.Attribute.DefaultTo<'default'>;
+    authType: Schema.Attribute.Enumeration<['oauth', 'apikey']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'oauth'>;
+    clientId: Schema.Attribute.String;
+    clientSecret: Schema.Attribute.String;
+    scope: Schema.Attribute.String;
+    tokenHeaderName: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'authorization-token'>;
+    tokenUrl: Schema.Attribute.String;
   };
 }
 
@@ -1968,7 +1957,6 @@ declare module '@strapi/strapi' {
       'cards.product-link-card': CardsProductLinkCard;
       'cards.use-case-card': CardsUseCaseCard;
       'config.aws': ConfigAws;
-      'config.azure': ConfigAzure;
       'config.kong': ConfigKong;
       'config.mulesoft': ConfigMulesoft;
       'custom.carousel': CustomCarousel;
