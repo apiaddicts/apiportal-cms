@@ -142,10 +142,15 @@ export interface ConfigKong extends Struct.ComponentSchema {
   attributes: {
     adminUrl: Schema.Attribute.String & Schema.Attribute.Required;
     apiKey: Schema.Attribute.String;
-    environment: Schema.Attribute.Enumeration<
-      ['development', 'staging', 'production']
-    >;
-    workspace: Schema.Attribute.String & Schema.Attribute.DefaultTo<'default'>;
+    authType: Schema.Attribute.Enumeration<['oauth', 'apikey']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'oauth'>;
+    clientId: Schema.Attribute.String;
+    clientSecret: Schema.Attribute.String;
+    scope: Schema.Attribute.String;
+    tokenHeaderName: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'authorization-token'>;
+    tokenUrl: Schema.Attribute.String;
   };
 }
 

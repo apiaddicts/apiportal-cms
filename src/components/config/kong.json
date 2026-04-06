@@ -1,5 +1,4 @@
 {
-  "type": "component",
   "collectionName": "components_config_kong",
   "info": {
     "name": "kong",
@@ -13,20 +12,94 @@
       "type": "string",
       "required": true
     },
-    "workspace": {
-      "type": "string",
-      "default": "default"
+    "authType": {
+      "type": "enumeration",
+      "required": true,
+      "default": "oauth",
+      "enum": [
+        "oauth",
+        "apikey"
+      ]
     },
     "apiKey": {
-      "type": "string"
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "authType"
+            },
+            "apikey"
+          ]
+        }
+      },
+      "required": false
     },
-    "environment": {
-      "type": "enumeration",
-      "enum": [
-        "development",
-        "staging",
-        "production"
-      ]
+    "tokenUrl": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "authType"
+            },
+            "oauth"
+          ]
+        }
+      }
+    },
+    "clientId": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "authType"
+            },
+            "oauth"
+          ]
+        }
+      }
+    },
+    "clientSecret": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "authType"
+            },
+            "oauth"
+          ]
+        }
+      }
+    },
+    "scope": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "authType"
+            },
+            "oauth"
+          ]
+        }
+      }
+    },
+    "tokenHeaderName": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "authType"
+            },
+            "oauth"
+          ]
+        }
+      },
+      "default": "authorization-token"
     }
   }
 }
