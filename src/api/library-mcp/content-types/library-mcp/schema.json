@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "library_mcps",
+  "info": {
+    "singularName": "library-mcp",
+    "pluralName": "library-mcps",
+    "displayName": "LibraryMcp",
+    "name": "LibraryMcp",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "multiple": true,
+      "required": false
+    },
+    "version": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.titles"
+    },
+    "transport": {
+      "type": "enumeration",
+      "enum": [
+        "stdio",
+        "sse",
+        "http"
+      ],
+      "default": "stdio"
+    },
+    "configSnippet": {
+      "type": "json",
+      "required": true
+    },
+    "resources": {
+      "type": "component",
+      "repeatable": true,
+      "component": "mcps.resources"
+    },
+    "tools": {
+      "type": "component",
+      "repeatable": true,
+      "component": "mcps.tools"
+    },
+    "prompts": {
+      "type": "component",
+      "repeatable": true,
+      "component": "mcps.prompts"
+    },
+    "reportUrl": {
+      "type": "string"
+    },
+    "markdown": {
+      "type": "richtext"
+    },
+    "ratings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "apis.ratings"
+    },
+    "aiReady": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

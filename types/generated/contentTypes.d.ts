@@ -623,9 +623,7 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    definitionRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     description: Schema.Attribute.Text;
-    globalRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -652,11 +650,55 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     provider: Schema.Attribute.Enumeration<['mulesoft', 'kong', 'aws']>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
-    qualityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
-    securityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
+    ratings: Schema.Attribute.Component<'apis.ratings', false>;
     slug: Schema.Attribute.UID;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    version: Schema.Attribute.String;
+  };
+}
+
+export interface ApiLibraryMcpLibraryMcp extends Struct.CollectionTypeSchema {
+  collectionName: 'library_mcps';
+  info: {
+    description: '';
+    displayName: 'LibraryMcp';
+    name: 'LibraryMcp';
+    pluralName: 'library-mcps';
+    singularName: 'library-mcp';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aiReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    configSnippet: Schema.Attribute.JSON & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::library-mcp.library-mcp'
+    > &
+      Schema.Attribute.Private;
+    markdown: Schema.Attribute.RichText;
+    prompts: Schema.Attribute.Component<'mcps.prompts', true>;
+    publishedAt: Schema.Attribute.DateTime;
+    ratings: Schema.Attribute.Component<'apis.ratings', false>;
+    reportUrl: Schema.Attribute.String;
+    resources: Schema.Attribute.Component<'mcps.resources', true>;
+    slug: Schema.Attribute.UID;
+    tags: Schema.Attribute.Component<'elements.titles', true>;
+    title: Schema.Attribute.String;
+    tools: Schema.Attribute.Component<'mcps.tools', true>;
+    transport: Schema.Attribute.Enumeration<['stdio', 'sse', 'http']> &
+      Schema.Attribute.DefaultTo<'stdio'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1330,6 +1372,7 @@ declare module '@strapi/strapi' {
       'api::code-sample.code-sample': ApiCodeSampleCodeSample;
       'api::idp-config.idp-config': ApiIdpConfigIdpConfig;
       'api::library-api.library-api': ApiLibraryApiLibraryApi;
+      'api::library-mcp.library-mcp': ApiLibraryMcpLibraryMcp;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;
       'api::setting-page.setting-page': ApiSettingPageSettingPage;

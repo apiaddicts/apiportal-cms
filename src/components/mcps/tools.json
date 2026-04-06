@@ -1,0 +1,29 @@
+{
+  "type": "component",
+  "collectionName": "components_mcp_tools",
+  "info": {
+    "displayName": "MCP Tool"
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "inputSchema": {
+      "type": "json",
+      "required": true
+    },
+    "outputSchema": {
+      "type": "json"
+    },
+    "annotations": {
+      "type": "json"
+    }
+  }
+}

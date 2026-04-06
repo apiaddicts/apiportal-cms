@@ -1,0 +1,22 @@
+{
+  "type": "component",
+  "collectionName": "components_mcp_prompts",
+  "info": {
+    "displayName": "MCP Prompt"
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "arguments": {
+      "type": "json"
+    }
+  }
+}
