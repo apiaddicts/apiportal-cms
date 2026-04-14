@@ -57,11 +57,6 @@
       "type": "json",
       "required": true
     },
-    "resources": {
-      "type": "component",
-      "component": "mcps.resources",
-      "repeatable": true
-    },
     "reportUrl": {
       "type": "string"
     },

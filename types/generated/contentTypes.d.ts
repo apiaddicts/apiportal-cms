@@ -691,7 +691,6 @@ export interface ApiLibraryMcpLibraryMcp extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     ratings: Schema.Attribute.Component<'apis.ratings', false>;
     reportUrl: Schema.Attribute.String;
-    resources: Schema.Attribute.Component<'mcps.resources', true>;
     slug: Schema.Attribute.UID<'title'>;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;

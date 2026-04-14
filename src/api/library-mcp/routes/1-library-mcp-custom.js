@@ -11,5 +11,11 @@ module.exports = {
         policies: [],
       },
     },
+    {
+      method: 'POST',
+      path: '/library-mcps/:slug/call-tool',
+      handler: 'api::library-mcp.library-mcp.callTool',
+      config: { policies: [] },
+    },
   ],
 };
