@@ -9,6 +9,37 @@ const { createCoreService } = require('@strapi/strapi').factories;
 const CONNECTION_TIMEOUT = 15000;
 const REQUEST_TIMEOUT = 5000;
 
+async function callMcpTool(transport, url, headers, command, args, toolName, toolArgs) {
+  let client, clientTransport;
+
+  const { Client } = await import('@modelcontextprotocol/sdk/client/index.js');
+
+  if (transport === 'stdio') {
+    const { StdioClientTransport } = await import('@modelcontextprotocol/sdk/client/stdio.js');
+    const isWin = process.platform === 'win32';
+    clientTransport = new StdioClientTransport({
+      command: isWin ? 'cmd' : command,
+      args: isWin ? ['/c', command, ...args] : args,
+    });
+  } else if (transport === 'sse') {
+    const { SSEClientTransport } = await import('@modelcontextprotocol/sdk/client/sse.js');
+    clientTransport = new SSEClientTransport(new URL(url), { requestInit: { headers } });
+  } else if (transport === 'http') {
+    const { StreamableHTTPClientTransport } = await import('@modelcontextprotocol/sdk/client/streamableHttp.js');
+    clientTransport = new StreamableHTTPClientTransport(new URL(url), { requestInit: { headers } });
+  }
+
+  client = new Client({ name: 'strapi-connect', version: '1.0' });
+  await connectClient(client, clientTransport);
+
+  try {
+    const result = await client.callTool({ name: toolName, arguments: toolArgs ?? {} });
+    return { success: true, result };
+  } finally {
+    await client.close().catch(() => {});
+  }
+}
+
 async function fetchMcpData(client) {
   const withTimeout = (promise) =>
     Promise.race([promise, new Promise((_, r) => setTimeout(() => r(new Error('timeout')), REQUEST_TIMEOUT))]);
@@ -113,5 +144,13 @@ module.exports = createCoreService('api::library-mcp.library-mcp', ({ strapi }) 
     }
 
     return { success: false, error: 'No valid transport configuration provided' };
+  },
+
+  async callTool(slug, options = {}) {
+    const { transport, headers, command, args = [], url, toolName, toolArgs } = options;
+
+    if (!toolName) return { success: false, error: 'toolName is required' };
+
+    return runStrategy(() => callMcpTool(transport, url, headers, command, args, toolName, toolArgs));
   },
 }));

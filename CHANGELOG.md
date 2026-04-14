@@ -11,3 +11,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **MCP Support:** Implementation of MCP schema and connection logic.
 - **MCP Service:** New service to manage provider connections using custom headers.
+- **Call Tool Functionality:** Integrated support for invoking and executing remote tools.
