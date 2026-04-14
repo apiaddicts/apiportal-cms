@@ -53,22 +53,20 @@ async function tryStdioSDK(command, args = []) {
   return fetchMcpData(client);
 }
 
-async function tryLegacySSE(url, token) {
+async function tryLegacySSE(url, headers) {
   const { Client } = await import('@modelcontextprotocol/sdk/client/index.js');
   const { SSEClientTransport } = await import('@modelcontextprotocol/sdk/client/sse.js');
 
-  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
   const transport = new SSEClientTransport(new URL(url), { requestInit: { headers } });
   const client = new Client({ name: 'strapi-connect', version: '1.0' });
   await connectClient(client, transport);
   return fetchMcpData(client);
 }
 
-async function tryStreamableHTTP(url, token) {
+async function tryStreamableHTTP(url, headers) {
   const { Client } = await import('@modelcontextprotocol/sdk/client/index.js');
   const { StreamableHTTPClientTransport } = await import('@modelcontextprotocol/sdk/client/streamableHttp.js');
 
-  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
   const transport = new StreamableHTTPClientTransport(new URL(url), { requestInit: { headers } });
   const client = new Client({ name: 'strapi-connect', version: '1.0' });
   await connectClient(client, transport);
@@ -92,52 +90,28 @@ function fromStrapi(entry) {
 async function runStrategy(fn) {
   try {
     const result = await fn();
-    const hasData = result.tools.length || result.resources.length || result.prompts.length;
-    return hasData ? { ...result, source: 'direct' } : null;
-  } catch {
-    return null;
+    return { success: true, ...result, source: 'direct' };
+  } catch (err) {
+    return { success: false, error: err?.message ?? String(err) };
   }
 }
 
 module.exports = createCoreService('api::library-mcp.library-mcp', ({ strapi }) => ({
   async connectMcp(slug, options = {}) {
-    const { transport, token, command, args = [], url } = options;
+    const { transport, headers, command, args = [], url } = options;
 
     if (transport === 'stdio' && command) {
-      const result = await runStrategy(() => tryStdioSDK(command, args));
-      if (result) return result;
+      return runStrategy(() => tryStdioSDK(command, args));
     }
 
     if (transport === 'sse' && url) {
-      const result = await runStrategy(() => tryLegacySSE(url, token));
-      if (result) return result;
+      return runStrategy(() => tryLegacySSE(url, headers));
     }
 
     if (transport === 'http' && url) {
-      const result = await runStrategy(() => tryStreamableHTTP(url, token));
-      if (result) return result;
+      return runStrategy(() => tryStreamableHTTP(url, headers));
     }
 
-    let entry;
-    try {
-      entry = await strapi
-      .documents('api::library-mcp.library-mcp')
-      .findFirst({
-        filters: { slug },
-        populate: ['tools', 'resources', 'prompts'],
-        status: 'published',
-      });
-    } catch {
-      entry = null;
-    }
-
-    if (!entry) {
-      return { tools: [], resources: [], prompts: [], source: 'none' };
-    }
-
-    const strapiData = fromStrapi(entry);
-
-    const hasData = strapiData.tools.length || strapiData.resources.length || strapiData.prompts.length;
-    return { ...strapiData, source: hasData ? 'strapi' : 'none' };
+    return { success: false, error: 'No valid transport configuration provided' };
   },
 }));
