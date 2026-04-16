@@ -48,7 +48,6 @@
       "type": "enumeration",
       "default": "http",
       "enum": [
-        "stdio",
         "sse",
         "http"
       ]
