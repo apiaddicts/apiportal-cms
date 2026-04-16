@@ -6,8 +6,8 @@
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-const CONNECTION_TIMEOUT = 15000;
-const REQUEST_TIMEOUT = 5000;
+const CONNECTION_TIMEOUT = 120000;
+const REQUEST_TIMEOUT = 60000;
 
 async function callMcpTool(transport, url, headers, command, args, toolName, toolArgs) {
   let client, clientTransport;
@@ -102,20 +102,6 @@ async function tryStreamableHTTP(url, headers) {
   const client = new Client({ name: 'strapi-connect', version: '1.0' });
   await connectClient(client, transport);
   return fetchMcpData(client);
-}
-
-function fromStrapi(entry) {
-  return {
-    tools: (entry.tools || []).map(({ name, title, description, inputSchema, outputSchema, annotations }) =>
-      ({ name, title, description, inputSchema, outputSchema, annotations })
-    ),
-    resources: (entry.resources || []).map(({ uri, name, title, description, mimeType, size }) =>
-      ({ uri, name, title, description, mimeType, size })
-    ),
-    prompts: (entry.prompts || []).map(({ name, title, description, arguments: args }) =>
-      ({ name, title, description, arguments: args })
-    ),
-  };
 }
 
 async function runStrategy(fn) {
