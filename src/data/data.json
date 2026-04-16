@@ -205,6 +205,14 @@
       ]
     },
     {
+      "slug": "mcps",
+      "shortName": "mcps",
+      "metadata": { "metaTitle": "API Market - Biblioteca de MCPs" },
+      "contentSections": [
+        { "__component": "home.banner-section" }
+      ]
+    },
+    {
       "slug": "blog",
       "shortName": "blog",
       "metadata": { "metaTitle": "API Market - Blog" },
@@ -308,7 +316,7 @@
       "slug": "api-greetings-test",
       "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
       "version": "1.0.0",
-      "openDocType": "api",
+      "type": "api",
       "openDocFormat": "json",
       "publish": "publicado",
       "openDoc": "{\"openapi\":\"3.0.0\",\"info\":{\"title\":\"Local Test API\",\"version\":\"1.0.0\"},\"paths\":{\"/hello\":{\"get\":{\"summary\":\"Static greeting\",\"responses\":{\"200\":{\"description\":\"Successful operation\",\"content\":{\"application/json\":{\"example\":{\"status\":\"success\",\"message\":\"Functional integration\"}}}}}}}}}",
@@ -320,6 +328,51 @@
       "securityRating": "B",
       "qualityRating": "A",
       "globalRating": "A"
+    }
+  ],
+  "libraryMcps": [
+    {
+      "title": "Test MCP Entry",
+      "slug": "test-mcp-entry",
+      "description": "Entrada de prueba para MCP con datos mínimos.",
+      "transport": "sse",
+      "configSnippet": {
+        "mcpServers": {
+          "local": {
+            "type": "sse",
+            "url": "http://localhost:3333/sse"
+          }
+        }
+      },
+      "tools": [
+        {
+          "name": "example-tool",
+          "title": "Example Tool",
+          "description": "Herramienta de ejemplo para pruebas",
+          "inputSchema": {},
+          "outputSchema": {},
+          "annotations": []
+        }
+      ],
+      "resources": [
+        {
+          "uri": "https://example.com/resource.txt",
+          "name": "Example Resource",
+          "title": "Recurso de prueba",
+          "description": "Un recurso para pruebas",
+          "mimeType": "text/plain",
+          "size": 1234
+        }
+      ],
+      "prompts": [
+        {
+          "name": "example-prompt",
+          "title": "Example Prompt",
+          "description": "Prompt de prueba",
+          "arguments": []
+        }
+      ],
+      "reportUrl": "https://example.com/report.pdf"
     }
   ],
   "blogItems": [

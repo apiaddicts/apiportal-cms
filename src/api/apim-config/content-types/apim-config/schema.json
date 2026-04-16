@@ -15,40 +15,23 @@
     "name": {
       "type": "string"
     },
-    "url": {
-      "type": "string"
-    },
-    "clientId": {
-      "type": "string"
-    },
-    "clientSecret": {
-      "type": "string"
-    },
-    "apiToken": {
-      "type": "string"
-    },
-    "organizationId": {
-      "type": "string"
-    },
     "slug": {
       "type": "uid",
-      "required": true,
       "targetField": "name"
     },
     "active": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
     },
-    "environmentId": {
-      "type": "string"
-    },
-    "platform": {
-      "type": "enumeration",
-      "enum": [
-        "MuleSoft",
-        "Azure"
+    "configurations": {
+      "type": "dynamiczone",
+      "components": [
+        "config.mulesoft",
+        "config.kong",
+        "config.aws"
       ],
-      "required": true,
-      "default": "MuleSoft"
+      "max": 1,
+      "required": true
     }
   }
 }

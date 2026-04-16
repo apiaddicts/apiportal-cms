@@ -1,0 +1,72 @@
+{
+  "kind": "collectionType",
+  "collectionName": "library_mcps",
+  "info": {
+    "singularName": "library-mcp",
+    "pluralName": "library-mcps",
+    "displayName": "LibraryMcp",
+    "name": "LibraryMcp",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "version": {
+      "type": "string"
+    },
+    "markdown": {
+      "type": "richtext"
+    },
+    "tags": {
+      "type": "component",
+      "component": "elements.titles",
+      "repeatable": true
+    },
+    "transport": {
+      "type": "enumeration",
+      "default": "http",
+      "enum": [
+        "sse",
+        "http"
+      ]
+    },
+    "configSnippet": {
+      "type": "json",
+      "required": true
+    },
+    "reportUrl": {
+      "type": "string"
+    },
+    "ratings": {
+      "type": "component",
+      "component": "apis.ratings",
+      "repeatable": false
+    },
+    "aiReady": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

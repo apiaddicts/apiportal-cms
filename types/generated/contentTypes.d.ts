@@ -442,14 +442,20 @@ export interface ApiApimConfigApimConfig extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    active: Schema.Attribute.Boolean;
-    apiToken: Schema.Attribute.String;
-    clientId: Schema.Attribute.String;
-    clientSecret: Schema.Attribute.String;
+    active: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    configurations: Schema.Attribute.DynamicZone<
+      ['config.mulesoft', 'config.kong', 'config.aws']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+        },
+        number
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    environmentId: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -457,16 +463,11 @@ export interface ApiApimConfigApimConfig extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
-    organizationId: Schema.Attribute.String;
-    platform: Schema.Attribute.Enumeration<['MuleSoft', 'Azure']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'MuleSoft'>;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    slug: Schema.Attribute.UID<'name'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    url: Schema.Attribute.String;
   };
 }
 
@@ -622,10 +623,7 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    definitionRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     description: Schema.Attribute.Text;
-    footerText: Schema.Attribute.String;
-    globalRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -649,13 +647,55 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
       Schema.Attribute.DefaultTo<'api'>;
     openDocUrl: Schema.Attribute.String;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    provider: Schema.Attribute.Enumeration<['mulesoft', 'kong', 'aws']>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
-    qualityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
-    securityRating: Schema.Attribute.Enumeration<['A', 'B', 'C', 'D', 'E']>;
+    ratings: Schema.Attribute.Component<'apis.ratings', false>;
     slug: Schema.Attribute.UID;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    version: Schema.Attribute.String;
+  };
+}
+
+export interface ApiLibraryMcpLibraryMcp extends Struct.CollectionTypeSchema {
+  collectionName: 'library_mcps';
+  info: {
+    description: '';
+    displayName: 'LibraryMcp';
+    name: 'LibraryMcp';
+    pluralName: 'library-mcps';
+    singularName: 'library-mcp';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aiReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    configSnippet: Schema.Attribute.JSON & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::library-mcp.library-mcp'
+    > &
+      Schema.Attribute.Private;
+    markdown: Schema.Attribute.RichText;
+    publishedAt: Schema.Attribute.DateTime;
+    ratings: Schema.Attribute.Component<'apis.ratings', false>;
+    reportUrl: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'>;
+    tags: Schema.Attribute.Component<'elements.titles', true>;
+    title: Schema.Attribute.String;
+    transport: Schema.Attribute.Enumeration<['stdio', 'sse', 'http']> &
+      Schema.Attribute.DefaultTo<'http'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1329,6 +1369,7 @@ declare module '@strapi/strapi' {
       'api::code-sample.code-sample': ApiCodeSampleCodeSample;
       'api::idp-config.idp-config': ApiIdpConfigIdpConfig;
       'api::library-api.library-api': ApiLibraryApiLibraryApi;
+      'api::library-mcp.library-mcp': ApiLibraryMcpLibraryMcp;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;
       'api::setting-page.setting-page': ApiSettingPageSettingPage;

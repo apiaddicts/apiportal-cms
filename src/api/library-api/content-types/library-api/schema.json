@@ -26,8 +26,9 @@
     "color_status": {
       "type": "string"
     },
-    "footerText": {
-      "type": "string"
+    "provider": {
+      "type": "enumeration",
+      "enum": ["mulesoft", "kong", "aws"]
     },
     "image": {
       "type": "media",
@@ -50,13 +51,19 @@
     },
     "openDocType": {
       "type": "enumeration",
-      "enum": ["api", "asyncapi"],
+      "enum": [
+        "api",
+        "asyncapi"
+      ],
       "required": true,
       "default": "api"
     },
     "openDocFormat": {
       "type": "enumeration",
-      "enum": ["json", "yaml"],
+      "enum": [
+        "json",
+        "yaml"
+      ],
       "required": true,
       "default": "json"
     },
@@ -80,23 +87,32 @@
       "target": "api::product.product",
       "mappedBy": "library_apis"
     },
-    "definitionRating": {
-      "type": "enumeration",
-      "enum": ["A", "B", "C", "D", "E"]
-    },
-    "securityRating": {
-      "type": "enumeration",
-      "enum": ["A", "B", "C", "D", "E"]
-    },
-    "qualityRating": {
-      "type": "enumeration",
-      "enum": ["A", "B", "C", "D", "E"]
-    },
-    "globalRating": {
-      "type": "enumeration",
-      "enum": ["A", "B", "C", "D", "E"]
+    "ratings": {
+      "type": "component",
+      "repeatable": false,
+      "component": "apis.ratings"
     },
     "aiReady": {
+      "type": "boolean",
+      "default": false
+    },
+    "devExperienceCheck": {
+      "type": "boolean",
+      "default": false
+    },
+    "securityCheck": {
+      "type": "boolean",
+      "default": false
+    },
+    "qualityCheck": {
+      "type": "boolean",
+      "default": false
+    },
+    "doraCheck": {
+      "type": "boolean",
+      "default": false
+    },
+    "openFinanceCheck": {
       "type": "boolean",
       "default": false
     },

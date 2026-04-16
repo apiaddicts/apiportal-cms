@@ -1,0 +1,29 @@
+{
+  "type": "component",
+  "collectionName": "components_mcp_resources",
+  "info": {
+    "displayName": "MCP Resource"
+  },
+  "attributes": {
+    "uri": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "mimeType": {
+      "type": "string"
+    },
+    "size": {
+      "type": "biginteger"
+    }
+  }
+}

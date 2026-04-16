@@ -1,0 +1,21 @@
+{
+  "type": "component",
+  "collectionName": "components_config_aws",
+  "info": {
+    "name": "aws",
+    "displayName": "AWS Config",
+    "icon": "cloud",
+    "description": "Configuración para Amazon API Gateway"
+  },
+  "attributes": {
+    "region": {
+      "type": "string"
+    },
+    "accessKeyId": {
+      "type": "string"
+    },
+    "secretAccessKey": {
+      "type": "string"
+    }
+  }
+}

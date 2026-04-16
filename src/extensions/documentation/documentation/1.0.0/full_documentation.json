@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-02-19T00:34:26.304Z"
+    "x-generation-date": "2026-04-16T16:42:35.142Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -6139,8 +6139,13 @@
               "color_status": {
                 "type": "string"
               },
-              "footerText": {
-                "type": "string"
+              "provider": {
+                "type": "string",
+                "enum": [
+                  "mulesoft",
+                  "kong",
+                  "aws"
+                ]
               },
               "image": {
                 "type": "array",
@@ -7148,45 +7153,8 @@
                   }
                 }
               },
-              "definitionRating": {
-                "type": "string",
-                "enum": [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E"
-                ]
-              },
-              "securityRating": {
-                "type": "string",
-                "enum": [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E"
-                ]
-              },
-              "qualityRating": {
-                "type": "string",
-                "enum": [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E"
-                ]
-              },
-              "globalRating": {
-                "type": "string",
-                "enum": [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E"
-                ]
+              "ratings": {
+                "$ref": "#/components/schemas/ApisRatingsComponent"
               },
               "aiReady": {
                 "type": "boolean"
@@ -7570,6 +7538,61 @@
           }
         }
       },
+      "ApisRatingsComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "definitionRating": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "E"
+            ]
+          },
+          "securityRating": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "E"
+            ]
+          },
+          "qualityRating": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "E"
+            ]
+          },
+          "globalRating": {
+            "type": "string",
+            "enum": [
+              "A",
+              "B",
+              "C",
+              "D",
+              "E"
+            ]
+          }
+        }
+      },
       "LibraryApiRequest": {
         "type": "object",
         "required": [
@@ -7595,8 +7618,13 @@
               "color_status": {
                 "type": "string"
               },
-              "footerText": {
-                "type": "string"
+              "provider": {
+                "type": "string",
+                "enum": [
+                  "mulesoft",
+                  "kong",
+                  "aws"
+                ]
               },
               "image": {
                 "type": "array",
@@ -7664,45 +7692,8 @@
                   "example": "string or id"
                 }
               },
-              "definitionRating": {
-                "type": "string",
-                "enum": [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E"
-                ]
-              },
-              "securityRating": {
-                "type": "string",
-                "enum": [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E"
-                ]
-              },
-              "qualityRating": {
-                "type": "string",
-                "enum": [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E"
-                ]
-              },
-              "globalRating": {
-                "type": "string",
-                "enum": [
-                  "A",
-                  "B",
-                  "C",
-                  "D",
-                  "E"
-                ]
+              "ratings": {
+                "$ref": "#/components/schemas/ApisRatingsComponent"
               },
               "aiReady": {
                 "type": "boolean"
@@ -7802,8 +7793,13 @@
           "color_status": {
             "type": "string"
           },
-          "footerText": {
-            "type": "string"
+          "provider": {
+            "type": "string",
+            "enum": [
+              "mulesoft",
+              "kong",
+              "aws"
+            ]
           },
           "image": {
             "type": "array",
@@ -8744,8 +8740,13 @@
                       "color_status": {
                         "type": "string"
                       },
-                      "footerText": {
-                        "type": "string"
+                      "provider": {
+                        "type": "string",
+                        "enum": [
+                          "mulesoft",
+                          "kong",
+                          "aws"
+                        ]
                       },
                       "image": {
                         "type": "array",
@@ -8980,45 +8981,8 @@
                           }
                         }
                       },
-                      "definitionRating": {
-                        "type": "string",
-                        "enum": [
-                          "A",
-                          "B",
-                          "C",
-                          "D",
-                          "E"
-                        ]
-                      },
-                      "securityRating": {
-                        "type": "string",
-                        "enum": [
-                          "A",
-                          "B",
-                          "C",
-                          "D",
-                          "E"
-                        ]
-                      },
-                      "qualityRating": {
-                        "type": "string",
-                        "enum": [
-                          "A",
-                          "B",
-                          "C",
-                          "D",
-                          "E"
-                        ]
-                      },
-                      "globalRating": {
-                        "type": "string",
-                        "enum": [
-                          "A",
-                          "B",
-                          "C",
-                          "D",
-                          "E"
-                        ]
+                      "ratings": {
+                        "$ref": "#/components/schemas/ApisRatingsComponent"
                       },
                       "aiReady": {
                         "type": "boolean"
@@ -9181,45 +9145,8 @@
               }
             }
           },
-          "definitionRating": {
-            "type": "string",
-            "enum": [
-              "A",
-              "B",
-              "C",
-              "D",
-              "E"
-            ]
-          },
-          "securityRating": {
-            "type": "string",
-            "enum": [
-              "A",
-              "B",
-              "C",
-              "D",
-              "E"
-            ]
-          },
-          "qualityRating": {
-            "type": "string",
-            "enum": [
-              "A",
-              "B",
-              "C",
-              "D",
-              "E"
-            ]
-          },
-          "globalRating": {
-            "type": "string",
-            "enum": [
-              "A",
-              "B",
-              "C",
-              "D",
-              "E"
-            ]
+          "ratings": {
+            "$ref": "#/components/schemas/ApisRatingsComponent"
           },
           "aiReady": {
             "type": "boolean"
