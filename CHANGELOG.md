@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 
-- **Apim Config:** Implement on-demand synchronization for APIM configurations
+- **Apim Config:** Implement on-demand and periodic synchronization for APIM configurations
 
 
 ## [1.1.0] - 2026-04-16
