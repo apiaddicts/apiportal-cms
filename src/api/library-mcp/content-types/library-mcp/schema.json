@@ -17,67 +17,52 @@
       "type": "string"
     },
     "slug": {
-      "type": "uid"
+      "type": "uid",
+      "targetField": "title"
     },
     "description": {
       "type": "text"
     },
     "image": {
       "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos"
-      ],
-      "multiple": true,
-      "required": false
+      ]
     },
     "version": {
-      "type": "string"
-    },
-    "tags": {
-      "type": "component",
-      "repeatable": true,
-      "component": "elements.titles"
-    },
-    "transport": {
-      "type": "enumeration",
-      "enum": [
-        "stdio",
-        "sse",
-        "http"
-      ],
-      "default": "stdio"
-    },
-    "configSnippet": {
-      "type": "json",
-      "required": true
-    },
-    "resources": {
-      "type": "component",
-      "repeatable": true,
-      "component": "mcps.resources"
-    },
-    "tools": {
-      "type": "component",
-      "repeatable": true,
-      "component": "mcps.tools"
-    },
-    "prompts": {
-      "type": "component",
-      "repeatable": true,
-      "component": "mcps.prompts"
-    },
-    "reportUrl": {
       "type": "string"
     },
     "markdown": {
       "type": "richtext"
     },
+    "tags": {
+      "type": "component",
+      "component": "elements.titles",
+      "repeatable": true
+    },
+    "transport": {
+      "type": "enumeration",
+      "default": "http",
+      "enum": [
+        "sse",
+        "http"
+      ]
+    },
+    "configSnippet": {
+      "type": "json",
+      "required": true
+    },
+    "reportUrl": {
+      "type": "string"
+    },
     "ratings": {
       "type": "component",
-      "repeatable": false,
-      "component": "apis.ratings"
+      "component": "apis.ratings",
+      "repeatable": false
     },
     "aiReady": {
       "type": "boolean",
