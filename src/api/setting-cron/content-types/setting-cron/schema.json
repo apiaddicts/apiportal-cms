@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "setting_crons",
+  "info": {
+    "singularName": "setting-cron",
+    "pluralName": "setting-crons",
+    "displayName": "SettingCron"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "enabled": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "schedule_cron": {
+      "type": "string",
+      "default": "0 3 * * *",
+      "required": true
+    },
+    "type": {
+      "type": "enumeration",
+      "required": true,
+      "default": "sync-apis",
+      "enum": [
+        "sync-apis"
+      ]
+    }
+  }
+}

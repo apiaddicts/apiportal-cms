@@ -26,21 +26,34 @@ module.exports = createCoreService('api::apim-config.apim-config', ({ strapi }) 
       });
     }
 
-    const results = { updated: 0, created: 0, errors: [], configsProcessed: 0 };
+    const createdSlugs = new Set();
+    const updatedSlugs = new Set();
+    const errors = [];
+    let configsProcessed = 0;
 
     for (const config of configs) {
       try {
         const syncResult = await this.processSingleSync(config);
-        results.updated += syncResult.updated;
-        results.created += syncResult.created;
-        results.configsProcessed++;
+        syncResult.createdSlugs.forEach(s => {
+          createdSlugs.add(s);
+          updatedSlugs.delete(s);
+        });
+        syncResult.updatedSlugs.forEach(s => {
+          if (!createdSlugs.has(s)) updatedSlugs.add(s);
+        });
+        configsProcessed++;
       } catch (err) {
         strapi.log.error(`Error syncing config "${config.name || config.slug}": ${err.message}`);
-        results.errors.push(config.slug || 'unknown');
+        errors.push(config.slug || 'unknown');
       }
     }
 
-    return results;
+    return {
+      created: createdSlugs.size,
+      updated: updatedSlugs.size,
+      errors,
+      configsProcessed,
+    };
   },
 
   async processSingleSync(config) {
@@ -61,34 +74,43 @@ module.exports = createCoreService('api::apim-config.apim-config', ({ strapi }) 
     const parsed = typeof externalData === 'string' ? JSON.parse(externalData) : externalData;
     const externalApis = Array.isArray(parsed) ? parsed : (parsed.data ?? []);
 
-    let localUpdate = 0;
-    let localCreate = 0;
-
+    const apisBySlug = new Map();
     for (const api of externalApis) {
-      if (!api.slug) continue;
+      if (api.slug) apisBySlug.set(api.slug, api);
+    }
 
-      const { id, documentId: _, createdAt, updatedAt, publishedAt, ...apiData } = api;
+    const localCreated = new Set();
+    const localUpdated = new Set();
+
+    for (const api of apisBySlug.values()) {
+      const { id, documentId, createdAt, updatedAt, publishedAt, ...apiData } = api;
 
       const existing = await strapi.documents('api::library-api.library-api').findMany({
-        filters: { slug: apiData.slug }
+        filters: { slug: apiData.slug },
+        status: 'published',
       });
 
       if (existing.length > 0) {
+        const { documentId: existingDocId } = existing.at(0);
         await strapi.documents('api::library-api.library-api').update({
-          documentId: existing.at(0).documentId,
+          documentId: existingDocId,
           data: apiData,
-          status: 'published',
         });
-        localUpdate++;
+        await strapi.documents('api::library-api.library-api').publish({
+          documentId: existingDocId,
+        });
+        localUpdated.add(apiData.slug);
       } else {
-        await strapi.documents('api::library-api.library-api').create({
+        const created = await strapi.documents('api::library-api.library-api').create({
           data: apiData,
-          status: 'published',
         });
-        localCreate++;
+        await strapi.documents('api::library-api.library-api').publish({
+          documentId: created.documentId,
+        });
+        localCreated.add(apiData.slug);
       }
     }
 
-    return { updated: localUpdate, created: localCreate };
+    return { createdSlugs: localCreated, updatedSlugs: localUpdated };
   }
 }));

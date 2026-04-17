@@ -813,11 +813,47 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSettingCronSettingCron extends Struct.CollectionTypeSchema {
+  collectionName: 'setting_crons';
+  info: {
+    displayName: 'SettingCron';
+    pluralName: 'setting-crons';
+    singularName: 'setting-cron';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    enabled: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::setting-cron.setting-cron'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    schedule_cron: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'0 3 * * *'>;
+    type: Schema.Attribute.Enumeration<['sync-apis']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'sync-apis'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
   collectionName: 'setting_pages';
   info: {
     description: '';
-    displayName: 'Setting Page';
+    displayName: 'SettingPage';
     pluralName: 'setting-pages';
     singularName: 'setting-page';
   };
@@ -1373,6 +1409,7 @@ declare module '@strapi/strapi' {
       'api::library-mcp.library-mcp': ApiLibraryMcpLibraryMcp;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;
+      'api::setting-cron.setting-cron': ApiSettingCronSettingCron;
       'api::setting-page.setting-page': ApiSettingPageSettingPage;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
