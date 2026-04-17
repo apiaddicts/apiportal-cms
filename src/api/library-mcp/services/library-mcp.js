@@ -6,8 +6,39 @@
 
 const { createCoreService } = require('@strapi/strapi').factories;
 
-const CONNECTION_TIMEOUT = 15000;
-const REQUEST_TIMEOUT = 5000;
+const CONNECTION_TIMEOUT = 120000;
+const REQUEST_TIMEOUT = 60000;
+
+async function callMcpTool(transport, url, headers, command, args, toolName, toolArgs) {
+  let client, clientTransport;
+
+  const { Client } = await import('@modelcontextprotocol/sdk/client/index.js');
+
+  if (transport === 'stdio') {
+    const { StdioClientTransport } = await import('@modelcontextprotocol/sdk/client/stdio.js');
+    const isWin = process.platform === 'win32';
+    clientTransport = new StdioClientTransport({
+      command: isWin ? 'cmd' : command,
+      args: isWin ? ['/c', command, ...args] : args,
+    });
+  } else if (transport === 'sse') {
+    const { SSEClientTransport } = await import('@modelcontextprotocol/sdk/client/sse.js');
+    clientTransport = new SSEClientTransport(new URL(url), { requestInit: { headers } });
+  } else if (transport === 'http') {
+    const { StreamableHTTPClientTransport } = await import('@modelcontextprotocol/sdk/client/streamableHttp.js');
+    clientTransport = new StreamableHTTPClientTransport(new URL(url), { requestInit: { headers } });
+  }
+
+  client = new Client({ name: 'strapi-connect', version: '1.0' });
+  await connectClient(client, clientTransport);
+
+  try {
+    const result = await client.callTool({ name: toolName, arguments: toolArgs ?? {} });
+    return { success: true, result };
+  } finally {
+    await client.close().catch(() => {});
+  }
+}
 
 async function fetchMcpData(client) {
   const withTimeout = (promise) =>
@@ -53,91 +84,59 @@ async function tryStdioSDK(command, args = []) {
   return fetchMcpData(client);
 }
 
-async function tryLegacySSE(url, token) {
+async function tryLegacySSE(url, headers) {
   const { Client } = await import('@modelcontextprotocol/sdk/client/index.js');
   const { SSEClientTransport } = await import('@modelcontextprotocol/sdk/client/sse.js');
 
-  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
   const transport = new SSEClientTransport(new URL(url), { requestInit: { headers } });
   const client = new Client({ name: 'strapi-connect', version: '1.0' });
   await connectClient(client, transport);
   return fetchMcpData(client);
 }
 
-async function tryStreamableHTTP(url, token) {
+async function tryStreamableHTTP(url, headers) {
   const { Client } = await import('@modelcontextprotocol/sdk/client/index.js');
   const { StreamableHTTPClientTransport } = await import('@modelcontextprotocol/sdk/client/streamableHttp.js');
 
-  const headers = token ? { Authorization: `Bearer ${token}` } : undefined;
   const transport = new StreamableHTTPClientTransport(new URL(url), { requestInit: { headers } });
   const client = new Client({ name: 'strapi-connect', version: '1.0' });
   await connectClient(client, transport);
   return fetchMcpData(client);
 }
 
-function fromStrapi(entry) {
-  return {
-    tools: (entry.tools || []).map(({ name, title, description, inputSchema, outputSchema, annotations }) =>
-      ({ name, title, description, inputSchema, outputSchema, annotations })
-    ),
-    resources: (entry.resources || []).map(({ uri, name, title, description, mimeType, size }) =>
-      ({ uri, name, title, description, mimeType, size })
-    ),
-    prompts: (entry.prompts || []).map(({ name, title, description, arguments: args }) =>
-      ({ name, title, description, arguments: args })
-    ),
-  };
-}
-
 async function runStrategy(fn) {
   try {
     const result = await fn();
-    const hasData = result.tools.length || result.resources.length || result.prompts.length;
-    return hasData ? { ...result, source: 'direct' } : null;
-  } catch {
-    return null;
+    return { success: true, ...result, source: 'direct' };
+  } catch (err) {
+    return { success: false, error: err?.message ?? String(err) };
   }
 }
 
 module.exports = createCoreService('api::library-mcp.library-mcp', ({ strapi }) => ({
   async connectMcp(slug, options = {}) {
-    const { transport, token, command, args = [], url } = options;
+    const { transport, headers, command, args = [], url } = options;
 
     if (transport === 'stdio' && command) {
-      const result = await runStrategy(() => tryStdioSDK(command, args));
-      if (result) return result;
+      return runStrategy(() => tryStdioSDK(command, args));
     }
 
     if (transport === 'sse' && url) {
-      const result = await runStrategy(() => tryLegacySSE(url, token));
-      if (result) return result;
+      return runStrategy(() => tryLegacySSE(url, headers));
     }
 
     if (transport === 'http' && url) {
-      const result = await runStrategy(() => tryStreamableHTTP(url, token));
-      if (result) return result;
+      return runStrategy(() => tryStreamableHTTP(url, headers));
     }
 
-    let entry;
-    try {
-      entry = await strapi
-      .documents('api::library-mcp.library-mcp')
-      .findFirst({
-        filters: { slug },
-        populate: ['tools', 'resources', 'prompts'],
-        status: 'published',
-      });
-    } catch {
-      entry = null;
-    }
+    return { success: false, error: 'No valid transport configuration provided' };
+  },
 
-    if (!entry) {
-      return { tools: [], resources: [], prompts: [], source: 'none' };
-    }
+  async callTool(slug, options = {}) {
+    const { transport, headers, command, args = [], url, toolName, toolArgs } = options;
 
-    const strapiData = fromStrapi(entry);
+    if (!toolName) return { success: false, error: 'toolName is required' };
 
-    const hasData = strapiData.tools.length || strapiData.resources.length || strapiData.prompts.length;
-    return { ...strapiData, source: hasData ? 'strapi' : 'none' };
+    return runStrategy(() => callMcpTool(transport, url, headers, command, args, toolName, toolArgs));
   },
 }));
