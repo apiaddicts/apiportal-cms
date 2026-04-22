@@ -2005,6 +2005,19 @@ export interface UseCasesUseCases extends Struct.ComponentSchema {
   attributes: {};
 }
 
+export interface UsersCredentials extends Struct.ComponentSchema {
+  collectionName: 'components_users_credentials';
+  info: {
+    displayName: 'Credentials';
+    icon: 'lock';
+  };
+  attributes: {
+    clientId: Schema.Attribute.String;
+    clientSecret: Schema.Attribute.Password;
+    slug: Schema.Attribute.UID & Schema.Attribute.Required;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -2149,6 +2162,7 @@ declare module '@strapi/strapi' {
       'use-cases.paragraphs': UseCasesParagraphs;
       'use-cases.products': UseCasesProducts;
       'use-cases.use-cases': UseCasesUseCases;
+      'users.credentials': UsersCredentials;
     }
   }
 }

@@ -53,4 +53,58 @@ module.exports = createCoreController('api::apim-config.apim-config', ({ strapi 
       return ctx.badRequest('Sync failed', { detail: error.message });
     }
   },
+  async generateCredentials(ctx) {
+    const { id } = ctx.params;
+    const { credId, services } = ctx.request.body;
+
+    if (!credId) {
+      return ctx.badRequest('credId is required');
+    }
+    if (!Array.isArray(services) || services.length === 0) {
+      return ctx.badRequest('services array is required and must not be empty');
+    }
+
+    try {
+      const result = await strapi
+        .service('api::apim-config.apim-config')
+        .generateCredentialsFromIntegrator(id, { credId, services });
+
+      return ctx.send({
+        message: 'Credentials generated successfully',
+        data: result,
+      });
+    } catch (error) {
+      strapi.log.error(`Generate credentials error: ${error.message}`);
+      return ctx.badRequest('Failed to generate credentials', {
+        detail: error.message,
+      });
+    }
+  },
+  async addServices(ctx) {
+    const { id } = ctx.params;
+    const { consumerId, services } = ctx.request.body;
+
+    if (!consumerId) {
+      return ctx.badRequest('consumerId is required');
+    }
+    if (!Array.isArray(services) || services.length === 0) {
+      return ctx.badRequest('services array is required and must not be empty');
+    }
+
+    try {
+      const result = await strapi
+        .service('api::apim-config.apim-config')
+        .addServicesToCredentials(id, { consumerId, services });
+
+      return ctx.send({
+        message: 'Services added successfully',
+        data: result,
+      });
+    } catch (error) {
+      strapi.log.error(`Add services error: ${error.message}`);
+      return ctx.badRequest('Failed to add services', {
+        detail: error.message,
+      });
+    }
+  }
 }));

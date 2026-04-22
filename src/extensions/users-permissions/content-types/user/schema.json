@@ -74,6 +74,12 @@
     },
     "companyName": {
       "type": "string"
+    },
+    "user_credentials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-credential.user-credential",
+      "mappedBy": "user"
     }
   }
 }

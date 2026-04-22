@@ -613,8 +613,6 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
   };
   options: {
     draftAndPublish: true;
-    increments: true;
-    timestamps: true;
   };
   attributes: {
     aiReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
@@ -624,6 +622,9 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    devExperienceCheck: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    doraCheck: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -646,11 +647,16 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'api'>;
     openDocUrl: Schema.Attribute.String;
+    openFinanceCheck: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     provider: Schema.Attribute.Enumeration<['mulesoft', 'kong', 'aws']>;
+    providerId: Schema.Attribute.String;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
+    qualityCheck: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     ratings: Schema.Attribute.Component<'apis.ratings', false>;
+    securityCheck: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
@@ -694,7 +700,7 @@ export interface ApiLibraryMcpLibraryMcp extends Struct.CollectionTypeSchema {
     slug: Schema.Attribute.UID<'title'>;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
-    transport: Schema.Attribute.Enumeration<['stdio', 'sse', 'http']> &
+    transport: Schema.Attribute.Enumeration<['sse', 'http']> &
       Schema.Attribute.DefaultTo<'http'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -885,6 +891,43 @@ export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUserCredentialUserCredential
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'user_credentials';
+  info: {
+    displayName: 'UserCredential';
+    pluralName: 'user-credentials';
+    singularName: 'user-credential';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    clientId: Schema.Attribute.String;
+    clientSecret: Schema.Attribute.Password;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-credential.user-credential'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'slug'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1151,7 +1194,6 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     ext: Schema.Attribute.String;
-    focalPoint: Schema.Attribute.JSON;
     folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
       Schema.Attribute.Private;
     folderPath: Schema.Attribute.String &
@@ -1381,6 +1423,10 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_credentials: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-credential.user-credential'
+    >;
     username: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
@@ -1411,6 +1457,7 @@ declare module '@strapi/strapi' {
       'api::product.product': ApiProductProduct;
       'api::setting-cron.setting-cron': ApiSettingCronSettingCron;
       'api::setting-page.setting-page': ApiSettingPageSettingPage;
+      'api::user-credential.user-credential': ApiUserCredentialUserCredential;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

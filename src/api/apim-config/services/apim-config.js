@@ -84,6 +84,7 @@ module.exports = createCoreService('api::apim-config.apim-config', ({ strapi }) 
 
     for (const api of apisBySlug.values()) {
       const { id, documentId, createdAt, updatedAt, publishedAt, ...apiData } = api;
+      apiData.providerId = config.documentId;
 
       const existing = await strapi.documents('api::library-api.library-api').findMany({
         filters: { slug: apiData.slug },
@@ -112,5 +113,57 @@ module.exports = createCoreService('api::apim-config.apim-config', ({ strapi }) 
     }
 
     return { createdSlugs: localCreated, updatedSlugs: localUpdated };
+  },
+
+  async generateCredentialsFromIntegrator(documentId, payload) {
+    const integratorUrl = process.env.INTEGRATOR_URL;
+    const integratorApiKey = process.env.INTEGRATOR_KONG_API_KEY;
+
+    const config = await strapi.documents('api::apim-config.apim-config').findOne({
+      documentId,
+      populate: ['configurations'],
+      status: 'published',
+    });
+
+    if (!config) throw new Error('Config not found');
+
+    const response = await axios.post(
+      `${integratorUrl}/generate-credentials`,
+      payload,
+      {
+        headers: {
+          'x-apimanager-id': config.slug,
+          'apiKey': integratorApiKey,
+        },
+      }
+    );
+
+    return response.data;
+  },
+
+  async addServicesToCredentials(documentId, payload) {
+    const integratorUrl = process.env.INTEGRATOR_URL;
+    const integratorApiKey = process.env.INTEGRATOR_KONG_API_KEY;
+
+    const config = await strapi.documents('api::apim-config.apim-config').findOne({
+      documentId,
+      populate: ['configurations'],
+      status: 'published',
+    });
+
+    if (!config) throw new Error('Config not found');
+
+    const response = await axios.post(
+      `${integratorUrl}/add-services`,
+      payload,
+      {
+        headers: {
+          'x-apimanager-id': config.slug,
+          'apiKey': integratorApiKey,
+        },
+      }
+    );
+
+    return response.data;
   }
 }));

@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "user_credentials",
+  "info": {
+    "singularName": "user-credential",
+    "pluralName": "user-credentials",
+    "displayName": "UserCredential"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "required": true,
+      "default": "slug"
+    },
+    "clientId": {
+      "type": "string"
+    },
+    "clientSecret": {
+      "type": "password"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_credentials"
+    }
+  }
+}
