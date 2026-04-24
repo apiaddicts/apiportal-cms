@@ -8,10 +8,6 @@ const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::user-credential.user-credential', ({ strapi }) => ({
 
-  /**
-   * Override create to connect products and apim_config.
-   * Expects body: { data: { slug, clientId, clientSecret, user, products, apim_config } }
-   */
   async create(ctx) {
     const { data } = ctx.request.body;
     const { products, apim_config, ...rest } = data ?? {};
@@ -41,13 +37,6 @@ module.exports = createCoreController('api::user-credential.user-credential', ({
     return this.transformResponse(created);
   },
 
-  /**
-   * POST /user-credentials/:documentId/add-products
-   * Body: { products: [...documentIds], apimConfigDocumentId: '...' }
-   * - Resolves library_apis of new products → unique externalServiceIds
-   * - Calls integrator to add those services to the Kong consumer
-   * - Connects the products to the credential
-   */
   async addProducts(ctx) {
     const { documentId } = ctx.params;
     const { products: newProductIds, apimConfigDocumentId: apimConfigDocumentIdParam } = ctx.request.body;
@@ -56,7 +45,6 @@ module.exports = createCoreController('api::user-credential.user-credential', ({
       return ctx.badRequest('products array is required and must not be empty');
     }
 
-    // Load the credential to get the consumer slug and apim_config if not provided
     const credential = await strapi.documents('api::user-credential.user-credential').findOne({
       documentId,
       populate: ['products', 'apim_config'],
@@ -75,7 +63,6 @@ module.exports = createCoreController('api::user-credential.user-credential', ({
 
     const consumerId = credential.slug;
 
-    // Resolve new products → unique service identifiers
     const serviceIdSet = new Set();
     for (const productDocumentId of newProductIds) {
       const product = await strapi.documents('api::product.product').findOne({
@@ -98,7 +85,6 @@ module.exports = createCoreController('api::user-credential.user-credential', ({
 
     const services = [...serviceIdSet];
 
-    // Call integrator to add services to the Kong consumer
     try {
       await strapi.service('api::apim-config.apim-config').addServicesToCredentials(
         apimConfigDocumentId,
@@ -109,7 +95,6 @@ module.exports = createCoreController('api::user-credential.user-credential', ({
       return ctx.badRequest('Failed to add services to integrator', { detail: err.message });
     }
 
-    // Connect products to credential
     await strapi.documents('api::user-credential.user-credential').update({
       documentId,
       data: {
