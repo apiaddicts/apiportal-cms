@@ -16,16 +16,70 @@
       "required": true,
       "default": "slug"
     },
+    "type": {
+      "type": "enumeration",
+      "required": true,
+      "default": "oauth2",
+      "enum": [
+        "oauth2",
+        "apiKey"
+      ]
+    },
+    "apiKey": {
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "type"
+            },
+            "oauth2"
+          ]
+        }
+      }
+    },
     "clientId": {
-      "type": "string"
+      "type": "string",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "oauth2"
+          ]
+        }
+      }
     },
     "clientSecret": {
-      "type": "password"
+      "type": "password",
+      "conditions": {
+        "visible": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "oauth2"
+          ]
+        }
+      }
     },
     "user": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
+      "inversedBy": "user_credentials"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "mappedBy": "user_credentials"
+    },
+    "apim_config": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::apim-config.apim-config",
       "inversedBy": "user_credentials"
     }
   }

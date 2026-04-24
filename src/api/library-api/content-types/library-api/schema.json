@@ -130,18 +130,14 @@
         "noPublicado"
       ]
     },
-    "providerId": {
-      "type": "string",
-      "conditions": {
-        "visible": {
-          "==": [
-            {
-              "var": "provider"
-            },
-            "kong"
-          ]
-        }
-      }
+    "externalServiceId": {
+      "type": "string"
+    },
+    "apim_config": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::apim-config.apim-config",
+      "inversedBy": "library_apis"
     }
   }
 }

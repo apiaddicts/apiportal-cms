@@ -84,7 +84,7 @@ module.exports = createCoreService('api::apim-config.apim-config', ({ strapi }) 
 
     for (const api of apisBySlug.values()) {
       const { id, documentId, createdAt, updatedAt, publishedAt, ...apiData } = api;
-      apiData.providerId = config.documentId;
+      apiData.apim_config = { connect: [{ documentId: config.documentId }] };
 
       const existing = await strapi.documents('api::library-api.library-api').findMany({
         filters: { slug: apiData.slug },
@@ -127,9 +127,33 @@ module.exports = createCoreService('api::apim-config.apim-config', ({ strapi }) 
 
     if (!config) throw new Error('Config not found');
 
+    const { credId, products, type } = payload;
+
+    const serviceIdSet = new Set();
+    for (const productDocumentId of products) {
+      const product = await strapi.documents('api::product.product').findOne({
+        documentId: productDocumentId,
+        populate: ['library_apis'],
+        status: 'published',
+      });
+      if (product?.library_apis) {
+        for (const api of product.library_apis) {
+          const serviceId = api.externalServiceId
+            || (api.slug ? api.slug.replace(/^kong-/, '') : null);
+          if (serviceId) serviceIdSet.add(serviceId);
+        }
+      }
+    }
+
+    const services = [...serviceIdSet];
+
+    if (services.length === 0) {
+      throw new Error('No services found for the selected products');
+    }
+
     const response = await axios.post(
       `${integratorUrl}/generate-credentials`,
-      payload,
+      { credId, services, type: type || 'apiKey' },
       {
         headers: {
           'x-apimanager-id': config.slug,

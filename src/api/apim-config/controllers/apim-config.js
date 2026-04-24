@@ -55,19 +55,20 @@ module.exports = createCoreController('api::apim-config.apim-config', ({ strapi 
   },
   async generateCredentials(ctx) {
     const { id } = ctx.params;
-    const { credId, services } = ctx.request.body;
+    const { credId, products, type } = ctx.request.body;
 
     if (!credId) {
       return ctx.badRequest('credId is required');
     }
-    if (!Array.isArray(services) || services.length === 0) {
-      return ctx.badRequest('services array is required and must not be empty');
+    if (!Array.isArray(products) || products.length === 0) {
+      return ctx.badRequest('products array is required and must not be empty');
     }
+    const credType = type === 'oauth2' ? 'oauth2' : 'apiKey';
 
     try {
       const result = await strapi
         .service('api::apim-config.apim-config')
-        .generateCredentialsFromIntegrator(id, { credId, services });
+        .generateCredentialsFromIntegrator(id, { credId, products, type: credType });
 
       return ctx.send({
         message: 'Credentials generated successfully',
