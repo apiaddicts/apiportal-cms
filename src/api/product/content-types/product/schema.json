@@ -9,29 +9,19 @@
     "description": ""
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
-    "price": {
-      "type": "integer"
-    },
-    "title": {
+    "name": {
       "type": "string"
     },
     "slug": {
       "type": "uid",
-      "targetField": "title"
+      "targetField": "name"
     },
-    "btnLabel": {
-      "type": "string"
-    },
-    "benefits": {
-      "type": "json"
-    },
-    "content": {
-      "type": "richtext"
+    "price": {
+      "type": "integer"
     },
     "description": {
       "type": "text"
@@ -54,22 +44,29 @@
     "legalConditionals": {
       "type": "richtext"
     },
-    "accentColor": {
-      "type": "enumeration",
-      "enum": [
-        "primary",
-        "secondary",
-        "tertiary"
-      ]
-    },
     "library_apis": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::library-api.library-api",
       "inversedBy": "products"
     },
-    "formSetting": {
-      "type": "json"
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "products"
+    },
+    "user_credentials": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::user-credential.user-credential",
+      "inversedBy": "products"
+    },
+    "apim_config": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::apim-config.apim-config",
+      "inversedBy": "products"
     }
   }
 }
