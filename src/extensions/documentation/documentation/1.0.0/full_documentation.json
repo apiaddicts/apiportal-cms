@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-02-10T04:22:32.954Z"
+    "x-generation-date": "2026-04-27T13:45:48.047Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -4705,7 +4705,6 @@
                 "caption": {
                   "type": "string"
                 },
-                "focalPoint": {},
                 "width": {
                   "type": "integer"
                 },
@@ -4845,7 +4844,6 @@
                           "caption": {
                             "type": "string"
                           },
-                          "focalPoint": {},
                           "width": {
                             "type": "integer"
                           },
@@ -5536,7 +5534,6 @@
                 "caption": {
                   "type": "string"
                 },
-                "focalPoint": {},
                 "width": {
                   "type": "integer"
                 },
@@ -5799,7 +5796,6 @@
                       "caption": {
                         "type": "string"
                       },
-                      "focalPoint": {},
                       "width": {
                         "type": "integer"
                       },
@@ -5992,7 +5988,6 @@
                       "caption": {
                         "type": "string"
                       },
-                      "focalPoint": {},
                       "width": {
                         "type": "integer"
                       },
@@ -6319,7 +6314,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -6681,7 +6675,6 @@
                     "caption": {
                       "type": "string"
                     },
-                    "focalPoint": {},
                     "width": {
                       "type": "integer"
                     },
@@ -6821,7 +6814,6 @@
                               "caption": {
                                 "type": "string"
                               },
-                              "focalPoint": {},
                               "width": {
                                 "type": "integer"
                               },
@@ -8346,7 +8338,6 @@
                 "caption": {
                   "type": "string"
                 },
-                "focalPoint": {},
                 "width": {
                   "type": "integer"
                 },
@@ -8486,7 +8477,6 @@
                           "caption": {
                             "type": "string"
                           },
-                          "focalPoint": {},
                           "width": {
                             "type": "integer"
                           },
@@ -9290,7 +9280,6 @@
                             "caption": {
                               "type": "string"
                             },
-                            "focalPoint": {},
                             "width": {
                               "type": "integer"
                             },
@@ -9851,6 +9840,19 @@
               "description": {
                 "type": "string"
               },
+              "organization": {
+                "type": "string"
+              },
+              "domain": {
+                "type": "string",
+                "enum": [
+                  "Software",
+                  "Healthcare IIDT",
+                  "Sales",
+                  "Marketing",
+                  "Finance"
+                ]
+              },
               "image": {
                 "type": "array",
                 "items": {
@@ -9881,6 +9883,30 @@
                 }
               },
               "dataSource": {
+                "type": "string"
+              },
+              "contracstDefinition": {
+                "type": "string"
+              },
+              "assets": {
+                "type": "string"
+              },
+              "services": {
+                "type": "string"
+              },
+              "participants": {
+                "type": "string"
+              },
+              "policies": {
+                "type": "string"
+              },
+              "softwareResource": {
+                "type": "string"
+              },
+              "infrastructureResource": {
+                "type": "string"
+              },
+              "contracstDefinitionOperations": {
                 "type": "string"
               },
               "markdown": {
@@ -9977,6 +10003,19 @@
           "description": {
             "type": "string"
           },
+          "organization": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string",
+            "enum": [
+              "Software",
+              "Healthcare IIDT",
+              "Sales",
+              "Marketing",
+              "Finance"
+            ]
+          },
           "image": {
             "type": "array",
             "items": {
@@ -10004,7 +10043,6 @@
                 "caption": {
                   "type": "string"
                 },
-                "focalPoint": {},
                 "width": {
                   "type": "integer"
                 },
@@ -10144,7 +10182,6 @@
                           "caption": {
                             "type": "string"
                           },
-                          "focalPoint": {},
                           "width": {
                             "type": "integer"
                           },
@@ -10808,6 +10845,30 @@
           "dataSource": {
             "type": "string"
           },
+          "contracstDefinition": {
+            "type": "string"
+          },
+          "assets": {
+            "type": "string"
+          },
+          "services": {
+            "type": "string"
+          },
+          "participants": {
+            "type": "string"
+          },
+          "policies": {
+            "type": "string"
+          },
+          "softwareResource": {
+            "type": "string"
+          },
+          "infrastructureResource": {
+            "type": "string"
+          },
+          "contracstDefinitionOperations": {
+            "type": "string"
+          },
           "markdown": {
             "type": "string"
           },
@@ -10899,6 +10960,19 @@
                 "description": {
                   "type": "string"
                 },
+                "organization": {
+                  "type": "string"
+                },
+                "domain": {
+                  "type": "string",
+                  "enum": [
+                    "Software",
+                    "Healthcare IIDT",
+                    "Sales",
+                    "Marketing",
+                    "Finance"
+                  ]
+                },
                 "image": {
                   "type": "array",
                   "items": {
@@ -10926,7 +11000,6 @@
                       "caption": {
                         "type": "string"
                       },
-                      "focalPoint": {},
                       "width": {
                         "type": "integer"
                       },
@@ -11090,6 +11163,30 @@
                   }
                 },
                 "dataSource": {
+                  "type": "string"
+                },
+                "contracstDefinition": {
+                  "type": "string"
+                },
+                "assets": {
+                  "type": "string"
+                },
+                "services": {
+                  "type": "string"
+                },
+                "participants": {
+                  "type": "string"
+                },
+                "policies": {
+                  "type": "string"
+                },
+                "softwareResource": {
+                  "type": "string"
+                },
+                "infrastructureResource": {
+                  "type": "string"
+                },
+                "contracstDefinitionOperations": {
                   "type": "string"
                 },
                 "markdown": {
@@ -11904,7 +12001,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -12161,7 +12257,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -12360,7 +12455,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -12556,7 +12650,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -12785,7 +12878,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -12987,7 +13079,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -13251,7 +13342,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -13507,7 +13597,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -13730,7 +13819,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -13941,7 +14029,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -14328,7 +14415,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -14561,7 +14647,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -14772,7 +14857,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -14944,7 +15028,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -15140,7 +15223,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -15336,7 +15418,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -15547,7 +15628,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -15782,7 +15862,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -16065,7 +16144,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -16334,7 +16412,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -16546,7 +16623,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -16756,7 +16832,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -16946,8 +17021,7 @@
         "properties": {
           "data": {
             "required": [
-              "mainColor",
-              "Logo"
+              "mainColor"
             ],
             "type": "object",
             "properties": {
@@ -17044,8 +17118,7 @@
       "SettingPage": {
         "type": "object",
         "required": [
-          "mainColor",
-          "Logo"
+          "mainColor"
         ],
         "properties": {
           "id": {
@@ -17086,7 +17159,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -17226,7 +17298,6 @@
                         "caption": {
                           "type": "string"
                         },
-                        "focalPoint": {},
                         "width": {
                           "type": "integer"
                         },
@@ -17902,7 +17973,6 @@
               "caption": {
                 "type": "string"
               },
-              "focalPoint": {},
               "width": {
                 "type": "integer"
               },
@@ -18149,7 +18219,6 @@
                     "caption": {
                       "type": "string"
                     },
-                    "focalPoint": {},
                     "width": {
                       "type": "integer"
                     },
@@ -18327,7 +18396,6 @@
                     "caption": {
                       "type": "string"
                     },
-                    "focalPoint": {},
                     "width": {
                       "type": "integer"
                     },

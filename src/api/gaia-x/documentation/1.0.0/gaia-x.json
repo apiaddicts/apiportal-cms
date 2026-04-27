@@ -1,0 +1,63 @@
+{
+  "/gaia-x/validate": {
+    "post": {
+      "tags": ["Gaia-X"],
+      "summary": "Validar credencial Gaia-X",
+      "description": "Valida una Verifiable Credential emitida por el servicio de cumplimiento Gaia-X. Hace un GET a la URL de la credencial y comprueba su existencia y fecha de expiración.",
+      "operationId": "post/gaia-x/validate",
+      "parameters": [],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/GaiaXValidateRequest"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Resultado de la validación",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GaiaXValidateResponse"
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Bad Request — URL inválida o no permitida",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "Credencial no encontrada en Gaia-X",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "Error al conectar con el servicio Gaia-X",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Error"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

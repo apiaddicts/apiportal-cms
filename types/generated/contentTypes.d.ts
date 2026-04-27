@@ -695,6 +695,13 @@ export interface ApiLibraryCatalogLibraryCatalog
           language: 'plaintext';
         }
       >;
+    contracstDefinitionOperations: Schema.Attribute.Text &
+      Schema.Attribute.CustomField<
+        'plugin::strapi-code-editor-custom-field.code-editor-text',
+        {
+          language: 'plaintext';
+        }
+      >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -901,8 +908,7 @@ export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::setting-page.setting-page'
     >;
-    Logo: Schema.Attribute.Media<'images' | 'files'> &
-      Schema.Attribute.Required;
+    Logo: Schema.Attribute.Media<'images' | 'files'>;
     mainColor: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     secondaryColor: Schema.Attribute.String;
@@ -1178,7 +1184,6 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     ext: Schema.Attribute.String;
-    focalPoint: Schema.Attribute.JSON;
     folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
       Schema.Attribute.Private;
     folderPath: Schema.Attribute.String &

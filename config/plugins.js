@@ -47,7 +47,8 @@ module.exports = ({ env }) => ({
     "config": {
       "register": {
         "allowedFields": ["firstName", "lastName", "companyName"],
-      }
+      },
+      "jwtSecret": env('JWT_SECRET'),
     }
   },
 });
