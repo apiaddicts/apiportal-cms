@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "consumptions",
+  "info": {
+    "singularName": "consumption",
+    "pluralName": "consumptions",
+    "displayName": "Consumption",
+    "description": "One per click 'Consume asset' on a paid purchase. Holds webhookUrl and EDC transfer status."
+  },
+  "options": {
+    "draftAndPublish": false,
+    "timestamps": true
+  },
+  "attributes": {
+    "purchase": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::purchase.purchase",
+      "inversedBy": "consumptions"
+    },
+    "assetId": {
+      "type": "string",
+      "required": true
+    },
+    "webhookUrl": {
+      "type": "string",
+      "required": true,
+      "regex": "^https?://"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "negotiating", "transferring", "completed", "failed"],
+      "default": "pending",
+      "required": true
+    },
+    "edc_negotiation_id": {
+      "type": "string"
+    },
+    "edc_contract_agreement_id": {
+      "type": "string"
+    },
+    "edc_transfer_process_id": {
+      "type": "string"
+    },
+    "started_at": {
+      "type": "datetime"
+    },
+    "completed_at": {
+      "type": "datetime"
+    },
+    "error": {
+      "type": "text"
+    }
+  }
+}

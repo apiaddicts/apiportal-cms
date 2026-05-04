@@ -1,0 +1,77 @@
+{
+  "kind": "collectionType",
+  "collectionName": "purchases",
+  "info": {
+    "singularName": "purchase",
+    "pluralName": "purchases",
+    "displayName": "Purchase",
+    "description": "Stripe-paid contract over a library-catalog (1 ContractDefinition). Persistent; supports lazy negotiation per asset."
+  },
+  "options": {
+    "draftAndPublish": false,
+    "timestamps": true
+  },
+  "attributes": {
+    "buyer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "library_catalog": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::library-catalog.library-catalog"
+    },
+    "consumerId": {
+      "type": "string",
+      "description": "EDC consumer participant id sent in Stripe metadata. v1 hardcoded='consumer'."
+    },
+    "stripe_session_id": {
+      "type": "string",
+      "unique": true
+    },
+    "stripe_payment_intent_id": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "integer"
+    },
+    "currency": {
+      "type": "string",
+      "maxLength": 8
+    },
+    "bundleId": {
+      "type": "string"
+    },
+    "providerId": {
+      "type": "string"
+    },
+    "policyId": {
+      "type": "string",
+      "description": "EDC contract policy id whose constraints get the paymentRef PUT after Stripe confirms"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "paid", "expired", "refunded", "failed"],
+      "default": "pending",
+      "required": true
+    },
+    "contract_agreements": {
+      "type": "json",
+      "default": {},
+      "description": "Map { assetId: contractAgreementId } populated lazily on first consume of each asset"
+    },
+    "valid_until": {
+      "type": "datetime"
+    },
+    "consumptions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::consumption.consumption",
+      "mappedBy": "purchase"
+    },
+    "error": {
+      "type": "text"
+    }
+  }
+}

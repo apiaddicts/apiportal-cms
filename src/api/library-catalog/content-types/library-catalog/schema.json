@@ -65,7 +65,7 @@
       },
       "description": "Este campo es nuevo"
     },
-    "contracstDefinition": {
+    "contractDefinition": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
@@ -121,7 +121,7 @@
       },
       "description": "Este campo es nuevo"
     },
-    "contracstDefinitionOperations": {
+    "contractDefinitionOperations": {
       "type": "customField",
       "customField": "plugin::strapi-code-editor-custom-field.code-editor-text",
       "options": {
