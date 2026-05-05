@@ -95,7 +95,8 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
       const list = Array.isArray(datasets) ? datasets : [datasets];
       const filtered = list.filter((d) => {
         const props = d.properties || d;
-        const offerBundleId = props['schema:offers']?.['https://w3id.org/dataspace-billing/v0.1/ns/bundleId']
+        const offers = props['schema:offers'] || props['http://schema.org/offers'] || {};
+        const offerBundleId = offers['https://w3id.org/dataspace-billing/v0.1/ns/bundleId']
           || props['https://w3id.org/dataspace-billing/v0.1/ns/bundleId'];
         return offerBundleId === purchase.bundleId;
       });

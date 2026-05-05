@@ -18,16 +18,14 @@ function buildContractRequest({ providerProtocolUrl, offerId, assetId, bundleId,
       '@context': 'http://www.w3.org/ns/odrl.jsonld',
       '@type': 'Offer',
       '@id': offerId,
-      assigner: 'provider',
+      assigner: providerId,
       target: assetId,
       permission: [{
         action: 'use',
-        constraint: [{
-          and: [
-            { leftOperand: `${BILLING_NS}purchased`, operator: 'eq', rightOperand: bundleId },
-            { leftOperand: `${BILLING_NS}providerId`, operator: 'eq', rightOperand: providerId },
-          ],
-        }],
+        constraint: [
+          { leftOperand: `${BILLING_NS}purchased`, operator: 'eq', rightOperand: bundleId },
+          { leftOperand: `${BILLING_NS}providerId`, operator: 'eq', rightOperand: providerId },
+        ],
       }],
       prohibition: [],
       obligation: [],
