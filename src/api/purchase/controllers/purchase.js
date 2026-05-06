@@ -27,11 +27,48 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
     }
   },
 
+  async setConnector(ctx) {
+    const { id } = ctx.params;
+    const { consumerUrl, consumerApiKey } = ctx.request.body || {};
+    if (!consumerUrl) return ctx.badRequest('consumerUrl is required');
+    const userId = ctx.state.user?.id;
+    if (!userId) return ctx.unauthorized('authenticated user required');
+    const purchase = await strapi.documents('api::purchase.purchase').findOne({
+      documentId: id,
+      populate: ['buyer'],
+    });
+    if (!purchase) return ctx.notFound();
+    if (!purchase.buyer || purchase.buyer.id !== userId) {
+      return ctx.forbidden('this purchase does not belong to the authenticated user');
+    }
+    let consumerHost;
+    try {
+      consumerHost = new URL(consumerUrl).host;
+    } catch {
+      return ctx.badRequest('consumerUrl must be a valid URL');
+    }
+    if (purchase.providerUrl) {
+      try {
+        const providerHost = new URL(purchase.providerUrl).host;
+        if (consumerHost === providerHost) {
+          return ctx.badRequest(`Consumer URL host (${consumerHost}) matches the provider host. Use your own consumer connector URL.`);
+        }
+      } catch {
+        // providerUrl invalid — non-blocking for setting consumer creds
+      }
+    }
+    await strapi.documents('api::purchase.purchase').update({
+      documentId: id,
+      data: { consumerUrl, consumerApiKey: consumerApiKey || null },
+    });
+    ctx.body = { consumerUrl, hasApiKey: Boolean(consumerApiKey) };
+  },
+
   async consume(ctx) {
     const { id } = ctx.params;
-    const { assetId, webhookUrl, consumerUrl, consumerApiKey } = ctx.request.body || {};
-    if (!assetId || !webhookUrl || !consumerUrl) {
-      return ctx.badRequest('assetId, webhookUrl and consumerUrl are required');
+    const { assetId, webhookUrl } = ctx.request.body || {};
+    if (!assetId || !webhookUrl) {
+      return ctx.badRequest('assetId and webhookUrl are required');
     }
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized('authenticated user required');
@@ -43,24 +80,18 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
     if (!purchase.buyer || purchase.buyer.id !== userId) {
       return ctx.forbidden('this purchase does not belong to the authenticated user');
     }
-    if (purchase.providerUrl) {
-      try {
-        const c = new URL(consumerUrl);
-        const p = new URL(purchase.providerUrl);
-        if (c.host === p.host) {
-          return ctx.badRequest(`Consumer URL host (${c.host}) matches the provider host. Use your own consumer connector URL, not the provider's.`);
-        }
-      } catch {
-        return ctx.badRequest('consumerUrl must be a valid URL');
-      }
+    if (!purchase.consumerUrl) {
+      ctx.status = 412;
+      ctx.body = { error: 'consumer connector not configured for this purchase. POST /purchases/:id/connector first.' };
+      return;
     }
     try {
       const result = await consume({
         purchaseId: id,
         assetId,
         webhookUrl,
-        consumerUrl,
-        consumerApiKey,
+        consumerUrl: purchase.consumerUrl,
+        consumerApiKey: purchase.consumerApiKey,
         consumerUserId: String(userId),
       });
       ctx.body = result;

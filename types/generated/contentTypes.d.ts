@@ -945,7 +945,9 @@ export interface ApiPurchasePurchase extends Struct.CollectionTypeSchema {
       'manyToOne',
       'plugin::users-permissions.user'
     >;
+    consumerApiKey: Schema.Attribute.Password;
     consumerId: Schema.Attribute.String;
+    consumerUrl: Schema.Attribute.String;
     consumptions: Schema.Attribute.Relation<
       'oneToMany',
       'api::consumption.consumption'

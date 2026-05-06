@@ -44,6 +44,8 @@ function projectPurchase(purchase) {
     documentId: purchase.documentId,
     status: pickDisplayStatus(purchase.status, purchase.consumptions),
     updatedAt: purchase.updatedAt,
+    consumerUrl: purchase.consumerUrl || null,
+    hasConsumerApiKey: Boolean(purchase.consumerApiKey),
     library_catalog: purchase.library_catalog
       ? {
           documentId: purchase.library_catalog.documentId,

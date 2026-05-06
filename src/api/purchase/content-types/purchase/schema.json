@@ -50,6 +50,14 @@
       "type": "string",
       "description": "EDC provider base URL copied from the catalog at checkout time"
     },
+    "consumerUrl": {
+      "type": "string",
+      "description": "Buyer's own consumer connector URL (Management API base). Set once after payment and reused for every consume of this purchase."
+    },
+    "consumerApiKey": {
+      "type": "password",
+      "description": "X-Api-Key for the buyer's consumer connector."
+    },
     "policyId": {
       "type": "string",
       "description": "EDC contract policy id of the catalog at checkout time"
