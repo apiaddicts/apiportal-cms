@@ -4,6 +4,7 @@ const {
   requestCatalog, findDatasetById, extractOffer, extractProviderParticipantId,
   buildContractRequest, initBillingNegotiation, pollNegotiation,
   buildTransferRequest, initTransfer, pollTransfer,
+  normalizeManagementBase,
 } = require('../../../services/edc-client');
 
 function providerProtocolUrl(providerUrl) {
@@ -98,6 +99,7 @@ async function executeTransfer({ purchase, contractAgreementId, assetId, webhook
 async function consume({ purchaseId, assetId, webhookUrl, consumerUrl, consumerApiKey, consumerUserId }) {
   if (!consumerUrl) throw new Error('consumerUrl is required');
   if (!consumerUserId) throw new Error('consumerUserId is required');
+  consumerUrl = normalizeManagementBase(consumerUrl);
   const purchase = await strapi.documents('api::purchase.purchase').findOne({ documentId: purchaseId });
   if (!purchase) throw new Error(`Purchase ${purchaseId} not found`);
   if (purchase.status !== 'paid') throw new Error(`Purchase ${purchaseId} status=${purchase.status}, expected 'paid'`);

@@ -1,5 +1,12 @@
 'use strict';
 
+function normalizeManagementBase(raw) {
+  if (!raw) return raw;
+  const trimmed = String(raw).trim().replace(/\/+$/, '');
+  if (/\/management\/v\d+$/.test(trimmed)) return trimmed;
+  return `${trimmed}/management/v3`;
+}
+
 async function edcFetch(url, { method = 'GET', apiKey, body, headers = {} } = {}) {
   let res;
   try {
@@ -31,4 +38,4 @@ async function edcFetch(url, { method = 'GET', apiKey, body, headers = {} } = {}
   return data;
 }
 
-module.exports = { edcFetch };
+module.exports = { edcFetch, normalizeManagementBase };
