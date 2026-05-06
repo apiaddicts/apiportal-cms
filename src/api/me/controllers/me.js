@@ -62,10 +62,7 @@ module.exports = {
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized('authenticated user required');
     const items = await strapi.documents('api::purchase.purchase').findMany({
-      filters: {
-        buyer: { id: userId },
-        status: { $ne: 'pending' },
-      },
+      filters: { buyer: { id: userId } },
       populate: { library_catalog: true, consumptions: true },
       sort: { updatedAt: 'desc' },
     });
