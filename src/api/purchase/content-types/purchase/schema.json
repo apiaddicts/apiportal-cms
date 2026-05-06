@@ -46,6 +46,10 @@
     "providerId": {
       "type": "string"
     },
+    "providerUrl": {
+      "type": "string",
+      "description": "EDC provider base URL copied from the catalog at checkout time"
+    },
     "policyId": {
       "type": "string",
       "description": "EDC contract policy id whose constraints get the paymentRef PUT after Stripe confirms"

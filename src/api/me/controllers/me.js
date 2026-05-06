@@ -1,7 +1,5 @@
 'use strict';
 
-const { resolveConsumerId } = require('../../purchase/services/consumer-id');
-
 async function preflightWebhook(url, timeoutMs = 3000) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -24,9 +22,13 @@ async function preflightWebhook(url, timeoutMs = 3000) {
 
 module.exports = {
   async purchases(ctx) {
-    const consumerId = resolveConsumerId(ctx);
+    const userId = ctx.state.user?.id;
+    if (!userId) return ctx.unauthorized('authenticated user required');
     const items = await strapi.documents('api::purchase.purchase').findMany({
-      filters: { consumerId },
+      filters: {
+        buyer: { id: userId },
+        status: { $ne: 'pending' },
+      },
       populate: ['library_catalog'],
       sort: { createdAt: 'desc' },
     });
@@ -34,9 +36,10 @@ module.exports = {
   },
 
   async consumptions(ctx) {
-    const consumerId = resolveConsumerId(ctx);
+    const userId = ctx.state.user?.id;
+    if (!userId) return ctx.unauthorized('authenticated user required');
     const items = await strapi.documents('api::consumption.consumption').findMany({
-      filters: { purchase: { consumerId } },
+      filters: { purchase: { buyer: { id: userId } } },
       populate: ['purchase'],
       sort: { createdAt: 'desc' },
     });
@@ -44,9 +47,10 @@ module.exports = {
   },
 
   async webhooks(ctx) {
-    const consumerId = resolveConsumerId(ctx);
+    const userId = ctx.state.user?.id;
+    if (!userId) return ctx.unauthorized('authenticated user required');
     const items = await strapi.documents('api::consumption.consumption').findMany({
-      filters: { purchase: { consumerId } },
+      filters: { purchase: { buyer: { id: userId } } },
       populate: [],
       sort: { createdAt: 'desc' },
     });

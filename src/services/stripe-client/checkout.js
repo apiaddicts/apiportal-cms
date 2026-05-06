@@ -6,7 +6,7 @@ function getStripe() {
   return new Stripe(process.env.STRIPE_SECRET_KEY);
 }
 
-async function createCheckoutSession({ amount, currency, productName, metadata, successUrl, cancelUrl }) {
+async function createCheckoutSession({ amount, currency, productName, metadata, customerEmail, clientReferenceId, successUrl, cancelUrl }) {
   const stripe = getStripe();
   return stripe.checkout.sessions.create({
     mode: 'payment',
@@ -21,6 +21,8 @@ async function createCheckoutSession({ amount, currency, productName, metadata, 
     }],
     metadata,
     payment_intent_data: { metadata },
+    ...(customerEmail ? { customer_email: customerEmail } : {}),
+    ...(clientReferenceId ? { client_reference_id: clientReferenceId } : {}),
     success_url: successUrl,
     cancel_url: cancelUrl,
   });

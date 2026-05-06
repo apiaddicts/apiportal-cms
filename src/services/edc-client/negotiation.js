@@ -22,10 +22,12 @@ function buildContractRequest({ providerProtocolUrl, offerId, assetId, bundleId,
       target: assetId,
       permission: [{
         action: 'use',
-        constraint: [
-          { leftOperand: `${BILLING_NS}purchased`, operator: 'eq', rightOperand: bundleId },
-          { leftOperand: `${BILLING_NS}providerId`, operator: 'eq', rightOperand: providerId },
-        ],
+        constraint: [{
+          and: [
+            { leftOperand: `${BILLING_NS}purchased`, operator: 'eq', rightOperand: bundleId },
+            { leftOperand: `${BILLING_NS}providerId`, operator: 'eq', rightOperand: providerId },
+          ],
+        }],
       }],
       prohibition: [],
       obligation: [],

@@ -1,42 +1,98 @@
 'use strict';
 
-const { createCheckoutSession } = require('../../../services/stripe-client');
+const { createCheckoutSession, getStripe } = require('../../../services/stripe-client');
 const { resolveConsumerId } = require('./consumer-id');
+
+const BILLING_NS = 'https://w3id.org/dataspace-billing/v0.1/ns/';
+const SCHEMA_NS = 'https://schema.org/';
+
+function parseFirst(raw) {
+  if (!raw) return null;
+  try { return typeof raw === 'string' ? JSON.parse(raw) : raw; } catch { return null; }
+}
+
+function pickOfferFromServices(services, assetIds) {
+  const datasets = services?.['dcat:dataset'] ?? services?.dataset;
+  const list = Array.isArray(datasets) ? datasets : datasets ? [datasets] : [];
+  const wanted = Array.isArray(assetIds) ? assetIds : assetIds ? [assetIds] : null;
+  const match = wanted ? list.find(d => wanted.includes(d?.['@id'])) : null;
+  const dataset = match || list.find(d => d?.[`${SCHEMA_NS}offers`] || d?.['schema:offers']) || null;
+  return dataset?.[`${SCHEMA_NS}offers`] || dataset?.['schema:offers'] || null;
+}
+
+function offerField(offer, compact, full) {
+  return offer?.[compact] ?? offer?.[full];
+}
 
 function extractBillingMetaFromCatalog(catalog) {
   if (!catalog) throw new Error('catalog is null');
-  const parseFirst = (raw) => {
-    if (!raw) return null;
-    try { return typeof raw === 'string' ? JSON.parse(raw) : raw; } catch { return null; }
-  };
+
   const cdOps = parseFirst(catalog.contractDefinitionOperations);
-  const assets = parseFirst(catalog.assets);
-  const policyId = cdOps?.policyId || cdOps?.contractPolicyId || cdOps?.id || null;
-  const assetEntries = Array.isArray(assets)
-    ? assets
-    : Array.isArray(assets?.assets)
-      ? assets.assets
-      : assets
-        ? [assets]
-        : [];
-  const firstAsset = assetEntries[0] || {};
-  const offers = firstAsset['schema:offers'] || firstAsset.properties?.['schema:offers'] || {};
-  const bundleId = offers['https://w3id.org/dataspace-billing/v0.1/ns/bundleId']
-    || offers.bundleId
-    || cdOps?.bundleId
-    || `${catalog.slug}-bundle`;
-  const providerId = offers['https://w3id.org/dataspace-billing/v0.1/ns/providerId']
-    || offers.providerId
-    || cdOps?.providerId;
-  const amountStr = offers['schema:price'] || offers.price;
-  const amount = amountStr ? Math.round(Number(amountStr) * 100) : null; // EUR cents for Stripe
-  const currency = offers['schema:priceCurrency'] || offers.priceCurrency || 'EUR';
-  return { policyId, bundleId, providerId, amount, currency, productName: catalog.title || catalog.slug };
+  if (!cdOps) throw new Error('catalog.contractDefinitionOperations is missing or invalid');
+
+  const policyId = cdOps.contractPolicyId || cdOps.policyId || cdOps['@id'];
+  const assetIds = cdOps.assetsSelector?.operandRight ?? cdOps.assetsSelector?.['operandRight'];
+
+  const services = parseFirst(catalog.services);
+  const offer = pickOfferFromServices(services, assetIds) || {};
+
+  const price = offerField(offer, 'schema:price', `${SCHEMA_NS}price`);
+  const currency = offerField(offer, 'schema:priceCurrency', `${SCHEMA_NS}priceCurrency`) || 'EUR';
+  const bundleId = offer[`${BILLING_NS}bundleId`] ?? offer.bundleId;
+  const providerId = offer[`${BILLING_NS}providerId`] ?? offer.providerId;
+
+  const amount = price ? Math.round(Number(price) * 100) : null;
+
+  return {
+    policyId,
+    bundleId,
+    providerId,
+    amount,
+    currency,
+    productName: catalog.title || catalog.slug,
+  };
+}
+
+async function reuseOrCancelPending({ userId, catalogDocumentId }) {
+  const pendings = await strapi.documents('api::purchase.purchase').findMany({
+    filters: {
+      buyer: { id: userId },
+      library_catalog: { documentId: catalogDocumentId },
+      status: 'pending',
+    },
+    sort: { createdAt: 'desc' },
+  });
+  const list = Array.isArray(pendings) ? pendings : [];
+  if (list.length === 0) return null;
+
+  const stripe = getStripe();
+  let reusable = null;
+  for (const p of list) {
+    if (!p.stripe_session_id) continue;
+    if (reusable) break;
+    try {
+      const session = await stripe.checkout.sessions.retrieve(p.stripe_session_id);
+      if (session.status === 'open' && session.url) {
+        reusable = { purchaseId: p.documentId, checkoutUrl: session.url };
+        continue;
+      }
+      await strapi.documents('api::purchase.purchase').update({
+        documentId: p.documentId,
+        data: { status: 'failed', error: `Stripe session ${session.status}` },
+      });
+    } catch (err) {
+      strapi.log.warn(`could not retrieve stripe session ${p.stripe_session_id}: ${err.message}`);
+    }
+  }
+  return reusable;
 }
 
 async function startCheckout({ catalogId, ctx, userId }) {
   const catalog = await strapi.documents('api::library-catalog.library-catalog').findOne({ documentId: catalogId });
   if (!catalog) throw new Error(`Catalog ${catalogId} not found`);
+
+  const reused = await reuseOrCancelPending({ userId, catalogDocumentId: catalog.documentId });
+  if (reused) return reused;
 
   const meta = extractBillingMetaFromCatalog(catalog);
   if (!meta.amount || !meta.policyId || !meta.bundleId || !meta.providerId) {
@@ -44,6 +100,7 @@ async function startCheckout({ catalogId, ctx, userId }) {
   }
 
   const consumerId = resolveConsumerId(ctx);
+  const buyerEmail = ctx.state.user?.email;
 
   const purchase = await strapi.documents('api::purchase.purchase').create({
     data: {
@@ -54,6 +111,7 @@ async function startCheckout({ catalogId, ctx, userId }) {
       currency: meta.currency,
       bundleId: meta.bundleId,
       providerId: meta.providerId,
+      providerUrl: catalog.providerUrl || null,
       policyId: meta.policyId,
       status: 'pending',
     },
@@ -70,8 +128,10 @@ async function startCheckout({ catalogId, ctx, userId }) {
       bundleId: meta.bundleId,
       providerId: meta.providerId,
     },
-    successUrl: `${portalBase}/checkout/${purchase.documentId}/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancelUrl: `${portalBase}/checkout/${purchase.documentId}/cancel`,
+    customerEmail: buyerEmail,
+    clientReferenceId: String(userId),
+    successUrl: `${portalBase}/developer/checkout/${purchase.documentId}/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancelUrl: `${portalBase}/developer/checkout/${purchase.documentId}/cancel`,
   });
 
   await strapi.documents('api::purchase.purchase').update({

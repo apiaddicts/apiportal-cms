@@ -789,6 +789,7 @@ export interface ApiLibraryCatalogLibraryCatalog
           language: 'plaintext';
         }
       >;
+    providerUrl: Schema.Attribute.String;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
     services: Schema.Attribute.Text &
@@ -970,6 +971,7 @@ export interface ApiPurchasePurchase extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     policyId: Schema.Attribute.String;
     providerId: Schema.Attribute.String;
+    providerUrl: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     status: Schema.Attribute.Enumeration<
       ['pending', 'paid', 'expired', 'refunded', 'failed']

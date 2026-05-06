@@ -20,6 +20,9 @@
     "slug": {
       "type": "uid"
     },
+    "providerUrl": {
+      "type": "string"
+    },
     "description": {
       "type": "text"
     },

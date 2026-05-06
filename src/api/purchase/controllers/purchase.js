@@ -3,7 +3,14 @@
 const { createCoreController } = require('@strapi/strapi').factories;
 const { startCheckout } = require('../services/billing-checkout');
 const { consume } = require('../services/billing-consume');
-const { requestCatalog, findDatasetById } = require('../../../services/edc-client');
+
+const BILLING_NS = 'https://w3id.org/dataspace-billing/v0.1/ns/';
+const SCHEMA_NS = 'https://schema.org/';
+
+function parseFirst(raw) {
+  if (!raw) return null;
+  try { return typeof raw === 'string' ? JSON.parse(raw) : raw; } catch { return null; }
+}
 
 module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => ({
   async checkout(ctx) {
@@ -22,8 +29,10 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
 
   async consume(ctx) {
     const { id } = ctx.params;
-    const { assetId, webhookUrl } = ctx.request.body || {};
-    if (!assetId || !webhookUrl) return ctx.badRequest('assetId and webhookUrl are required');
+    const { assetId, webhookUrl, consumerUrl, consumerApiKey } = ctx.request.body || {};
+    if (!assetId || !webhookUrl || !consumerUrl) {
+      return ctx.badRequest('assetId, webhookUrl and consumerUrl are required');
+    }
     const userId = ctx.state.user?.id;
     if (!userId) return ctx.unauthorized('authenticated user required');
     const purchase = await strapi.documents('api::purchase.purchase').findOne({
@@ -34,8 +43,19 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
     if (!purchase.buyer || purchase.buyer.id !== userId) {
       return ctx.forbidden('this purchase does not belong to the authenticated user');
     }
+    if (purchase.providerUrl) {
+      try {
+        const c = new URL(consumerUrl);
+        const p = new URL(purchase.providerUrl);
+        if (c.host === p.host) {
+          return ctx.badRequest(`Consumer URL host (${c.host}) matches the provider host. Use your own consumer connector URL, not the provider's.`);
+        }
+      } catch {
+        return ctx.badRequest('consumerUrl must be a valid URL');
+      }
+    }
     try {
-      const result = await consume({ purchaseId: id, assetId, webhookUrl });
+      const result = await consume({ purchaseId: id, assetId, webhookUrl, consumerUrl, consumerApiKey });
       ctx.body = result;
     } catch (err) {
       strapi.log.error('consume failed', err);
@@ -85,25 +105,14 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
     });
     if (!purchase) return ctx.notFound();
 
-    try {
-      const catalog = await requestCatalog({
-        consumerUrl: process.env.EDC_CONSUMER_MANAGEMENT_URL,
-        apiKey: process.env.EDC_CONSUMER_API_KEY,
-        providerProtocolUrl: process.env.EDC_PROVIDER_PROTOCOL_URL,
-      });
-      const datasets = catalog?.['dcat:dataset'] || [];
-      const list = Array.isArray(datasets) ? datasets : [datasets];
-      const filtered = list.filter((d) => {
-        const props = d.properties || d;
-        const offers = props['schema:offers'] || props['http://schema.org/offers'] || {};
-        const offerBundleId = offers['https://w3id.org/dataspace-billing/v0.1/ns/bundleId']
-          || props['https://w3id.org/dataspace-billing/v0.1/ns/bundleId'];
-        return offerBundleId === purchase.bundleId;
-      });
-      ctx.body = { assets: filtered };
-    } catch (err) {
-      strapi.log.error('list assets failed', err);
-      ctx.throw(500, err.message);
-    }
+    const services = parseFirst(purchase.library_catalog?.services);
+    const datasets = services?.['dcat:dataset'] ?? services?.dataset;
+    const list = Array.isArray(datasets) ? datasets : datasets ? [datasets] : [];
+    const filtered = list.filter((d) => {
+      const offer = d?.[`${SCHEMA_NS}offers`] || d?.['schema:offers'] || {};
+      const offerBundleId = offer[`${BILLING_NS}bundleId`] ?? offer.bundleId;
+      return offerBundleId === purchase.bundleId;
+    });
+    ctx.body = { assets: filtered };
   },
 }));

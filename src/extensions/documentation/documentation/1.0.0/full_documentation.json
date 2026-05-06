@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-05-04T16:47:54.240Z"
+    "x-generation-date": "2026-05-06T12:35:46.474Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -10476,6 +10476,9 @@
                   "slug": {
                     "type": "string"
                   },
+                  "providerUrl": {
+                    "type": "string"
+                  },
                   "description": {
                     "type": "string"
                   },
@@ -11110,6 +11113,9 @@
                 "type": "string"
               },
               "providerId": {
+                "type": "string"
+              },
+              "providerUrl": {
                 "type": "string"
               },
               "policyId": {
@@ -13239,6 +13245,9 @@
               "slug": {
                 "type": "string"
               },
+              "providerUrl": {
+                "type": "string"
+              },
               "description": {
                 "type": "string"
               },
@@ -13400,6 +13409,9 @@
             "type": "string"
           },
           "slug": {
+            "type": "string"
+          },
+          "providerUrl": {
             "type": "string"
           },
           "description": {
@@ -14359,6 +14371,9 @@
                   "type": "string"
                 },
                 "slug": {
+                  "type": "string"
+                },
+                "providerUrl": {
                   "type": "string"
                 },
                 "description": {
@@ -20495,6 +20510,9 @@
               "providerId": {
                 "type": "string"
               },
+              "providerUrl": {
+                "type": "string"
+              },
               "policyId": {
                 "type": "string"
               },
@@ -21325,6 +21343,9 @@
               "slug": {
                 "type": "string"
               },
+              "providerUrl": {
+                "type": "string"
+              },
               "description": {
                 "type": "string"
               },
@@ -21961,6 +21982,9 @@
           "providerId": {
             "type": "string"
           },
+          "providerUrl": {
+            "type": "string"
+          },
           "policyId": {
             "type": "string"
           },
@@ -22068,6 +22092,9 @@
                       "type": "string"
                     },
                     "providerId": {
+                      "type": "string"
+                    },
+                    "providerUrl": {
                       "type": "string"
                     },
                     "policyId": {
