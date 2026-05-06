@@ -21,9 +21,9 @@ function explainEdcError(step, err, { consumerUrl } = {}) {
   return new Error(`${step} failed: ${err.message}`);
 }
 
-async function ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey, consumerUserId }) {
+async function ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey, consumerUserId, forceRenegotiate = false }) {
   const existing = (purchase.contract_agreements || {})[assetId];
-  if (existing) return existing;
+  if (existing && !forceRenegotiate) return existing;
 
   const providerProtocol = providerProtocolUrl(purchase.providerUrl);
 
@@ -80,6 +80,23 @@ async function ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey,
   return contractAgreementId;
 }
 
+function isStaleAgreementError(err) {
+  if (!err) return false;
+  if (err.status !== 400 && err.status !== 404) return false;
+  const body = typeof err.body === 'string' ? err.body : JSON.stringify(err.body || '');
+  return /not found/i.test(body) || /not found/i.test(err.message || '');
+}
+
+async function clearAgreement({ purchase, assetId }) {
+  const next = { ...(purchase.contract_agreements || {}) };
+  delete next[assetId];
+  await strapi.documents('api::purchase.purchase').update({
+    documentId: purchase.documentId,
+    data: { contract_agreements: next },
+  });
+  purchase.contract_agreements = next;
+}
+
 async function executeTransfer({ purchase, contractAgreementId, assetId, webhookUrl, consumptionId, consumerUrl, consumerApiKey }) {
   const providerProtocol = providerProtocolUrl(purchase.providerUrl);
 
@@ -109,15 +126,33 @@ async function consume({ purchaseId, assetId, webhookUrl, consumerUrl, consumerA
   });
 
   try {
-    const contractAgreementId = await ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey, consumerUserId });
+    let contractAgreementId = await ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey, consumerUserId });
     await strapi.documents('api::consumption.consumption').update({
       documentId: consumption.documentId,
       data: { edc_contract_agreement_id: contractAgreementId },
     });
-    const { tpId, state } = await executeTransfer({
-      purchase, contractAgreementId, assetId, webhookUrl, consumptionId: consumption.documentId,
-      consumerUrl, consumerApiKey,
-    });
+    let tpId, state;
+    try {
+      ({ tpId, state } = await executeTransfer({
+        purchase, contractAgreementId, assetId, webhookUrl, consumptionId: consumption.documentId,
+        consumerUrl, consumerApiKey,
+      }));
+    } catch (err) {
+      if (!isStaleAgreementError(err)) throw err;
+      strapi.log.warn(`[consume] agreement ${contractAgreementId} stale, renegotiating`);
+      await clearAgreement({ purchase, assetId });
+      contractAgreementId = await ensureAgreement({
+        purchase, assetId, consumerUrl, consumerApiKey, consumerUserId, forceRenegotiate: true,
+      });
+      await strapi.documents('api::consumption.consumption').update({
+        documentId: consumption.documentId,
+        data: { edc_contract_agreement_id: contractAgreementId },
+      });
+      ({ tpId, state } = await executeTransfer({
+        purchase, contractAgreementId, assetId, webhookUrl, consumptionId: consumption.documentId,
+        consumerUrl, consumerApiKey,
+      }));
+    }
     const ok = state === 'COMPLETED';
     await strapi.documents('api::consumption.consumption').update({
       documentId: consumption.documentId,
