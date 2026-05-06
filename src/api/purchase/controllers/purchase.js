@@ -63,40 +63,6 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
     }
   },
 
-  async billingCheck(ctx) {
-    const { paymentRef, bundleId, providerId, consumerId } = ctx.query || {};
-    if (!paymentRef) {
-      ctx.status = 400;
-      ctx.body = { error: 'paymentRef is required' };
-      return;
-    }
-    const filters = { stripe_payment_intent_id: paymentRef, status: 'paid' };
-    if (bundleId) filters.bundleId = bundleId;
-    if (providerId) filters.providerId = providerId;
-    const matches = await strapi.documents('api::purchase.purchase').findMany({
-      filters,
-      limit: 1,
-    });
-    const purchase = Array.isArray(matches) ? matches[0] : matches;
-    if (!purchase) {
-      ctx.status = 404;
-      ctx.body = { valid: false, reason: 'no matching purchase' };
-      return;
-    }
-    if (consumerId && purchase.consumerId && purchase.consumerId !== consumerId) {
-      ctx.status = 404;
-      ctx.body = { valid: false, reason: 'consumerId mismatch' };
-      return;
-    }
-    ctx.body = {
-      valid: true,
-      paymentRef: purchase.stripe_payment_intent_id,
-      bundleId: purchase.bundleId,
-      providerId: purchase.providerId,
-      consumerId: purchase.consumerId || null,
-    };
-  },
-
   async assets(ctx) {
     const { id } = ctx.params;
     const purchase = await strapi.documents('api::purchase.purchase').findOne({

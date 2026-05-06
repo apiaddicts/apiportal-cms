@@ -20,11 +20,5 @@ module.exports = {
       handler: 'purchase.assets',
       config: { auth: false, policies: [] },
     },
-    {
-      method: 'GET',
-      path: '/billing/check',
-      handler: 'purchase.billingCheck',
-      config: { auth: false, policies: [] },
-    },
   ],
 };
