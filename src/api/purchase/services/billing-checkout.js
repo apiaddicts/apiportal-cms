@@ -129,7 +129,7 @@ async function startCheckout({ catalogId, ctx, userId }) {
     },
     customerEmail: buyerEmail,
     clientReferenceId: String(userId),
-    successUrl: `${portalBase}/developer/checkout/${purchase.documentId}/success?session_id={CHECKOUT_SESSION_ID}`,
+    successUrl: `${portalBase}/developer/purchases/${purchase.documentId}`,
     cancelUrl: `${portalBase}/developer/checkout/${purchase.documentId}/cancel`,
   });
 
