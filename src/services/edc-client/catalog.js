@@ -58,4 +58,11 @@ function extractOffer(dataset, filter = {}) {
   return list.find((o) => offerMatches(o, filter)) || list[0] || null;
 }
 
-module.exports = { requestCatalog, findDatasetById, extractOffer };
+function extractProviderParticipantId(catalog) {
+  return catalog?.['dspace:participantId']
+    ?? catalog?.['participantId']
+    ?? catalog?.['https://w3id.org/dspace/v0.8/participantId']
+    ?? null;
+}
+
+module.exports = { requestCatalog, findDatasetById, extractOffer, extractProviderParticipantId };

@@ -5,7 +5,7 @@ const { BILLING_NS } = require('./policy');
 
 const TERMINAL_STATES = new Set(['FINALIZED', 'TERMINATED']);
 
-function buildContractRequest({ providerProtocolUrl, offerId, assetId, bundleId, providerId }) {
+function buildContractRequest({ providerProtocolUrl, offerId, assetId, bundleId, billingProviderId, assignerId }) {
   return {
     '@context': {
       '@vocab': 'https://w3id.org/edc/v0.0.1/ns/',
@@ -18,14 +18,14 @@ function buildContractRequest({ providerProtocolUrl, offerId, assetId, bundleId,
       '@context': 'http://www.w3.org/ns/odrl.jsonld',
       '@type': 'Offer',
       '@id': offerId,
-      assigner: providerId,
+      assigner: assignerId,
       target: assetId,
       permission: [{
         action: 'use',
         constraint: [{
           and: [
             { leftOperand: `${BILLING_NS}purchased`, operator: 'eq', rightOperand: bundleId },
-            { leftOperand: `${BILLING_NS}providerId`, operator: 'eq', rightOperand: providerId },
+            { leftOperand: `${BILLING_NS}providerId`, operator: 'eq', rightOperand: billingProviderId },
           ],
         }],
       }],

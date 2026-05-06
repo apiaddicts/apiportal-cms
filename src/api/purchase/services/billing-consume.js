@@ -1,7 +1,7 @@
 'use strict';
 
 const {
-  requestCatalog, findDatasetById, extractOffer,
+  requestCatalog, findDatasetById, extractOffer, extractProviderParticipantId,
   buildContractRequest, initBillingNegotiation, pollNegotiation,
   buildTransferRequest, initTransfer, pollTransfer,
 } = require('../../../services/edc-client');
@@ -41,12 +41,16 @@ async function ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey,
   const offer = extractOffer(dataset, { bundleId: purchase.bundleId, providerId: purchase.providerId });
   if (!offer?.['@id']) throw new Error(`No offer for asset ${assetId} matching bundle ${purchase.bundleId}`);
 
+  const assignerId = extractProviderParticipantId(catalog);
+  if (!assignerId) throw new Error('Provider connector did not advertise a participantId in the DSP catalog');
+
   const request = buildContractRequest({
     providerProtocolUrl: providerProtocol,
     offerId: offer['@id'],
     assetId,
     bundleId: purchase.bundleId,
-    providerId: purchase.providerId,
+    billingProviderId: purchase.providerId,
+    assignerId,
   });
   let negotiationId;
   try {
