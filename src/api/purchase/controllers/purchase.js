@@ -55,7 +55,14 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
       }
     }
     try {
-      const result = await consume({ purchaseId: id, assetId, webhookUrl, consumerUrl, consumerApiKey });
+      const result = await consume({
+        purchaseId: id,
+        assetId,
+        webhookUrl,
+        consumerUrl,
+        consumerApiKey,
+        consumerUserId: String(userId),
+      });
       ctx.body = result;
     } catch (err) {
       strapi.log.error('consume failed', err);

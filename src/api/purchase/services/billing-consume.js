@@ -20,7 +20,7 @@ function explainEdcError(step, err, { consumerUrl } = {}) {
   return new Error(`${step} failed: ${err.message}`);
 }
 
-async function ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey }) {
+async function ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey, consumerUserId }) {
   const existing = (purchase.contract_agreements || {})[assetId];
   if (existing) return existing;
 
@@ -54,6 +54,7 @@ async function ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey 
       consumerUrl,
       apiKey: consumerApiKey,
       paymentRef: purchase.stripe_payment_intent_id,
+      consumerUserId,
       request,
     });
   } catch (err) {
@@ -90,8 +91,9 @@ async function executeTransfer({ purchase, contractAgreementId, assetId, webhook
   return { tpId, state };
 }
 
-async function consume({ purchaseId, assetId, webhookUrl, consumerUrl, consumerApiKey }) {
+async function consume({ purchaseId, assetId, webhookUrl, consumerUrl, consumerApiKey, consumerUserId }) {
   if (!consumerUrl) throw new Error('consumerUrl is required');
+  if (!consumerUserId) throw new Error('consumerUserId is required');
   const purchase = await strapi.documents('api::purchase.purchase').findOne({ documentId: purchaseId });
   if (!purchase) throw new Error(`Purchase ${purchaseId} not found`);
   if (purchase.status !== 'paid') throw new Error(`Purchase ${purchaseId} status=${purchase.status}, expected 'paid'`);
@@ -101,7 +103,7 @@ async function consume({ purchaseId, assetId, webhookUrl, consumerUrl, consumerA
   });
 
   try {
-    const contractAgreementId = await ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey });
+    const contractAgreementId = await ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey, consumerUserId });
     await strapi.documents('api::consumption.consumption').update({
       documentId: consumption.documentId,
       data: { edc_contract_agreement_id: contractAgreementId },

@@ -35,14 +35,15 @@ function buildContractRequest({ providerProtocolUrl, offerId, assetId, bundleId,
   };
 }
 
-async function initBillingNegotiation({ consumerUrl, apiKey, paymentRef, request }) {
+async function initBillingNegotiation({ consumerUrl, apiKey, paymentRef, consumerUserId, request }) {
   if (!paymentRef) throw new Error('paymentRef is required');
+  if (!consumerUserId) throw new Error('consumerUserId is required');
   const url = consumerUrl.replace(/\/$/, '').replace(/\/v3$/, '') + '/v3/billing/contractnegotiations';
   const res = await edcFetch(url, {
     method: 'POST',
     apiKey,
     body: request,
-    headers: { 'X-Payment-Ref': paymentRef },
+    headers: { 'X-Payment-Ref': paymentRef, 'X-Consumer-User-Id': consumerUserId },
   });
   return res['@id'];
 }
