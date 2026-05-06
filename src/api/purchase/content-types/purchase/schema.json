@@ -24,7 +24,7 @@
     },
     "consumerId": {
       "type": "string",
-      "description": "EDC consumer participant id sent in Stripe metadata. v1 hardcoded='consumer'."
+      "description": "Buyer userId sent as payment_intent.metadata.consumerId for replay protection in the connector."
     },
     "stripe_session_id": {
       "type": "string",
@@ -52,11 +52,11 @@
     },
     "policyId": {
       "type": "string",
-      "description": "EDC contract policy id whose constraints get the paymentRef PUT after Stripe confirms"
+      "description": "EDC contract policy id of the catalog at checkout time"
     },
     "status": {
       "type": "enumeration",
-      "enum": ["pending", "paid", "expired", "refunded", "failed"],
+      "enum": ["pending", "paid", "failed"],
       "default": "pending",
       "required": true
     },
@@ -64,9 +64,6 @@
       "type": "json",
       "default": {},
       "description": "Map { assetId: contractAgreementId } populated lazily on first consume of each asset"
-    },
-    "valid_until": {
-      "type": "datetime"
     },
     "consumptions": {
       "type": "relation",

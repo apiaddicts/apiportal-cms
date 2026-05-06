@@ -973,9 +973,7 @@ export interface ApiPurchasePurchase extends Struct.CollectionTypeSchema {
     providerId: Schema.Attribute.String;
     providerUrl: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    status: Schema.Attribute.Enumeration<
-      ['pending', 'paid', 'expired', 'refunded', 'failed']
-    > &
+    status: Schema.Attribute.Enumeration<['pending', 'paid', 'failed']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'pending'>;
     stripe_payment_intent_id: Schema.Attribute.String;
@@ -983,7 +981,6 @@ export interface ApiPurchasePurchase extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    valid_until: Schema.Attribute.DateTime;
   };
 }
 

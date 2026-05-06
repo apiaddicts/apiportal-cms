@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-05-06T12:35:46.474Z"
+    "x-generation-date": "2026-05-06T16:15:43.020Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -11126,16 +11126,10 @@
                 "enum": [
                   "pending",
                   "paid",
-                  "expired",
-                  "refunded",
                   "failed"
                 ]
               },
               "contract_agreements": {},
-              "valid_until": {
-                "type": "string",
-                "format": "date-time"
-              },
               "consumptions": {
                 "type": "array",
                 "items": {
@@ -20521,16 +20515,10 @@
                 "enum": [
                   "pending",
                   "paid",
-                  "expired",
-                  "refunded",
                   "failed"
                 ]
               },
               "contract_agreements": {},
-              "valid_until": {
-                "type": "string",
-                "format": "date-time"
-              },
               "consumptions": {
                 "type": "array",
                 "items": {
@@ -21993,16 +21981,10 @@
             "enum": [
               "pending",
               "paid",
-              "expired",
-              "refunded",
               "failed"
             ]
           },
           "contract_agreements": {},
-          "valid_until": {
-            "type": "string",
-            "format": "date-time"
-          },
           "consumptions": {
             "type": "array",
             "items": {
@@ -22105,16 +22087,10 @@
                       "enum": [
                         "pending",
                         "paid",
-                        "expired",
-                        "refunded",
                         "failed"
                       ]
                     },
                     "contract_agreements": {},
-                    "valid_until": {
-                      "type": "string",
-                      "format": "date-time"
-                    },
                     "consumptions": {
                       "type": "array",
                       "items": {

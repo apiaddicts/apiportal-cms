@@ -1,7 +1,6 @@
 'use strict';
 
 const { createCheckoutSession, getStripe } = require('../../../services/stripe-client');
-const { resolveConsumerId } = require('./consumer-id');
 
 const BILLING_NS = 'https://w3id.org/dataspace-billing/v0.1/ns/';
 const SCHEMA_NS = 'https://schema.org/';
@@ -99,7 +98,7 @@ async function startCheckout({ catalogId, ctx, userId }) {
     throw new Error('Catalog is missing billing fields (price/policyId/bundleId/providerId)');
   }
 
-  const consumerId = resolveConsumerId(ctx);
+  const consumerId = String(userId);
   const buyerEmail = ctx.state.user?.email;
 
   const purchase = await strapi.documents('api::purchase.purchase').create({
