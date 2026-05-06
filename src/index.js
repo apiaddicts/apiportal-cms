@@ -185,6 +185,21 @@ async function importLeadFormSubmissionData() {
   });
 }
 
+async function ensureAuthenticatedPermissions(actions) {
+  const role = await strapi.db.query('plugin::users-permissions.role').findOne({ where: { type: 'authenticated' } });
+  if (!role) return;
+  for (const action of actions) {
+    const existing = await strapi.db.query('plugin::users-permissions.permission').findOne({ where: { action, role: role.id } });
+    if (existing) {
+      if (!existing.enabled) {
+        await strapi.db.query('plugin::users-permissions.permission').update({ where: { id: existing.id }, data: { enabled: true } });
+      }
+    } else {
+      await strapi.db.query('plugin::users-permissions.permission').create({ data: { action, enabled: true, role: role.id } });
+    }
+  }
+}
+
 async function importSeedData() {
   // Allow read of application content types
   await setPublicPermissions({
@@ -224,6 +239,18 @@ module.exports = {
         console.log("Could not import seed data");
         console.error(error);
       }
+    }
+
+    try {
+      await ensureAuthenticatedPermissions([
+        'api::purchase.purchase.checkout',
+        'api::purchase.purchase.findOne',
+        'api::purchase.purchase.setConnector',
+        'api::purchase.purchase.consume',
+        'api::purchase.purchase.assets',
+      ]);
+    } catch (error) {
+      console.error('Could not ensure purchase permissions', error);
     }
 
     try {

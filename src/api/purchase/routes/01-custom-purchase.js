@@ -9,6 +9,12 @@ module.exports = {
       config: { policies: [] },
     },
     {
+      method: 'GET',
+      path: '/purchases/:id',
+      handler: 'purchase.findOne',
+      config: { policies: [] },
+    },
+    {
       method: 'POST',
       path: '/purchases/:id/connector',
       handler: 'purchase.setConnector',
@@ -24,7 +30,7 @@ module.exports = {
       method: 'GET',
       path: '/purchases/:id/assets',
       handler: 'purchase.assets',
-      config: { auth: false, policies: [] },
+      config: { policies: [] },
     },
   ],
 };

@@ -12,7 +12,62 @@ function parseFirst(raw) {
   try { return typeof raw === 'string' ? JSON.parse(raw) : raw; } catch { return null; }
 }
 
+function projectOwnPurchase(purchase) {
+  if (!purchase) return null;
+  const consumptions = (purchase.consumptions || []).map((c) => ({
+    documentId: c.documentId,
+    assetId: c.assetId,
+    status: c.status,
+    webhookUrl: c.webhookUrl,
+    edcContractAgreementId: c.edc_contract_agreement_id,
+    edcTransferProcessId: c.edc_transfer_process_id,
+    completedAt: c.completed_at,
+    error: c.error,
+  }));
+  const hasCompletedConsumption = consumptions.some((c) => c.status === 'completed');
+  const displayStatus = purchase.status === 'paid' && hasCompletedConsumption ? 'consumed' : purchase.status;
+  return {
+    documentId: purchase.documentId,
+    status: displayStatus,
+    rawStatus: purchase.status,
+    amount: purchase.amount,
+    currency: purchase.currency,
+    bundleId: purchase.bundleId,
+    providerId: purchase.providerId,
+    providerUrl: purchase.providerUrl,
+    stripePaymentIntentId: purchase.stripe_payment_intent_id,
+    consumerUrl: purchase.consumerUrl || null,
+    hasConsumerApiKey: Boolean(purchase.consumerApiKey),
+    contractAgreements: purchase.contract_agreements || {},
+    error: purchase.error || null,
+    createdAt: purchase.createdAt,
+    updatedAt: purchase.updatedAt,
+    library_catalog: purchase.library_catalog
+      ? {
+          documentId: purchase.library_catalog.documentId,
+          slug: purchase.library_catalog.slug,
+          title: purchase.library_catalog.title,
+          description: purchase.library_catalog.description,
+        }
+      : null,
+    consumptions,
+  };
+}
+
 module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => ({
+  async findOne(ctx) {
+    const { id } = ctx.params;
+    const userId = ctx.state.user?.id;
+    if (!userId) return ctx.unauthorized('authenticated user required');
+    const purchase = await strapi.documents('api::purchase.purchase').findOne({
+      documentId: id,
+      populate: { buyer: true, library_catalog: true, consumptions: true },
+    });
+    if (!purchase) return ctx.notFound();
+    if (!purchase.buyer || purchase.buyer.id !== userId) return ctx.notFound();
+    ctx.body = { data: projectOwnPurchase(purchase) };
+  },
+
   async checkout(ctx) {
     const { catalogId } = ctx.request.body || {};
     if (!catalogId) return ctx.badRequest('catalogId is required');
@@ -103,11 +158,14 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
 
   async assets(ctx) {
     const { id } = ctx.params;
+    const userId = ctx.state.user?.id;
+    if (!userId) return ctx.unauthorized('authenticated user required');
     const purchase = await strapi.documents('api::purchase.purchase').findOne({
       documentId: id,
-      populate: ['library_catalog'],
+      populate: { buyer: true, library_catalog: true },
     });
     if (!purchase) return ctx.notFound();
+    if (!purchase.buyer || purchase.buyer.id !== userId) return ctx.notFound();
 
     const services = parseFirst(purchase.library_catalog?.services);
     const datasets = services?.['dcat:dataset'] ?? services?.dataset;

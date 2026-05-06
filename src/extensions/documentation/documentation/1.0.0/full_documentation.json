@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-05-06T16:19:00.521Z"
+    "x-generation-date": "2026-05-06T21:05:23.773Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -11118,6 +11118,9 @@
               "providerUrl": {
                 "type": "string"
               },
+              "consumerUrl": {
+                "type": "string"
+              },
               "policyId": {
                 "type": "string"
               },
@@ -20507,6 +20510,14 @@
               "providerUrl": {
                 "type": "string"
               },
+              "consumerUrl": {
+                "type": "string"
+              },
+              "consumerApiKey": {
+                "type": "string",
+                "format": "password",
+                "example": "*******"
+              },
               "policyId": {
                 "type": "string"
               },
@@ -21973,6 +21984,9 @@
           "providerUrl": {
             "type": "string"
           },
+          "consumerUrl": {
+            "type": "string"
+          },
           "policyId": {
             "type": "string"
           },
@@ -22077,6 +22091,9 @@
                       "type": "string"
                     },
                     "providerUrl": {
+                      "type": "string"
+                    },
+                    "consumerUrl": {
                       "type": "string"
                     },
                     "policyId": {
