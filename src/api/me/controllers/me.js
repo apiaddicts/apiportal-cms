@@ -20,6 +20,41 @@ async function preflightWebhook(url, timeoutMs = 3000) {
   }
 }
 
+function pickDisplayStatus(rawStatus, consumptions) {
+  const hasCompletedConsumption = (consumptions || []).some((c) => c.status === 'completed');
+  if (rawStatus === 'paid' && hasCompletedConsumption) return 'consumed';
+  return rawStatus;
+}
+
+function dedupeLatestByCatalog(purchases) {
+  const latestByCatalog = new Map();
+  for (const purchase of purchases) {
+    const catalogId = purchase.library_catalog?.documentId;
+    if (!catalogId) continue;
+    const existing = latestByCatalog.get(catalogId);
+    if (!existing || new Date(purchase.updatedAt) > new Date(existing.updatedAt)) {
+      latestByCatalog.set(catalogId, purchase);
+    }
+  }
+  return Array.from(latestByCatalog.values());
+}
+
+function projectPurchase(purchase) {
+  return {
+    documentId: purchase.documentId,
+    status: pickDisplayStatus(purchase.status, purchase.consumptions),
+    updatedAt: purchase.updatedAt,
+    library_catalog: purchase.library_catalog
+      ? {
+          documentId: purchase.library_catalog.documentId,
+          slug: purchase.library_catalog.slug,
+          title: purchase.library_catalog.title,
+          description: purchase.library_catalog.description,
+        }
+      : null,
+  };
+}
+
 module.exports = {
   async purchases(ctx) {
     const userId = ctx.state.user?.id;
@@ -29,10 +64,11 @@ module.exports = {
         buyer: { id: userId },
         status: { $ne: 'pending' },
       },
-      populate: ['library_catalog'],
-      sort: { createdAt: 'desc' },
+      populate: { library_catalog: true, consumptions: true },
+      sort: { updatedAt: 'desc' },
     });
-    ctx.body = { data: items };
+    const latest = dedupeLatestByCatalog(items);
+    ctx.body = { data: latest.map(projectPurchase) };
   },
 
   async consumptions(ctx) {
