@@ -12,6 +12,15 @@ function parseFirst(raw) {
   try { return typeof raw === 'string' ? JSON.parse(raw) : raw; } catch { return null; }
 }
 
+function normalizeConsumerUrl(raw) {
+  if (!raw) return null;
+  let url = String(raw).trim().replace(/\/+$/, '');
+  if (!/\/management\/v\d+$/.test(url)) {
+    url = `${url}/management/v3`;
+  }
+  return url;
+}
+
 function projectOwnPurchase(purchase) {
   if (!purchase) return null;
   const consumptions = (purchase.consumptions || []).map((c) => ({
@@ -96,9 +105,10 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
     if (!purchase.buyer || purchase.buyer.id !== userId) {
       return ctx.forbidden('this purchase does not belong to the authenticated user');
     }
+    const normalizedUrl = normalizeConsumerUrl(consumerUrl);
     let consumerHost;
     try {
-      consumerHost = new URL(consumerUrl).host;
+      consumerHost = new URL(normalizedUrl).host;
     } catch {
       return ctx.badRequest('consumerUrl must be a valid URL');
     }
@@ -114,9 +124,9 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
     }
     await strapi.documents('api::purchase.purchase').update({
       documentId: id,
-      data: { consumerUrl, consumerApiKey: consumerApiKey || null },
+      data: { consumerUrl: normalizedUrl, consumerApiKey: consumerApiKey || null },
     });
-    ctx.body = { consumerUrl, hasApiKey: Boolean(consumerApiKey) };
+    ctx.body = { consumerUrl: normalizedUrl, hasApiKey: Boolean(consumerApiKey) };
   },
 
   async consume(ctx) {
