@@ -127,6 +127,37 @@ The CMS includes an auto-import script that runs on the first startup to create 
 
 ---
 
+## 💳 Billing Flow
+
+The CMS lets users purchase access to a `library-catalog` via Stripe Checkout. After payment, the user configures their own EDC consumer connector and consumes the catalog assets through it. The flow has three stages:
+
+1. **Checkout** — `POST /api/purchases/checkout` creates a `Purchase` (status `pending`) and returns a Stripe Checkout URL. Stripe collects the payment.
+2. **Webhook confirmation** — Stripe POSTs to `/api/stripe/webhook` with `checkout.session.completed` (success) or `payment_intent.payment_failed`. The handler verifies the signature with `STRIPE_WEBHOOK_SECRET` and updates the `Purchase` to `paid` or `failed`. Events are stored idempotently in `stripe_webhook_events`.
+3. **EDC consumption** — once paid, the user posts the URL of their consumer connector (`POST /api/purchases/:id/connector`) and triggers a transfer per asset (`POST /api/purchases/:id/consume`). The CMS negotiates the contract against the catalog's `provider_url`, signs the agreement and pushes the data to a webhook URL provided by the user.
+
+### Setting up the Stripe webhook
+
+After deploying the CMS to a public host, register the endpoint in the Stripe Dashboard so Stripe can deliver events:
+
+1. **Stripe Dashboard → Developers → Webhooks → Add endpoint**.
+2. URL: `https://<your-cms-host>/api/stripe/webhook`.
+3. Subscribe to `checkout.session.completed` and `payment_intent.payment_failed`.
+4. Copy the resulting signing secret (`whsec_...`) into `STRIPE_WEBHOOK_SECRET`.
+
+For local development the [Stripe CLI](https://docs.stripe.com/stripe-cli) forwards real events to your machine:
+
+```bash
+stripe listen --forward-to localhost:1337/api/stripe/webhook
+```
+
+The CLI prints the `whsec_...` to use locally.
+
+### Catalog requirements
+
+For a `library-catalog` to be purchasable and consumable, its `services` field must include a `schema:offers` block with `schema:price`, `schema:priceCurrency`, `bundleId` and `providerId`, and the `provider_url` must point to a reachable EDC connector that hosts the asset.
+
+---
+
 ## ⚠️ Important Technical Notes
 
 * **Security:** `config/middlewares.js` is configured to allow S3 and CDN assets through the Content Security Policy (CSP).
