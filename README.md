@@ -85,17 +85,13 @@ Then update the values according to your environment.
 
 ---
 
-### 💳 Billing (Stripe)
+### 💳 Stripe
 
-Required to process catalog purchases via Stripe Checkout and verify webhook events.
-
-| Variable                 | Description                                                                                  |
-| ------------------------ | -------------------------------------------------------------------------------------------- |
-| `STRIPE_SECRET_KEY`      | Stripe secret API key (`sk_test_...` or `sk_live_...`)                                       |
-| `STRIPE_PUBLISHABLE_KEY` | Stripe publishable key (`pk_test_...` or `pk_live_...`)                                      |
-| `STRIPE_WEBHOOK_SECRET`  | Signing secret of the registered webhook endpoint (`whsec_...`)                              |
-
-After deploying, register a webhook endpoint in the Stripe Dashboard pointing to `https://<host>/api/stripe/webhook` and subscribe to `checkout.session.completed` and `payment_intent.payment_failed`. Copy the resulting signing secret into `STRIPE_WEBHOOK_SECRET`.
+| Variable                 | Description                                            |
+| ------------------------ | ------------------------------------------------------ |
+| `STRIPE_SECRET_KEY`      | Stripe secret API key                                  |
+| `STRIPE_PUBLISHABLE_KEY` | Stripe publishable key                                 |
+| `STRIPE_WEBHOOK_SECRET`  | Signing secret of the `/api/stripe/webhook` endpoint   |
 
 ---
 
