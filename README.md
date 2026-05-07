@@ -1,52 +1,105 @@
-# 🚀 Devportal Back ![License: LGPL v3](https://img.shields.io/badge/license-LGPL_v3-blue.svg)
+# 🚀 DevPortal CMS ![License: LGPL v3](https://img.shields.io/badge/license-LGPL_v3-blue.svg)
 
-DevPortal is an open-source developer portal designed to manage multiple APIs efficiently. It features a React-based frontend and a Strapi.io backend, providing a user-friendly interface for API documentation, authentication, and management.
+DevPortal CMS is an open-source developer portal designed to manage multiple APIs efficiently. It features a React-based frontend and a Strapi.io backend, providing a user-friendly interface for API documentation, authentication, and management.
 
-## 📦 Requirements
+---
 
-- **Node.js v20.x** ⚙️ (pinned via `engines` in `package.json`)
+## 🔌 Smart Integrations
+
+The CMS features an auto-detect logic that adapts to the environment based on defined variables:
+
+* **Storage (Uploads):** Uses **AWS S3** if `AWS_BUCKET` is provided; otherwise, it defaults to the **local filesystem**.
+* **Email:** Uses **AWS SES** if `AWS_URL_SES` is configured; otherwise, it uses **standard SMTP**.
+
+---
+
+## 📦 Container Specifications
+
+The project uses a lightweight **Node 20 Alpine** image for high performance and security.
+
+* **Base Image:** `node:20.19.0-alpine`
+* **Default Port:** `1337`
+* **Execution Mode:** Production (`npm run start`)
+
+---
 
 ## 🔧 Environment Variables
 
-Below are the necessary environment variables required to run the project.
+Initialize your local environment file:
+```bash
+cp .env.example .env
+```
 
-### 🗄️ Database
+Then update the values according to your environment.
 
-| Variable            | Description                                                       | Default     |
-| ------------------- | ----------------------------------------------------------------- | ----------- |
-| `DATABASE_CLIENT`   | Database client: `postgres` (production) or `sqlite` (local dev)  | `postgres`  |
-| `DATABASE_HOST`     | Database hostname (only when `DATABASE_CLIENT=postgres`)          | —           |
-| `DATABASE_PORT`     | Database port                                                     | —           |
-| `DATABASE_NAME`     | Database name                                                     | —           |
-| `DATABASE_USERNAME` | Database username                                                 | —           |
-| `DATABASE_PASSWORD` | Database password                                                 | —           |
-| `DATABASE_SCHEMA`   | Database schema                                                   | `public`    |
-| `DATABASE_SSL`      | Use SSL (loads `config/ca-certificate.crt`)                       | `false`     |
-| `DATABASE_FILENAME` | SQLite file path (only when `DATABASE_CLIENT=sqlite`)             | `.tmp/data.db` |
+---
 
-For **local development** you can set `DATABASE_CLIENT=sqlite` to skip running a Postgres server. The SQLite driver (`better-sqlite3`) is in `devDependencies`, so production images do not ship it. **In production always set `DATABASE_CLIENT=postgres`** along with the host/credentials variables.
+### ⚠️ Core CMS Variables
 
-### 💳 Stripe (billing)
+| Variable     | Description              |
+| ------------ | ------------------------ |
+| `STRAPI_URL` | Public CMS URL           |
+| `PORT`       | CMS port (default: 1337) |
+| `APP_KEYS`   | Strapi application keys  |
+| `JWT_SECRET` | JWT signing secret       |
 
-Required to process catalog purchases via Stripe Checkout and accept Stripe webhook events.
+---
 
-| Variable                  | Description                                                                                              |
-| ------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `STRIPE_SECRET_KEY`       | Stripe secret API key (`sk_test_...` or `sk_live_...`).                                                  |
-| `STRIPE_PUBLISHABLE_KEY`  | Stripe publishable key (`pk_test_...` or `pk_live_...`).                                                 |
-| `STRIPE_WEBHOOK_SECRET`   | Signing secret of the webhook endpoint (`whsec_...`). Each registered endpoint has its own.              |
+### 🗄️ Database Configuration (PostgreSQL)
+
+| Variable            | Description                   |
+| ------------------- | ----------------------------- |
+| `DATABASE_CLIENT`   | `postgres`                    |
+| `DATABASE_HOST`     | Database hostname             |
+| `DATABASE_PORT`     | Database port (default: 5433) |
+| `DATABASE_NAME`     | Database name                 |
+| `DATABASE_USERNAME` | Database username             |
+| `DATABASE_PASSWORD` | Database password             |
+| `DATABASE_SSL`      | Enable SSL (`true` / `false`) |
+
+---
+
+### ✉️ Email Configuration
+
+#### Production (AWS SES)
+
+| Variable                    | Description          |
+| --------------------------- | -------------------- |
+| `AWS_ACCESS_KEY_ID_SES`     | AWS SES access key   |
+| `AWS_SECRET_ACCESS_KEY_SES` | AWS SES secret       |
+| `AWS_URL_SES`               | SES SMTP endpoint    |
+| `AWS_URL_PORT`              | SES SMTP port        |
+| `EMAIL_DEFAULT_FROM`        | Default sender email |
+
+---
+
+#### Local / Development (SMTP)
+
+| Variable             | Description          |
+| -------------------- | -------------------- |
+| `SMTP_HOST`          | SMTP host            |
+| `SMTP_PORT`          | SMTP port            |
+| `SMTP_USERNAME`      | SMTP user            |
+| `SMTP_PASSWORD`      | SMTP password        |
+| `EMAIL_DEFAULT_FROM` | Default sender email |
+
+---
+
+### 💳 Billing (Stripe)
+
+Required to process catalog purchases via Stripe Checkout and verify webhook events.
+
+| Variable                 | Description                                                                                  |
+| ------------------------ | -------------------------------------------------------------------------------------------- |
+| `STRIPE_SECRET_KEY`      | Stripe secret API key (`sk_test_...` or `sk_live_...`)                                       |
+| `STRIPE_PUBLISHABLE_KEY` | Stripe publishable key (`pk_test_...` or `pk_live_...`)                                      |
+| `STRIPE_WEBHOOK_SECRET`  | Signing secret of the registered webhook endpoint (`whsec_...`)                              |
 
 After deploying, register a webhook endpoint in the Stripe Dashboard pointing to `https://<host>/api/stripe/webhook` and subscribe to `checkout.session.completed` and `payment_intent.payment_failed`. Copy the resulting signing secret into `STRIPE_WEBHOOK_SECRET`.
 
-For local development you can use the Stripe CLI:
+---
 
-```bash
-stripe listen --forward-to localhost:1337/api/stripe/webhook
-```
-
-The CLI prints a `whsec_...` to use as `STRIPE_WEBHOOK_SECRET` in your `.env`.
-
-### 🌍 Optional AWS S3 Variables
+### ☁️ AWS S3 Variables
 
 These variables are required **only if you enable S3 storage** instead of local storage.
 
@@ -59,44 +112,29 @@ These variables are required **only if you enable S3 storage** instead of local 
 | `AWS_BUCKET_SUBDIRECTORY` | Subdirectory inside the bucket |
 | `AWS_CDN_DOMAIN`          | AWS CDN Domain for S3          |
 
-## 🛠️ Configuration for File Uploads
+---
 
-Strapi supports **local storage** (default) or **AWS S3** storage. Modify `/config/plugins.js` to configure storage options.
+## 🛠️ Docker Execution
 
-### 🗄️ Local Storage (Default)
+### 1️⃣ Start Services
 
-```js
-module.exports = ({ env }) => ({
-  upload: {
-    provider: "local",
-    providerOptions: {},
-  },
-});
+```bash
+docker-compose up -d --build
 ```
 
-### ☁️ AWS S3 Storage (Enable S3)
+### 2️⃣ Data Seeding (Auto-Import)
 
-```js
-module.exports = ({ env }) => ({
-  upload: {
-    provider: "aws-s3-use-cdn",
-    providerOptions: {
-      accessKeyId: env("AWS_ACCESS_KEY_ID"),
-      secretAccessKey: env("AWS_ACCESS_SECRET"),
-      region: env("AWS_REGION"),
-      params: {
-        Bucket: env("AWS_BUCKET"),
-      },
-      actionOptions: {
-        upload: {},
-        uploadStream: {},
-        delete: {},
-      },
-      cdnDomain: env("AWS_CDN_DOMAIN"),
-      bucketSubDirectory: env("AWS_BUCKET_SUBDIRECTORY"),
-    },
-  },
-});
-```
+The CMS includes an auto-import script that runs on the first startup to create essential pages (Home, APIs, Blog, FAQ).
+
+> **Note:** To reset the database and re-run the seed script:
+> `docker-compose down -v` and restart.
+
+---
+
+## ⚠️ Important Technical Notes
+
+* **Security:** `config/middlewares.js` is configured to allow S3 and CDN assets through the Content Security Policy (CSP).
+
+---
 
 #### 💡 Now you're ready to go! 🚀 Happy coding! 🛠️
