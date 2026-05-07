@@ -4,22 +4,47 @@ DevPortal is an open-source developer portal designed to manage multiple APIs ef
 
 ## 📦 Requirements
 
-- **Node.js v18.20.8** ⚙️
+- **Node.js v20.x** ⚙️ (pinned via `engines` in `package.json`)
 
 ## 🔧 Environment Variables
 
 Below are the necessary environment variables required to run the project.
 
-### ⚠️ Important Variables
+### 🗄️ Database
 
-| Variable            | Description       |
-| ------------------- | ----------------- |
-| `DATABASE_CLIENT`   | Database client   |
-| `DATABASE_HOST`     | Database hostname |
-| `DATABASE_PORT`     | Database port     |
-| `DATABASE_NAME`     | Database name     |
-| `DATABASE_USERNAME` | Database username |
-| `DATABASE_PASSWORD` | Database password |
+| Variable            | Description                                                       | Default     |
+| ------------------- | ----------------------------------------------------------------- | ----------- |
+| `DATABASE_CLIENT`   | Database client: `postgres` (production) or `sqlite` (local dev)  | `postgres`  |
+| `DATABASE_HOST`     | Database hostname (only when `DATABASE_CLIENT=postgres`)          | —           |
+| `DATABASE_PORT`     | Database port                                                     | —           |
+| `DATABASE_NAME`     | Database name                                                     | —           |
+| `DATABASE_USERNAME` | Database username                                                 | —           |
+| `DATABASE_PASSWORD` | Database password                                                 | —           |
+| `DATABASE_SCHEMA`   | Database schema                                                   | `public`    |
+| `DATABASE_SSL`      | Use SSL (loads `config/ca-certificate.crt`)                       | `false`     |
+| `DATABASE_FILENAME` | SQLite file path (only when `DATABASE_CLIENT=sqlite`)             | `.tmp/data.db` |
+
+For **local development** you can set `DATABASE_CLIENT=sqlite` to skip running a Postgres server. The SQLite driver (`better-sqlite3`) is in `devDependencies`, so production images do not ship it. **In production always set `DATABASE_CLIENT=postgres`** along with the host/credentials variables.
+
+### 💳 Stripe (billing)
+
+Required to process catalog purchases via Stripe Checkout and accept Stripe webhook events.
+
+| Variable                  | Description                                                                                              |
+| ------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `STRIPE_SECRET_KEY`       | Stripe secret API key (`sk_test_...` or `sk_live_...`).                                                  |
+| `STRIPE_PUBLISHABLE_KEY`  | Stripe publishable key (`pk_test_...` or `pk_live_...`).                                                 |
+| `STRIPE_WEBHOOK_SECRET`   | Signing secret of the webhook endpoint (`whsec_...`). Each registered endpoint has its own.              |
+
+After deploying, register a webhook endpoint in the Stripe Dashboard pointing to `https://<host>/api/stripe/webhook` and subscribe to `checkout.session.completed` and `payment_intent.payment_failed`. Copy the resulting signing secret into `STRIPE_WEBHOOK_SECRET`.
+
+For local development you can use the Stripe CLI:
+
+```bash
+stripe listen --forward-to localhost:1337/api/stripe/webhook
+```
+
+The CLI prints a `whsec_...` to use as `STRIPE_WEBHOOK_SECRET` in your `.env`.
 
 ### 🌍 Optional AWS S3 Variables
 
