@@ -1,0 +1,86 @@
+{
+  "kind": "collectionType",
+  "collectionName": "purchases",
+  "info": {
+    "singularName": "purchase",
+    "pluralName": "purchases",
+    "displayName": "Purchase",
+    "description": "Stripe-paid contract over a library-catalog (1 ContractDefinition). Persistent; supports lazy negotiation per asset."
+  },
+  "options": {
+    "draftAndPublish": false,
+    "timestamps": true
+  },
+  "attributes": {
+    "buyer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "library_catalog": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::library-catalog.library-catalog"
+    },
+    "consumerId": {
+      "type": "string",
+      "description": "Buyer userId sent as payment_intent.metadata.consumerId for replay protection in the connector."
+    },
+    "stripe_session_id": {
+      "type": "string",
+      "unique": true
+    },
+    "stripe_payment_intent_id": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "integer"
+    },
+    "currency": {
+      "type": "string",
+      "maxLength": 8
+    },
+    "bundleId": {
+      "type": "string"
+    },
+    "providerId": {
+      "type": "string"
+    },
+    "providerUrl": {
+      "type": "string",
+      "description": "EDC provider base URL copied from the catalog at checkout time"
+    },
+    "consumerUrl": {
+      "type": "string",
+      "description": "Buyer's own consumer connector URL (Management API base). Set once after payment and reused for every consume of this purchase."
+    },
+    "consumerApiKey": {
+      "type": "password",
+      "description": "X-Api-Key for the buyer's consumer connector."
+    },
+    "policyId": {
+      "type": "string",
+      "description": "EDC contract policy id of the catalog at checkout time"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pending", "paid", "failed"],
+      "default": "pending",
+      "required": true
+    },
+    "contract_agreements": {
+      "type": "json",
+      "default": {},
+      "description": "Map { assetId: contractAgreementId } populated lazily on first consume of each asset"
+    },
+    "consumptions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::consumption.consumption",
+      "mappedBy": "purchase"
+    },
+    "error": {
+      "type": "text"
+    }
+  }
+}

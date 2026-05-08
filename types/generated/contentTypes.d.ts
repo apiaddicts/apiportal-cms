@@ -561,6 +561,49 @@ export interface ApiCodeSampleCodeSample extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiConsumptionConsumption extends Struct.CollectionTypeSchema {
+  collectionName: 'consumptions';
+  info: {
+    description: "One per click 'Consume asset' on a paid purchase. Holds webhookUrl and EDC transfer status.";
+    displayName: 'Consumption';
+    pluralName: 'consumptions';
+    singularName: 'consumption';
+  };
+  options: {
+    draftAndPublish: false;
+    timestamps: true;
+  };
+  attributes: {
+    assetId: Schema.Attribute.String & Schema.Attribute.Required;
+    completed_at: Schema.Attribute.DateTime;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    edc_contract_agreement_id: Schema.Attribute.String;
+    edc_negotiation_id: Schema.Attribute.String;
+    edc_transfer_process_id: Schema.Attribute.String;
+    error: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::consumption.consumption'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    purchase: Schema.Attribute.Relation<'manyToOne', 'api::purchase.purchase'>;
+    started_at: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<
+      ['pending', 'negotiating', 'transferring', 'completed', 'failed']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'pending'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    webhookUrl: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ApiIdpConfigIdpConfig extends Struct.CollectionTypeSchema {
   collectionName: 'idp_configs';
   info: {
@@ -688,14 +731,14 @@ export interface ApiLibraryCatalogLibraryCatalog
         }
       >;
     buttons: Schema.Attribute.Component<'links.button', true>;
-    contracstDefinition: Schema.Attribute.Text &
+    contractDefinition: Schema.Attribute.Text &
       Schema.Attribute.CustomField<
         'plugin::strapi-code-editor-custom-field.code-editor-text',
         {
           language: 'plaintext';
         }
       >;
-    contracstDefinitionOperations: Schema.Attribute.Text &
+    contractDefinitionOperations: Schema.Attribute.Text &
       Schema.Attribute.CustomField<
         'plugin::strapi-code-editor-custom-field.code-editor-text',
         {
@@ -746,6 +789,7 @@ export interface ApiLibraryCatalogLibraryCatalog
           language: 'plaintext';
         }
       >;
+    providerUrl: Schema.Attribute.String;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
     services: Schema.Attribute.Text &
@@ -882,6 +926,66 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPurchasePurchase extends Struct.CollectionTypeSchema {
+  collectionName: 'purchases';
+  info: {
+    description: 'Stripe-paid contract over a library-catalog (1 ContractDefinition). Persistent; supports lazy negotiation per asset.';
+    displayName: 'Purchase';
+    pluralName: 'purchases';
+    singularName: 'purchase';
+  };
+  options: {
+    draftAndPublish: false;
+    timestamps: true;
+  };
+  attributes: {
+    amount: Schema.Attribute.Integer;
+    bundleId: Schema.Attribute.String;
+    buyer: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    consumerApiKey: Schema.Attribute.Password;
+    consumerId: Schema.Attribute.String;
+    consumerUrl: Schema.Attribute.String;
+    consumptions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::consumption.consumption'
+    >;
+    contract_agreements: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<{}>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    currency: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 8;
+      }>;
+    error: Schema.Attribute.Text;
+    library_catalog: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::library-catalog.library-catalog'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::purchase.purchase'
+    > &
+      Schema.Attribute.Private;
+    policyId: Schema.Attribute.String;
+    providerId: Schema.Attribute.String;
+    providerUrl: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    status: Schema.Attribute.Enumeration<['pending', 'paid', 'failed']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'pending'>;
+    stripe_payment_intent_id: Schema.Attribute.String;
+    stripe_session_id: Schema.Attribute.String & Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
   collectionName: 'setting_pages';
   info: {
@@ -915,6 +1019,46 @@ export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
     showAuthButtons: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<true>;
     typography: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStripeWebhookEventStripeWebhookEvent
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'stripe_webhook_events';
+  info: {
+    description: 'Audit log of incoming Stripe webhooks for idempotency (skip duplicates by event_id) and replay.';
+    displayName: 'StripeWebhookEvent';
+    pluralName: 'stripe-webhook-events';
+    singularName: 'stripe-webhook-event';
+  };
+  options: {
+    draftAndPublish: false;
+    timestamps: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    error: Schema.Attribute.Text;
+    event_id: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    event_type: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::stripe-webhook-event.stripe-webhook-event'
+    > &
+      Schema.Attribute.Private;
+    payload: Schema.Attribute.JSON;
+    processed_at: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    received_at: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    result: Schema.Attribute.Enumeration<['ignored', 'processed', 'failed']> &
+      Schema.Attribute.DefaultTo<'ignored'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1184,6 +1328,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     ext: Schema.Attribute.String;
+    focalPoint: Schema.Attribute.JSON;
     folder: Schema.Attribute.Relation<'manyToOne', 'plugin::upload.folder'> &
       Schema.Attribute.Private;
     folderPath: Schema.Attribute.String &
@@ -1436,12 +1581,15 @@ declare module '@strapi/strapi' {
       'api::apim-config.apim-config': ApiApimConfigApimConfig;
       'api::blog-item.blog-item': ApiBlogItemBlogItem;
       'api::code-sample.code-sample': ApiCodeSampleCodeSample;
+      'api::consumption.consumption': ApiConsumptionConsumption;
       'api::idp-config.idp-config': ApiIdpConfigIdpConfig;
       'api::library-api.library-api': ApiLibraryApiLibraryApi;
       'api::library-catalog.library-catalog': ApiLibraryCatalogLibraryCatalog;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;
+      'api::purchase.purchase': ApiPurchasePurchase;
       'api::setting-page.setting-page': ApiSettingPageSettingPage;
+      'api::stripe-webhook-event.stripe-webhook-event': ApiStripeWebhookEventStripeWebhookEvent;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

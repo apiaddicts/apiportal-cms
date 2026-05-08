@@ -43,7 +43,10 @@ module.exports = [
     },
   },
   'strapi::session',
-  'strapi::body',
+  {
+    name: 'strapi::body',
+    config: { includeUnparsed: true },
+  },
   'strapi::query',
   'strapi::responses',
   'strapi::favicon',

@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stripe_webhook_events",
+  "info": {
+    "singularName": "stripe-webhook-event",
+    "pluralName": "stripe-webhook-events",
+    "displayName": "StripeWebhookEvent",
+    "description": "Audit log of incoming Stripe webhooks for idempotency (skip duplicates by event_id) and replay."
+  },
+  "options": {
+    "draftAndPublish": false,
+    "timestamps": true
+  },
+  "attributes": {
+    "event_id": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "event_type": {
+      "type": "string",
+      "required": true
+    },
+    "payload": {
+      "type": "json"
+    },
+    "received_at": {
+      "type": "datetime",
+      "required": true
+    },
+    "processed_at": {
+      "type": "datetime"
+    },
+    "result": {
+      "type": "enumeration",
+      "enum": ["ignored", "processed", "failed"],
+      "default": "ignored"
+    },
+    "error": {
+      "type": "text"
+    }
+  }
+}
