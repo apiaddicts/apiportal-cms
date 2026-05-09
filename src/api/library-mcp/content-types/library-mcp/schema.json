@@ -67,6 +67,21 @@
     "aiReady": {
       "type": "boolean",
       "default": true
+    },
+    "tools": {
+      "type": "component",
+      "component": "mcps.tools",
+      "repeatable": true
+    },
+    "resources": {
+      "type": "component",
+      "component": "mcps.resources",
+      "repeatable": true
+    },
+    "prompts": {
+      "type": "component",
+      "component": "mcps.prompts",
+      "repeatable": true
     }
   }
 }
