@@ -1,11 +1,29 @@
 'use strict';
 
 const { edcFetch } = require('./http');
-const { BILLING_NS } = require('./policy');
 
 const TERMINAL_STATES = new Set(['FINALIZED', 'TERMINATED']);
 
-function buildContractRequest({ providerProtocolUrl, offerId, assetId, bundleId, billingProviderId, assignerId }) {
+function stripOdrlPrefix(value) {
+  if (Array.isArray(value)) return value.map(stripOdrlPrefix);
+  if (value === null || typeof value !== 'object') return value;
+  const out = {};
+  for (const [k, v] of Object.entries(value)) {
+    const key = k.startsWith('odrl:') ? k.slice(5) : k;
+    out[key] = stripOdrlPrefix(v);
+  }
+  return out;
+}
+
+function asArray(v) {
+  if (v == null) return [];
+  return Array.isArray(v) ? v : [v];
+}
+
+function buildContractRequest({ providerProtocolUrl, offer, assetId, assignerId }) {
+  const permission = stripOdrlPrefix(asArray(offer?.['odrl:permission'] ?? offer?.permission));
+  const prohibition = stripOdrlPrefix(asArray(offer?.['odrl:prohibition'] ?? offer?.prohibition));
+  const obligation = stripOdrlPrefix(asArray(offer?.['odrl:obligation'] ?? offer?.obligation));
   return {
     '@context': {
       '@vocab': 'https://w3id.org/edc/v0.0.1/ns/',
@@ -17,20 +35,12 @@ function buildContractRequest({ providerProtocolUrl, offerId, assetId, bundleId,
     policy: {
       '@context': 'http://www.w3.org/ns/odrl.jsonld',
       '@type': 'Offer',
-      '@id': offerId,
+      '@id': offer['@id'],
       assigner: assignerId,
       target: assetId,
-      permission: [{
-        action: 'use',
-        constraint: [{
-          and: [
-            { leftOperand: `${BILLING_NS}purchased`, operator: 'eq', rightOperand: bundleId },
-            { leftOperand: `${BILLING_NS}providerId`, operator: 'eq', rightOperand: billingProviderId },
-          ],
-        }],
-      }],
-      prohibition: [],
-      obligation: [],
+      permission,
+      prohibition,
+      obligation,
     },
   };
 }
@@ -48,6 +58,12 @@ async function initBillingNegotiation({ consumerUrl, apiKey, paymentRef, consume
   return res['@id'];
 }
 
+async function initStandardNegotiation({ consumerUrl, apiKey, request }) {
+  const url = consumerUrl.replace(/\/$/, '').replace(/\/v3$/, '') + '/v3/contractnegotiations';
+  const res = await edcFetch(url, { method: 'POST', apiKey, body: request });
+  return res['@id'];
+}
+
 async function pollNegotiation({ consumerUrl, apiKey, negotiationId, intervalMs = 1000, timeoutMs = 60000 }) {
   const start = Date.now();
   while (Date.now() - start < timeoutMs) {
@@ -62,4 +78,4 @@ async function pollNegotiation({ consumerUrl, apiKey, negotiationId, intervalMs 
   throw new Error(`Negotiation ${negotiationId} did not finalize within ${timeoutMs}ms`);
 }
 
-module.exports = { buildContractRequest, initBillingNegotiation, pollNegotiation };
+module.exports = { buildContractRequest, initBillingNegotiation, initStandardNegotiation, pollNegotiation };

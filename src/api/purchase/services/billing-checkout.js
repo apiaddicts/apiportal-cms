@@ -90,15 +90,40 @@ async function startCheckout({ catalogId, ctx, userId }) {
   const catalog = await strapi.documents('api::library-catalog.library-catalog').findOne({ documentId: catalogId });
   if (!catalog) throw new Error(`Catalog ${catalogId} not found`);
 
+  const meta = extractBillingMetaFromCatalog(catalog);
+  if (!meta.policyId || !meta.bundleId || !meta.providerId) {
+    throw new Error('Catalog is missing contract fields (policyId/bundleId/providerId)');
+  }
+
+  const isFree = !meta.amount || meta.amount <= 0;
+  const consumerId = String(userId);
+  const portalBase = process.env.PORTAL_BASE_URL || 'http://localhost:5173';
+
+  if (isFree) {
+    const purchase = await strapi.documents('api::purchase.purchase').create({
+      data: {
+        library_catalog: catalog.documentId,
+        buyer: userId,
+        consumerId,
+        amount: 0,
+        currency: meta.currency,
+        bundleId: meta.bundleId,
+        providerId: meta.providerId,
+        providerUrl: catalog.providerUrl || null,
+        policyId: meta.policyId,
+        status: 'paid',
+      },
+    });
+    return {
+      purchaseId: purchase.documentId,
+      checkoutUrl: `${portalBase}/developer/purchases/${purchase.documentId}`,
+      free: true,
+    };
+  }
+
   const reused = await reuseOrCancelPending({ userId, catalogDocumentId: catalog.documentId });
   if (reused) return reused;
 
-  const meta = extractBillingMetaFromCatalog(catalog);
-  if (!meta.amount || !meta.policyId || !meta.bundleId || !meta.providerId) {
-    throw new Error('Catalog is missing billing fields (price/policyId/bundleId/providerId)');
-  }
-
-  const consumerId = String(userId);
   const buyerEmail = ctx.state.user?.email;
 
   const purchase = await strapi.documents('api::purchase.purchase').create({
@@ -116,7 +141,6 @@ async function startCheckout({ catalogId, ctx, userId }) {
     },
   });
 
-  const portalBase = process.env.PORTAL_BASE_URL || 'http://localhost:5173';
   const session = await createCheckoutSession({
     amount: meta.amount,
     currency: meta.currency,
