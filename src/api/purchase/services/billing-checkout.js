@@ -97,7 +97,7 @@ async function startCheckout({ catalogId, ctx, userId }) {
 
   const isFree = !meta.amount || meta.amount <= 0;
   const consumerId = String(userId);
-  const portalBase = process.env.PORTAL_BASE_URL || 'http://localhost:5173';
+  const portalBase = 'https://portal.opendataspace.io';
 
   if (isFree) {
     const purchase = await strapi.documents('api::purchase.purchase').create({
