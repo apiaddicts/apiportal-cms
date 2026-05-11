@@ -2,7 +2,7 @@
 
 const {
   requestCatalog, findDatasetById, extractOffer, extractProviderParticipantId,
-  buildContractRequest, initBillingNegotiation, pollNegotiation,
+  buildContractRequest, initBillingNegotiation, initStandardNegotiation, pollNegotiation,
   buildTransferRequest, initTransfer, pollTransfer,
   normalizeManagementBase,
 } = require('../../../services/edc-client');
@@ -39,29 +39,31 @@ async function ensureAgreement({ purchase, assetId, consumerUrl, consumerApiKey,
   }
   const dataset = findDatasetById(catalog, assetId);
   if (!dataset) throw new Error(`Asset ${assetId} not found in provider catalog`);
-  const offer = extractOffer(dataset, { bundleId: purchase.bundleId, providerId: purchase.providerId });
-  if (!offer?.['@id']) throw new Error(`No offer for asset ${assetId} matching bundle ${purchase.bundleId}`);
+  const isFree = !purchase.stripe_payment_intent_id;
+  const offerFilter = isFree ? {} : { bundleId: purchase.bundleId, providerId: purchase.providerId };
+  const offer = extractOffer(dataset, offerFilter);
+  if (!offer?.['@id']) throw new Error(`No offer for asset ${assetId}${isFree ? '' : ` matching bundle ${purchase.bundleId}`}`);
 
   const assignerId = extractProviderParticipantId(catalog);
   if (!assignerId) throw new Error('Provider connector did not advertise a participantId in the DSP catalog');
 
   const request = buildContractRequest({
     providerProtocolUrl: providerProtocol,
-    offerId: offer['@id'],
+    offer,
     assetId,
-    bundleId: purchase.bundleId,
-    billingProviderId: purchase.providerId,
     assignerId,
   });
   let negotiationId;
   try {
-    negotiationId = await initBillingNegotiation({
-      consumerUrl,
-      apiKey: consumerApiKey,
-      paymentRef: purchase.stripe_payment_intent_id,
-      consumerUserId,
-      request,
-    });
+    negotiationId = isFree
+      ? await initStandardNegotiation({ consumerUrl, apiKey: consumerApiKey, request })
+      : await initBillingNegotiation({
+          consumerUrl,
+          apiKey: consumerApiKey,
+          paymentRef: purchase.stripe_payment_intent_id,
+          consumerUserId,
+          request,
+        });
   } catch (err) {
     throw explainEdcError('Negotiation init', err, { consumerUrl, providerProtocol });
   }
