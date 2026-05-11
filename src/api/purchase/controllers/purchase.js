@@ -87,7 +87,8 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
       ctx.body = result;
     } catch (err) {
       strapi.log.error('checkout failed', err);
-      ctx.throw(500, err.message);
+      ctx.status = 500;
+      ctx.body = { error: { status: 500, name: 'CheckoutError', message: err.message } };
     }
   },
 
@@ -162,7 +163,8 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
       ctx.body = result;
     } catch (err) {
       strapi.log.error('consume failed', err);
-      ctx.throw(500, err.message);
+      ctx.status = 500;
+      ctx.body = { error: { status: 500, name: 'ConsumeError', message: err.message } };
     }
   },
 
