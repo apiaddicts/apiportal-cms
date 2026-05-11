@@ -707,12 +707,15 @@ export interface ApiLibraryMcpLibraryMcp extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     markdown: Schema.Attribute.RichText;
+    prompts: Schema.Attribute.Component<'mcps.prompts', true>;
     publishedAt: Schema.Attribute.DateTime;
     ratings: Schema.Attribute.Component<'apis.ratings', false>;
     reportUrl: Schema.Attribute.String;
+    resources: Schema.Attribute.Component<'mcps.resources', true>;
     slug: Schema.Attribute.UID<'title'>;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
+    tools: Schema.Attribute.Component<'mcps.tools', true>;
     transport: Schema.Attribute.Enumeration<['sse', 'http']> &
       Schema.Attribute.DefaultTo<'http'>;
     updatedAt: Schema.Attribute.DateTime;
