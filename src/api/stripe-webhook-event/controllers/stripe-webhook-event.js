@@ -4,6 +4,25 @@ const { createCoreController } = require('@strapi/strapi').factories;
 const { constructEvent } = require('../../../services/stripe-client');
 const { onStripePaid } = require('../../purchase/services/billing-paid');
 
+const FAILED_SESSION_EVENTS = new Set([
+  'checkout.session.expired',
+  'checkout.session.async_payment_failed',
+]);
+
+async function markPurchaseFailedFromSession(session, reason) {
+  const purchaseId = session?.metadata?.purchaseId;
+  if (!purchaseId) return false;
+  const purchase = await strapi.documents('api::purchase.purchase').findOne({
+    documentId: purchaseId,
+  });
+  if (!purchase || purchase.status !== 'pending') return false;
+  await strapi.documents('api::purchase.purchase').update({
+    documentId: purchaseId,
+    data: { status: 'failed', error: reason },
+  });
+  return true;
+}
+
 async function findOrCreateEventLog({ event }) {
   const existing = await strapi.documents('api::stripe-webhook-event.stripe-webhook-event').findFirst({
     filters: { event_id: event.id },
@@ -44,6 +63,19 @@ module.exports = createCoreController('api::stripe-webhook-event.stripe-webhook-
     if (existing) {
       ctx.body = { received: true, idempotent: true };
       return;
+    }
+
+    if (FAILED_SESSION_EVENTS.has(event.type)) {
+      try {
+        const updated = await markPurchaseFailedFromSession(event.data.object, event.type);
+        await markProcessed(doc.documentId, true);
+        ctx.body = { received: true, processed: updated };
+        return;
+      } catch (err) {
+        strapi.log.error('stripe webhook failed to mark purchase failed', err);
+        await markProcessed(doc.documentId, false, err.message);
+        ctx.throw(500, err.message);
+      }
     }
 
     if (event.type !== 'checkout.session.completed') {

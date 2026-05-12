@@ -27,18 +27,16 @@ function extractBillingMetaFromCatalog(catalog) {
   if (!catalog) throw new Error('catalog is null');
 
   const cdOps = parseFirst(catalog.contractDefinitionOperations);
-  if (!cdOps) throw new Error('catalog.contractDefinitionOperations is missing or invalid');
-
-  const policyId = cdOps.contractPolicyId || cdOps.policyId || cdOps['@id'];
-  const assetIds = cdOps.assetsSelector?.operandRight ?? cdOps.assetsSelector?.['operandRight'];
+  const policyId = cdOps?.contractPolicyId || cdOps?.policyId || cdOps?.['@id'] || null;
+  const assetIds = cdOps?.assetsSelector?.operandRight ?? cdOps?.assetsSelector?.['operandRight'];
 
   const services = parseFirst(catalog.services);
   const offer = pickOfferFromServices(services, assetIds) || {};
 
   const price = offerField(offer, 'schema:price', `${SCHEMA_NS}price`);
   const currency = offerField(offer, 'schema:priceCurrency', `${SCHEMA_NS}priceCurrency`) || 'EUR';
-  const bundleId = offer[`${BILLING_NS}bundleId`] ?? offer.bundleId;
-  const providerId = offer[`${BILLING_NS}providerId`] ?? offer.providerId;
+  const bundleId = offer[`${BILLING_NS}bundleId`] ?? offer.bundleId ?? null;
+  const providerId = offer[`${BILLING_NS}providerId`] ?? offer.providerId ?? null;
 
   const amount = price ? Math.round(Number(price) * 100) : null;
 
@@ -91,11 +89,11 @@ async function startCheckout({ catalogId, ctx, userId }) {
   if (!catalog) throw new Error(`Catalog ${catalogId} not found`);
 
   const meta = extractBillingMetaFromCatalog(catalog);
-  if (!meta.policyId || !meta.bundleId || !meta.providerId) {
+  const isFree = !meta.amount || meta.amount <= 0;
+  if (!isFree && (!meta.policyId || !meta.bundleId || !meta.providerId)) {
     throw new Error('Catalog is missing contract fields (policyId/bundleId/providerId)');
   }
 
-  const isFree = !meta.amount || meta.amount <= 0;
   const consumerId = String(userId);
   const portalBase = 'https://portal.opendataspace.io';
 
@@ -165,4 +163,42 @@ async function startCheckout({ catalogId, ctx, userId }) {
   return { purchaseId: purchase.documentId, checkoutUrl: session.url };
 }
 
-module.exports = { startCheckout };
+async function cancelPendingPurchase({ purchaseId, userId }) {
+  const purchase = await strapi.documents('api::purchase.purchase').findOne({
+    documentId: purchaseId,
+    populate: ['buyer'],
+  });
+  if (!purchase) return { found: false };
+  if (!purchase.buyer || purchase.buyer.id !== userId) return { forbidden: true };
+  if (purchase.status !== 'pending') return { skipped: true, status: purchase.status };
+
+  let reason = 'cancelled by user';
+
+  if (purchase.stripe_session_id) {
+    try {
+      const stripe = getStripe();
+      const session = await stripe.checkout.sessions.retrieve(purchase.stripe_session_id);
+      if (session.status === 'complete' && session.payment_status === 'paid') {
+        return { skipped: true, status: 'awaiting-webhook' };
+      }
+      if (session.status === 'open') {
+        try { await stripe.checkout.sessions.expire(purchase.stripe_session_id); } catch (e) {
+          strapi.log.warn(`could not expire stripe session ${purchase.stripe_session_id}: ${e.message}`);
+        }
+        reason = 'cancelled by user (session expired)';
+      } else {
+        reason = `cancelled by user (stripe session ${session.status})`;
+      }
+    } catch (err) {
+      strapi.log.warn(`could not retrieve stripe session ${purchase.stripe_session_id}: ${err.message}`);
+    }
+  }
+
+  await strapi.documents('api::purchase.purchase').update({
+    documentId: purchaseId,
+    data: { status: 'failed', error: reason },
+  });
+  return { cancelled: true };
+}
+
+module.exports = { startCheckout, cancelPendingPurchase };

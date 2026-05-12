@@ -23,6 +23,7 @@ async function createCheckoutSession({ amount, currency, productName, metadata, 
     payment_intent_data: { metadata },
     ...(customerEmail ? { customer_email: customerEmail } : {}),
     ...(clientReferenceId ? { client_reference_id: clientReferenceId } : {}),
+    expires_at: Math.floor(Date.now() / 1000) + 30 * 60,
     success_url: successUrl,
     cancel_url: cancelUrl,
   });

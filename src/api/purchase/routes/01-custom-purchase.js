@@ -16,6 +16,12 @@ module.exports = {
     },
     {
       method: 'POST',
+      path: '/purchases/:id/cancel',
+      handler: 'purchase.cancel',
+      config: { policies: [] },
+    },
+    {
+      method: 'POST',
       path: '/purchases/:id/connector',
       handler: 'purchase.setConnector',
       config: { policies: [] },
