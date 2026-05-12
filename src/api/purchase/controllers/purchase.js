@@ -1,7 +1,7 @@
 'use strict';
 
 const { createCoreController } = require('@strapi/strapi').factories;
-const { startCheckout } = require('../services/billing-checkout');
+const { startCheckout, cancelPendingPurchase } = require('../services/billing-checkout');
 const { consume } = require('../services/billing-consume');
 
 const BILLING_NS = 'https://w3id.org/dataspace-billing/v0.1/ns/';
@@ -89,6 +89,22 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
       strapi.log.error('checkout failed', err);
       ctx.status = 500;
       ctx.body = { error: { status: 500, name: 'CheckoutError', message: err.message } };
+    }
+  },
+
+  async cancel(ctx) {
+    const { id } = ctx.params;
+    const userId = ctx.state.user?.id;
+    if (!userId) return ctx.unauthorized('authenticated user required');
+    try {
+      const result = await cancelPendingPurchase({ purchaseId: id, userId });
+      if (result.forbidden) return ctx.forbidden('this purchase does not belong to the authenticated user');
+      if (result.found === false) return ctx.notFound();
+      ctx.body = result;
+    } catch (err) {
+      strapi.log.error('cancel pending purchase failed', err);
+      ctx.status = 500;
+      ctx.body = { error: { status: 500, name: 'CancelError', message: err.message } };
     }
   },
 
