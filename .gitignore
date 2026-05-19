@@ -476,3 +476,7 @@ FodyWeavers.xsd
 *.tlog
 
 # End of https://www.toptal.com/developers/gitignore/api/strapi,visualstudio,visualstudiocode
+
+# Documentación de desarrollo local — no se sube a remoto
+CLAUDE.md
+BILLING-CATALOG-CONTRACT.md

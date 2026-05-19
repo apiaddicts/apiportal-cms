@@ -99,12 +99,12 @@ async function clearAgreement({ purchase, assetId }) {
   purchase.contract_agreements = next;
 }
 
-async function executeTransfer({ purchase, contractAgreementId, assetId, webhookUrl, consumptionId, consumerUrl, consumerApiKey }) {
+async function executeTransfer({ purchase, contractAgreementId, assetId, webhookUrl, consumptionId, consumerUrl, consumerApiKey, sourceHints }) {
   const providerProtocol = providerProtocolUrl(purchase.providerUrl);
 
   const request = buildTransferRequest({
     providerProtocolUrl: providerProtocol,
-    contractAgreementId, assetId, webhookUrl,
+    contractAgreementId, assetId, webhookUrl, sourceHints,
   });
   const tpId = await initTransfer({ consumerUrl, apiKey: consumerApiKey, request });
   await strapi.documents('api::consumption.consumption').update({
@@ -115,7 +115,7 @@ async function executeTransfer({ purchase, contractAgreementId, assetId, webhook
   return { tpId, state };
 }
 
-async function consume({ purchaseId, assetId, webhookUrl, consumerUrl, consumerApiKey, consumerUserId }) {
+async function consume({ purchaseId, assetId, webhookUrl, consumerUrl, consumerApiKey, consumerUserId, sourceHints }) {
   if (!consumerUrl) throw new Error('consumerUrl is required');
   if (!consumerUserId) throw new Error('consumerUserId is required');
   consumerUrl = normalizeManagementBase(consumerUrl);
@@ -137,7 +137,7 @@ async function consume({ purchaseId, assetId, webhookUrl, consumerUrl, consumerA
     try {
       ({ tpId, state } = await executeTransfer({
         purchase, contractAgreementId, assetId, webhookUrl, consumptionId: consumption.documentId,
-        consumerUrl, consumerApiKey,
+        consumerUrl, consumerApiKey, sourceHints,
       }));
     } catch (err) {
       if (!isStaleAgreementError(err)) throw err;
@@ -152,7 +152,7 @@ async function consume({ purchaseId, assetId, webhookUrl, consumerUrl, consumerA
       });
       ({ tpId, state } = await executeTransfer({
         purchase, contractAgreementId, assetId, webhookUrl, consumptionId: consumption.documentId,
-        consumerUrl, consumerApiKey,
+        consumerUrl, consumerApiKey, sourceHints,
       }));
     }
     const ok = state === 'COMPLETED';

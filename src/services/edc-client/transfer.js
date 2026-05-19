@@ -4,7 +4,20 @@ const { edcFetch } = require('./http');
 
 const TERMINAL_STATES = new Set(['COMPLETED', 'TERMINATED', 'DEPROVISIONED']);
 
-function buildTransferRequest({ providerProtocolUrl, contractAgreementId, assetId, webhookUrl }) {
+function buildTransferRequest({ providerProtocolUrl, contractAgreementId, assetId, webhookUrl, sourceHints = {} }) {
+  const dataDestination = {
+    type: 'HttpData',
+    baseUrl: webhookUrl,
+    method: 'POST',
+  };
+  if (sourceHints.pathSegments) dataDestination.sourcePathSegments = String(sourceHints.pathSegments);
+  if (sourceHints.queryParams) dataDestination.sourceQueryParams = String(sourceHints.queryParams);
+  if (sourceHints.body !== undefined && sourceHints.body !== null && sourceHints.body !== '') {
+    dataDestination.sourceBody = typeof sourceHints.body === 'string'
+      ? sourceHints.body
+      : JSON.stringify(sourceHints.body);
+    dataDestination.sourceMediaType = sourceHints.contentType || sourceHints.mediaType || 'application/json';
+  }
   return {
     '@context': { '@vocab': 'https://w3id.org/edc/v0.0.1/ns/' },
     '@type': 'TransferRequest',
@@ -13,11 +26,7 @@ function buildTransferRequest({ providerProtocolUrl, contractAgreementId, assetI
     assetId,
     protocol: 'dataspace-protocol-http',
     transferType: 'HttpData-PUSH',
-    dataDestination: {
-      type: 'HttpData',
-      baseUrl: webhookUrl,
-      method: 'POST',
-    },
+    dataDestination,
   };
 }
 

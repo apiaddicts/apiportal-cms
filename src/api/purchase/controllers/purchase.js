@@ -148,7 +148,7 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
 
   async consume(ctx) {
     const { id } = ctx.params;
-    const { assetId, webhookUrl } = ctx.request.body || {};
+    const { assetId, webhookUrl, sourceHints } = ctx.request.body || {};
     if (!assetId || !webhookUrl) {
       return ctx.badRequest('assetId and webhookUrl are required');
     }
@@ -175,6 +175,7 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
         consumerUrl: purchase.consumerUrl,
         consumerApiKey: purchase.consumerApiKey,
         consumerUserId: String(userId),
+        sourceHints: sourceHints && typeof sourceHints === 'object' ? sourceHints : undefined,
       });
       ctx.body = result;
     } catch (err) {
