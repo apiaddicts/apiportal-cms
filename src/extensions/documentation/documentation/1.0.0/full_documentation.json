@@ -8495,7 +8495,8 @@
                 "type": "string",
                 "enum": [
                   "api",
-                  "asyncapi"
+                  "asyncapi",
+                  "graphql"
                 ]
               },
               "openDocFormat": {
@@ -10061,7 +10062,8 @@
                 "type": "string",
                 "enum": [
                   "api",
-                  "asyncapi"
+                  "asyncapi",
+                  "graphql"
                 ]
               },
               "openDocFormat": {
@@ -11062,7 +11064,8 @@
             "type": "string",
             "enum": [
               "api",
-              "asyncapi"
+              "asyncapi",
+              "graphql"
             ]
           },
           "openDocFormat": {
@@ -11357,7 +11360,8 @@
                         "type": "string",
                         "enum": [
                           "api",
-                          "asyncapi"
+                          "asyncapi",
+                          "graphql"
                         ]
                       },
                       "openDocFormat": {
@@ -19255,7 +19259,8 @@
                   "type": "string",
                   "enum": [
                     "api",
-                    "asyncapi"
+                    "asyncapi",
+                    "graphql"
                   ]
                 },
                 "openDocFormat": {
@@ -24088,7 +24093,8 @@
                                   "type": "string",
                                   "enum": [
                                     "api",
-                                    "asyncapi"
+                                    "asyncapi",
+                                    "graphql"
                                   ]
                                 },
                                 "openDocFormat": {
