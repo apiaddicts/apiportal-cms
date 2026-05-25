@@ -27,7 +27,6 @@ async function smartFormatConverter(event) {
   const { data } = event.params;
   if (!data || !data.openDoc) return;
 
-  // GraphQL SDL is neither JSON nor YAML — skip format conversion
   if (data.openDocType === 'graphql') return;
 
   const input = data.openDoc.trim();
