@@ -6,4 +6,6 @@
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::user-credential.user-credential');
+module.exports = createCoreRouter('api::user-credential.user-credential', {
+  only: ['find', 'findOne', 'create'],
+});
