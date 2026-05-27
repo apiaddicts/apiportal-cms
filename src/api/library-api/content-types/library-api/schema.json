@@ -62,11 +62,22 @@
       "default": "api",
       "enum": [
         "api",
-        "asyncapi"
+        "asyncapi",
+        "graphql"
       ]
     },
     "openDocFormat": {
       "type": "enumeration",
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "openDocType"
+            },
+            "graphql"
+          ]
+        }
+      },
       "required": true,
       "default": "json",
       "enum": [
