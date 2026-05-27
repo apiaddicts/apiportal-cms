@@ -2,6 +2,7 @@
 
 const { pages, global, libraryApis, blogItems } = require("./data/data.json");
 const { setupAuthSettings } = require("./setup/email-config");
+const { registerDynamicCrons, setupCronScheduler } = require("./setup/cron-config");
 
 async function isFirstRun() {
   const pluginStore = strapi.store({
@@ -247,6 +248,9 @@ module.exports = {
         }
       }
     });
+
+    await registerDynamicCrons(strapi);
+    setupCronScheduler(strapi);
 
     strapi.db.lifecycles.subscribe({
       models: ['elements.titles'],

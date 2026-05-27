@@ -23,6 +23,24 @@
       "type": "boolean",
       "default": true
     },
+    "user_credentials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::user-credential.user-credential",
+      "mappedBy": "apim_config"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "apim_config"
+    },
+    "library_apis": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::library-api.library-api",
+      "mappedBy": "apim_config"
+    },
     "configurations": {
       "type": "dynamiczone",
       "components": [
@@ -30,8 +48,8 @@
         "config.kong",
         "config.aws"
       ],
-      "max": 1,
-      "required": true
+      "required": true,
+      "max": 1
     }
   }
 }

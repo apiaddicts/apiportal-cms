@@ -9,10 +9,9 @@
     "description": ""
   },
   "options": {
-    "increments": true,
-    "timestamps": true,
     "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "title": {
       "type": "string"
@@ -28,44 +27,63 @@
     },
     "provider": {
       "type": "enumeration",
-      "enum": ["mulesoft", "kong", "aws"]
+      "enum": [
+        "mulesoft",
+        "kong",
+        "aws"
+      ]
     },
     "image": {
       "type": "media",
-      "allowedTypes": ["images", "files", "videos"],
       "multiple": true,
-      "required": false
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
     },
     "version": {
       "type": "string"
     },
     "buttons": {
       "type": "component",
-      "repeatable": true,
-      "component": "links.button"
+      "component": "links.button",
+      "repeatable": true
     },
     "tags": {
       "type": "component",
-      "repeatable": true,
-      "component": "elements.titles"
+      "component": "elements.titles",
+      "repeatable": true
     },
     "openDocType": {
       "type": "enumeration",
+      "required": true,
+      "default": "api",
       "enum": [
         "api",
-        "asyncapi"
-      ],
-      "required": true,
-      "default": "api"
+        "asyncapi",
+        "graphql"
+      ]
     },
     "openDocFormat": {
       "type": "enumeration",
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "openDocType"
+            },
+            "graphql"
+          ]
+        }
+      },
+      "required": true,
+      "default": "json",
       "enum": [
         "json",
         "yaml"
-      ],
-      "required": true,
-      "default": "json"
+      ]
     },
     "openDocUrl": {
       "type": "string",
@@ -89,8 +107,8 @@
     },
     "ratings": {
       "type": "component",
-      "repeatable": false,
-      "component": "apis.ratings"
+      "component": "apis.ratings",
+      "repeatable": false
     },
     "aiReady": {
       "type": "boolean",
@@ -122,6 +140,15 @@
         "publicado",
         "noPublicado"
       ]
+    },
+    "externalServiceId": {
+      "type": "string"
+    },
+    "apim_config": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::apim-config.apim-config",
+      "inversedBy": "library_apis"
     }
   }
 }

@@ -456,6 +456,10 @@ export interface ApiApimConfigApimConfig extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    library_apis: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::library-api.library-api'
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -463,11 +467,16 @@ export interface ApiApimConfigApimConfig extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_credentials: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-credential.user-credential'
+    >;
   };
 }
 
@@ -613,17 +622,23 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
   };
   options: {
     draftAndPublish: true;
-    increments: true;
-    timestamps: true;
   };
   attributes: {
     aiReady: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    apim_config: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::apim-config.apim-config'
+    >;
     buttons: Schema.Attribute.Component<'links.button', true>;
     color_status: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
+    devExperienceCheck: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    doraCheck: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    externalServiceId: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -642,15 +657,19 @@ export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
     openDocFormat: Schema.Attribute.Enumeration<['json', 'yaml']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'json'>;
-    openDocType: Schema.Attribute.Enumeration<['api', 'asyncapi']> &
+    openDocType: Schema.Attribute.Enumeration<['api', 'asyncapi', 'graphql']> &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'api'>;
     openDocUrl: Schema.Attribute.String;
+    openFinanceCheck: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
     products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
     provider: Schema.Attribute.Enumeration<['mulesoft', 'kong', 'aws']>;
     publish: Schema.Attribute.Enumeration<['publicado', 'noPublicado']>;
     publishedAt: Schema.Attribute.DateTime;
+    qualityCheck: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     ratings: Schema.Attribute.Component<'apis.ratings', false>;
+    securityCheck: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     slug: Schema.Attribute.UID;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
@@ -688,13 +707,16 @@ export interface ApiLibraryMcpLibraryMcp extends Struct.CollectionTypeSchema {
     > &
       Schema.Attribute.Private;
     markdown: Schema.Attribute.RichText;
+    prompts: Schema.Attribute.Component<'mcps.prompts', true>;
     publishedAt: Schema.Attribute.DateTime;
     ratings: Schema.Attribute.Component<'apis.ratings', false>;
     reportUrl: Schema.Attribute.String;
+    resources: Schema.Attribute.Component<'mcps.resources', true>;
     slug: Schema.Attribute.UID<'title'>;
     tags: Schema.Attribute.Component<'elements.titles', true>;
     title: Schema.Attribute.String;
-    transport: Schema.Attribute.Enumeration<['stdio', 'sse', 'http']> &
+    tools: Schema.Attribute.Component<'mcps.tools', true>;
+    transport: Schema.Attribute.Enumeration<['sse', 'http']> &
       Schema.Attribute.DefaultTo<'http'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -771,21 +793,16 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
   };
   options: {
     draftAndPublish: true;
-    increments: true;
-    timestamps: true;
   };
   attributes: {
-    accentColor: Schema.Attribute.Enumeration<
-      ['primary', 'secondary', 'tertiary']
+    apim_config: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::apim-config.apim-config'
     >;
-    benefits: Schema.Attribute.JSON;
-    btnLabel: Schema.Attribute.String;
-    content: Schema.Attribute.RichText;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text;
-    formSetting: Schema.Attribute.JSON;
     isActive: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     legalConditionals: Schema.Attribute.RichText;
     library_apis: Schema.Attribute.Relation<
@@ -799,14 +816,58 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::product.product'
     > &
       Schema.Attribute.Private;
+    name: Schema.Attribute.String;
     price: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
     requiredApproval: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
     requiredSubscription: Schema.Attribute.Boolean &
       Schema.Attribute.DefaultTo<false>;
-    slug: Schema.Attribute.UID<'title'>;
-    title: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'name'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    user_credentials: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::user-credential.user-credential'
+    >;
+  };
+}
+
+export interface ApiSettingCronSettingCron extends Struct.CollectionTypeSchema {
+  collectionName: 'setting_crons';
+  info: {
+    displayName: 'SettingCron';
+    pluralName: 'setting-crons';
+    singularName: 'setting-cron';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    enabled: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::setting-cron.setting-cron'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    schedule_cron: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'0 3 * * *'>;
+    type: Schema.Attribute.Enumeration<['sync-apis']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'sync-apis'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -817,7 +878,7 @@ export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
   collectionName: 'setting_pages';
   info: {
     description: '';
-    displayName: 'Setting Page';
+    displayName: 'SettingPage';
     pluralName: 'setting-pages';
     singularName: 'setting-page';
   };
@@ -849,6 +910,52 @@ export interface ApiSettingPageSettingPage extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUserCredentialUserCredential
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'user_credentials';
+  info: {
+    displayName: 'UserCredential';
+    pluralName: 'user-credentials';
+    singularName: 'user-credential';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    apiKey: Schema.Attribute.String;
+    apim_config: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::apim-config.apim-config'
+    >;
+    clientId: Schema.Attribute.String;
+    clientSecret: Schema.Attribute.Password;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-credential.user-credential'
+    > &
+      Schema.Attribute.Private;
+    products: Schema.Attribute.Relation<'manyToMany', 'api::product.product'>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'slug'>;
+    type: Schema.Attribute.Enumeration<['oauth2', 'apiKey']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'oauth2'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
   };
 }
 
@@ -1334,6 +1441,7 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    products: Schema.Attribute.Relation<'oneToMany', 'api::product.product'>;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
@@ -1344,6 +1452,10 @@ export interface PluginUsersPermissionsUser
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    user_credentials: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-credential.user-credential'
+    >;
     username: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique &
@@ -1372,7 +1484,9 @@ declare module '@strapi/strapi' {
       'api::library-mcp.library-mcp': ApiLibraryMcpLibraryMcp;
       'api::page.page': ApiPagePage;
       'api::product.product': ApiProductProduct;
+      'api::setting-cron.setting-cron': ApiSettingCronSettingCron;
       'api::setting-page.setting-page': ApiSettingPageSettingPage;
+      'api::user-credential.user-credential': ApiUserCredentialUserCredential;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

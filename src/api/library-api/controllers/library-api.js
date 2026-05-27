@@ -43,15 +43,5 @@ module.exports = createCoreController('api::library-api.library-api', ({ strapi 
       const response = await super.update(ctx);
       return response;
     },
-
-    async find(ctx) {
-      await strapi.service('api::library-api.library-api').syncFromIntegrator();
-      return await super.find(ctx);
-    },
-
-    async findOne(ctx) {
-      const response = await super.findOne(ctx);
-      return response;
-    },
   })
 );

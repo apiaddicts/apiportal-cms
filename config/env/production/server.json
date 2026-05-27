@@ -7,7 +7,7 @@
       "koa": true
     },
     "cron": {
-      "enabled": false
+      "enabled": true
     },
     "admin": {
       "autoOpen": false,
