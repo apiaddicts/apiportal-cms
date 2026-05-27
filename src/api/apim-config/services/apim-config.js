@@ -189,5 +189,57 @@ module.exports = createCoreService('api::apim-config.apim-config', ({ strapi }) 
     );
 
     return response.data;
-  }
+  },
+
+  async removeServicesFromCredentials(documentId, payload) {
+    const integratorUrl = process.env.INTEGRATOR_URL;
+    const integratorApiKey = process.env.INTEGRATOR_KONG_API_KEY;
+
+    const config = await strapi.documents('api::apim-config.apim-config').findOne({
+      documentId,
+      populate: ['configurations'],
+      status: 'published',
+    });
+
+    if (!config) throw new Error('Config not found');
+
+    const response = await axios.post(
+      `${integratorUrl}/remove-services`,
+      payload,
+      {
+        headers: {
+          'x-apimanager-id': config.slug,
+          'apiKey': integratorApiKey,
+        },
+      }
+    );
+
+    return response.data;
+  },
+
+  async deleteCredentialFromIntegrator(documentId, payload) {
+    const integratorUrl = process.env.INTEGRATOR_URL;
+    const integratorApiKey = process.env.INTEGRATOR_KONG_API_KEY;
+
+    const config = await strapi.documents('api::apim-config.apim-config').findOne({
+      documentId,
+      populate: ['configurations'],
+      status: 'published',
+    });
+
+    if (!config) throw new Error('Config not found');
+
+    const response = await axios.post(
+      `${integratorUrl}/delete-credential`,
+      payload,
+      {
+        headers: {
+          'x-apimanager-id': config.slug,
+          'apiKey': integratorApiKey,
+        },
+      }
+    );
+
+    return response.data;
+  },
 }));

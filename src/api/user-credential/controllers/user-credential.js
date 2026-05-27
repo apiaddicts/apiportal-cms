@@ -114,4 +114,93 @@ module.exports = createCoreController('api::user-credential.user-credential', ({
 
     return this.transformResponse(updated);
   },
+
+  async removeProducts(ctx) {
+    const { documentId } = ctx.params;
+    const { products: productIdsToRemove, apimConfigDocumentId: apimConfigDocumentIdParam } = ctx.request.body;
+
+    if (!Array.isArray(productIdsToRemove) || productIdsToRemove.length === 0) {
+      return ctx.badRequest('products array is required and must not be empty');
+    }
+
+    const credential = await strapi.documents('api::user-credential.user-credential').findOne({
+      documentId,
+      populate: { products: { populate: ['library_apis'] }, apim_config: true },
+      status: 'published',
+    });
+
+    if (!credential) return ctx.notFound('Credential not found');
+
+    const apimConfigDocumentId = apimConfigDocumentIdParam ?? credential.apim_config?.documentId;
+    if (!apimConfigDocumentId) return ctx.badRequest('apimConfigDocumentId could not be resolved');
+
+    const removeSet = new Set(productIdsToRemove);
+    const removedProducts = credential.products.filter(p => removeSet.has(p.documentId));
+    const remainingProducts = credential.products.filter(p => !removeSet.has(p.documentId));
+
+    const remainingApiIds = new Set(remainingProducts.flatMap(p => (p.library_apis ?? []).map(a => a.documentId)));
+
+    const removedApis = removedProducts.flatMap(p => p.library_apis ?? []);
+    const servicesToRemove = [...new Set(
+      removedApis
+        .filter(a => !remainingApiIds.has(a.documentId))
+        .map(a => a.externalServiceId || (a.slug ? a.slug.replace(/^kong-/, '') : null))
+        .filter(Boolean)
+    )];
+
+    if (servicesToRemove.length > 0) {
+      try {
+        await strapi.service('api::apim-config.apim-config').removeServicesFromCredentials(
+          apimConfigDocumentId,
+          { consumerId: credential.slug, services: servicesToRemove }
+        );
+      } catch (err) {
+        strapi.log.error(`[removeProducts] Integrator error: ${err.message}`);
+        return ctx.badRequest('Failed to remove services from integrator', { detail: err.message });
+      }
+    }
+
+    await strapi.documents('api::user-credential.user-credential').update({
+      documentId,
+      data: { products: { disconnect: productIdsToRemove.map(id => ({ documentId: id })) } },
+    });
+    await strapi.documents('api::user-credential.user-credential').publish({ documentId });
+
+    const updated = await strapi.documents('api::user-credential.user-credential').findOne({
+      documentId,
+      populate: ['products'],
+      status: 'published',
+    });
+
+    return this.transformResponse(updated);
+  },
+
+  async delete(ctx) {
+    const { documentId } = ctx.params;
+
+    const credential = await strapi.documents('api::user-credential.user-credential').findOne({
+      documentId,
+      populate: { products: { populate: ['library_apis'] }, apim_config: true },
+      status: 'published',
+    });
+
+    if (!credential) return ctx.notFound('Credential not found');
+
+    const apimConfigDocumentId = credential.apim_config?.documentId;
+
+    if (apimConfigDocumentId && credential.slug) {
+      try {
+        await strapi.service('api::apim-config.apim-config').deleteCredentialFromIntegrator(
+          apimConfigDocumentId,
+          { consumerId: credential.slug }
+        );
+      } catch (err) {
+        strapi.log.error(`[credential.delete] Integrator error: ${err.message}`);
+      }
+    }
+
+    await strapi.documents('api::user-credential.user-credential').delete({ documentId });
+
+    return { data: { documentId } };
+  },
 }));
