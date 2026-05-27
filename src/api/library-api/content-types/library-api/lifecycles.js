@@ -13,17 +13,21 @@ module.exports = {
   async beforeCreate(event) {
     await smartFormatConverter(event);
     await validateAsyncApiVersion(event);
+    await validateGraphqlSchema(event);
   },
 
   async beforeUpdate(event) {
     await smartFormatConverter(event);
     await validateAsyncApiVersion(event);
+    await validateGraphqlSchema(event);
   },
 };
 
 async function smartFormatConverter(event) {
   const { data } = event.params;
   if (!data || !data.openDoc) return;
+
+  if (data.openDocType === 'graphql') return;
 
   const input = data.openDoc.trim();
 
@@ -95,4 +99,27 @@ function isAsyncApiVersionSupported(version) {
   if (version === '3.0.0') return true;
 
   return false;
+}
+
+async function validateGraphqlSchema(event) {
+  const { data } = event.params;
+
+  if (data?.openDocType !== 'graphql') return;
+  if (!data?.openDoc) return;
+
+  const sdl = data.openDoc.trim();
+
+  const hasTypeDefinition =
+    /\btype\s+\w+/.test(sdl) ||
+    /\binterface\s+\w+/.test(sdl) ||
+    /\binput\s+\w+/.test(sdl) ||
+    /\benum\s+\w+/.test(sdl) ||
+    /\bschema\s*\{/.test(sdl) ||
+    /\bscalar\s+\w+/.test(sdl);
+
+  if (!hasTypeDefinition) {
+    throw new ApplicationError(
+      'Invalid GraphQL SDL: document must contain at least one type, interface, input, enum, or schema definition.'
+    );
+  }
 }
