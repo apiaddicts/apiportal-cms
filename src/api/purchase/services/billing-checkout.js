@@ -10,6 +10,16 @@ function parseFirst(raw) {
   try { return typeof raw === 'string' ? JSON.parse(raw) : raw; } catch { return null; }
 }
 
+function decodePolicyContractDef(dataset) {
+  const policy = dataset?.['odrl:hasPolicy'];
+  const first = Array.isArray(policy) ? policy[0] : policy;
+  const policyId = first?.['@id'] || '';
+  const segment = policyId.split(':')[0];
+  if (!segment) return null;
+  try { return Buffer.from(segment, 'base64').toString('utf8') || null; }
+  catch { return null; }
+}
+
 function pickOfferFromServices(services, assetIds) {
   const datasets = services?.['dcat:dataset'] ?? services?.dataset;
   const list = Array.isArray(datasets) ? datasets : datasets ? [datasets] : [];
@@ -31,12 +41,22 @@ function extractBillingMetaFromCatalog(catalog) {
   const assetIds = cdOps?.assetsSelector?.operandRight ?? cdOps?.assetsSelector?.['operandRight'];
 
   const services = parseFirst(catalog.services);
+  const rawDatasets = services?.['dcat:dataset'] ?? services?.dataset;
+  const datasets = Array.isArray(rawDatasets) ? rawDatasets : rawDatasets ? [rawDatasets] : [];
   const offer = pickOfferFromServices(services, assetIds) || {};
 
   const price = offerField(offer, 'schema:price', `${SCHEMA_NS}price`);
   const currency = offerField(offer, 'schema:priceCurrency', `${SCHEMA_NS}priceCurrency`) || 'EUR';
-  const bundleId = offer[`${BILLING_NS}bundleId`] ?? offer.bundleId ?? null;
+  let bundleId = offer[`${BILLING_NS}bundleId`] ?? offer.bundleId ?? null;
   const providerId = offer[`${BILLING_NS}providerId`] ?? offer.providerId ?? null;
+
+  if (!bundleId && datasets.length > 0) {
+    const wanted = Array.isArray(assetIds) ? assetIds : assetIds ? [assetIds] : [];
+    const target = wanted.length
+      ? datasets.find(d => wanted.includes(d?.['@id'])) || datasets[0]
+      : datasets[0];
+    bundleId = decodePolicyContractDef(target);
+  }
 
   const amount = price ? Math.round(Number(price) * 100) : null;
 
