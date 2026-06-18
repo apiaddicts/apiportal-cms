@@ -12,6 +12,16 @@ function parseFirst(raw) {
   try { return typeof raw === 'string' ? JSON.parse(raw) : raw; } catch { return null; }
 }
 
+function decodePolicyContractDef(dataset) {
+  const policy = dataset?.['odrl:hasPolicy'];
+  const first = Array.isArray(policy) ? policy[0] : policy;
+  const policyId = first?.['@id'] || '';
+  const segment = policyId.split(':')[0];
+  if (!segment) return null;
+  try { return Buffer.from(segment, 'base64').toString('utf8') || null; }
+  catch { return null; }
+}
+
 function normalizeConsumerUrl(raw) {
   if (!raw) return null;
   let url = String(raw).trim().replace(/\/+$/, '');
@@ -201,7 +211,9 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
     const filtered = list.filter((d) => {
       const offer = d?.[`${SCHEMA_NS}offers`] || d?.['schema:offers'] || {};
       const offerBundleId = offer[`${BILLING_NS}bundleId`] ?? offer.bundleId;
-      return offerBundleId === purchase.bundleId;
+      if (offerBundleId) return offerBundleId === purchase.bundleId;
+      const decoded = decodePolicyContractDef(d);
+      return decoded !== null && decoded === purchase.bundleId;
     });
     ctx.body = { assets: filtered };
   },
