@@ -208,6 +208,12 @@ module.exports = createCoreController('api::purchase.purchase', ({ strapi }) => 
     const services = parseFirst(purchase.library_catalog?.services);
     const datasets = services?.['dcat:dataset'] ?? services?.dataset;
     const list = Array.isArray(datasets) ? datasets : datasets ? [datasets] : [];
+
+    if (!purchase.bundleId) {
+      ctx.body = { assets: list };
+      return;
+    }
+
     const filtered = list.filter((d) => {
       const offer = d?.[`${SCHEMA_NS}offers`] || d?.['schema:offers'] || {};
       const offerBundleId = offer[`${BILLING_NS}bundleId`] ?? offer.bundleId;
