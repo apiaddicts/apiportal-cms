@@ -41,6 +41,8 @@ async function setPublicPermissions() {
       "api::library-mcp.library-mcp.find",
       "api::library-mcp.library-mcp.connect",
       "api::library-mcp.library-mcp.findOne",
+      "api::library-agent.library-agent.find",
+      "api::library-agent.library-agent.findOne",
       "api::page.page.find",
       "api::page.page.findOne",
       "api::product.product.find",
