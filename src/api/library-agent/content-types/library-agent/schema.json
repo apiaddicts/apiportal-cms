@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "library_agents",
+  "info": {
+    "singularName": "library-agent",
+    "pluralName": "library-agents",
+    "displayName": "LibraryAgent",
+    "name": "LibraryAgent",
+    "description": "A2A agents published in the developer portal"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "description": {
+      "type": "text"
+    },
+    "version": {
+      "type": "string"
+    },
+    "markdown": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ]
+    },
+    "agentCard": {
+      "type": "json",
+      "required": true
+    },
+    "reportUrl": {
+      "type": "string"
+    },
+    "ratings": {
+      "type": "component",
+      "component": "apis.ratings",
+      "repeatable": false
+    }
+  }
+}

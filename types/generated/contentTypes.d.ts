@@ -611,6 +611,45 @@ export interface ApiIdpConfigIdpConfig extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiLibraryAgentLibraryAgent
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'library_agents';
+  info: {
+    description: 'A2A agents published in the developer portal';
+    displayName: 'LibraryAgent';
+    name: 'LibraryAgent';
+    pluralName: 'library-agents';
+    singularName: 'library-agent';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    agentCard: Schema.Attribute.JSON & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos', true>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::library-agent.library-agent'
+    > &
+      Schema.Attribute.Private;
+    markdown: Schema.Attribute.RichText;
+    publishedAt: Schema.Attribute.DateTime;
+    ratings: Schema.Attribute.Component<'apis.ratings', false>;
+    reportUrl: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'title'>;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    version: Schema.Attribute.String;
+  };
+}
+
 export interface ApiLibraryApiLibraryApi extends Struct.CollectionTypeSchema {
   collectionName: 'library_apis';
   info: {
@@ -1480,6 +1519,7 @@ declare module '@strapi/strapi' {
       'api::blog-item.blog-item': ApiBlogItemBlogItem;
       'api::code-sample.code-sample': ApiCodeSampleCodeSample;
       'api::idp-config.idp-config': ApiIdpConfigIdpConfig;
+      'api::library-agent.library-agent': ApiLibraryAgentLibraryAgent;
       'api::library-api.library-api': ApiLibraryApiLibraryApi;
       'api::library-mcp.library-mcp': ApiLibraryMcpLibraryMcp;
       'api::page.page': ApiPagePage;
