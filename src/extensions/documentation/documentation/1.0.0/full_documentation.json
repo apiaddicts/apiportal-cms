@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2026-10-06T02:39:30.955Z"
+    "x-generation-date": "2026-10-10T01:43:45.359Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -10184,6 +10184,19 @@
               "version": {
                 "type": "string"
               },
+              "a2aVersion": {
+                "type": "string",
+                "enum": [
+                  "v0_3",
+                  "v1_0"
+                ]
+              },
+              "protocols": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/AgentsProtocolComponent"
+                }
+              },
               "markdown": {
                 "type": "string"
               },
@@ -10294,6 +10307,19 @@
           },
           "version": {
             "type": "string"
+          },
+          "a2aVersion": {
+            "type": "string",
+            "enum": [
+              "v0_3",
+              "v1_0"
+            ]
+          },
+          "protocols": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AgentsProtocolComponent"
+            }
           },
           "markdown": {
             "type": "string"
@@ -11197,6 +11223,19 @@
                 "version": {
                   "type": "string"
                 },
+                "a2aVersion": {
+                  "type": "string",
+                  "enum": [
+                    "v0_3",
+                    "v1_0"
+                  ]
+                },
+                "protocols": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AgentsProtocolComponent"
+                  }
+                },
                 "markdown": {
                   "type": "string"
                 },
@@ -11466,6 +11505,30 @@
           },
           "meta": {
             "type": "object"
+          }
+        }
+      },
+      "AgentsProtocolComponent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          },
+          "name": {
+            "type": "string",
+            "enum": [
+              "JSONRPC",
+              "GRPC",
+              "HTTP_JSON",
+              "A2UI"
+            ]
           }
         }
       },

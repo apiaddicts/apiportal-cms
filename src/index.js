@@ -3,6 +3,7 @@
 const { pages, global, libraryApis, blogItems } = require("./data/data.json");
 const { setupAuthSettings } = require("./setup/email-config");
 const { registerDynamicCrons, setupCronScheduler } = require("./setup/cron-config");
+const { applyAgentCardDerivedFields } = require("./api/library-agent/utils/agent-card");
 
 async function isFirstRun() {
   const pluginStore = strapi.store({
@@ -163,6 +164,13 @@ module.exports = {
         }),
       ]
     }));
+
+    strapi.documents.use(async (context, next) => {
+      if (context.uid === 'api::library-agent.library-agent' && ['create', 'update'].includes(context.action)) {
+        applyAgentCardDerivedFields(context.params?.data);
+      }
+      return next();
+    });
   },
   async bootstrap({ strapi }) {
     const shouldImportSeedData = await isFirstRun();

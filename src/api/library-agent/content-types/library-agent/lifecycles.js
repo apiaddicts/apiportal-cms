@@ -1,6 +1,7 @@
 'use strict';
 
 const utils = require('@strapi/utils');
+const { hasSupportedInterfaces } = require('../../utils/agent-card');
 const { ApplicationError } = utils.errors;
 
 module.exports = {
@@ -41,7 +42,7 @@ function validateAgentCard(event, isCreate) {
 }
 
 function validateInterfaces(card) {
-  if (Array.isArray(card.supportedInterfaces) && card.supportedInterfaces.length > 0) {
+  if (hasSupportedInterfaces(card)) {
     const withoutUrl = card.supportedInterfaces.findIndex((item) => !isNonEmptyString(item?.url));
     if (withoutUrl !== -1) {
       throw new ApplicationError(`Invalid agent card: supportedInterfaces[${withoutUrl}] must have a "url".`);

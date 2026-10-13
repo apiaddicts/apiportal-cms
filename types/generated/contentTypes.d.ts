@@ -625,6 +625,7 @@ export interface ApiLibraryAgentLibraryAgent
     draftAndPublish: true;
   };
   attributes: {
+    a2aVersion: Schema.Attribute.Enumeration<['v0_3', 'v1_0']>;
     agentCard: Schema.Attribute.JSON & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -638,6 +639,7 @@ export interface ApiLibraryAgentLibraryAgent
     > &
       Schema.Attribute.Private;
     markdown: Schema.Attribute.RichText;
+    protocols: Schema.Attribute.Component<'agents.protocol', true>;
     publishedAt: Schema.Attribute.DateTime;
     ratings: Schema.Attribute.Component<'apis.ratings', false>;
     reportUrl: Schema.Attribute.String;

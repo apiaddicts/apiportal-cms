@@ -1,5 +1,20 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface AgentsProtocol extends Struct.ComponentSchema {
+  collectionName: 'components_agents_protocols';
+  info: {
+    description: 'A2A protocol binding (JSONRPC, GRPC, HTTP+JSON) or A2UI extension supported by an agent';
+    displayName: 'Protocol';
+    icon: 'link';
+  };
+  attributes: {
+    name: Schema.Attribute.Enumeration<
+      ['JSONRPC', 'GRPC', 'HTTP_JSON', 'A2UI']
+    > &
+      Schema.Attribute.Required;
+  };
+}
+
 export interface ApisFilters extends Struct.ComponentSchema {
   collectionName: 'components_apis_filters';
   info: {
@@ -2021,6 +2036,7 @@ export interface UsersCredentials extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'agents.protocol': AgentsProtocol;
       'apis.filters': ApisFilters;
       'apis.pagination': ApisPagination;
       'apis.ratings': ApisRatings;

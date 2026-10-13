@@ -26,6 +26,18 @@
     "version": {
       "type": "string"
     },
+    "a2aVersion": {
+      "type": "enumeration",
+      "enum": [
+        "v0_3",
+        "v1_0"
+      ]
+    },
+    "protocols": {
+      "type": "component",
+      "component": "agents.protocol",
+      "repeatable": true
+    },
     "markdown": {
       "type": "richtext"
     },
