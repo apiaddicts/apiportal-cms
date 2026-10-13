@@ -1,0 +1,22 @@
+{
+  "type": "component",
+  "collectionName": "components_agents_protocols",
+  "info": {
+    "displayName": "Protocol",
+    "icon": "link",
+    "description": "A2A protocol binding (JSONRPC, GRPC, HTTP+JSON) or A2UI extension supported by an agent"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "enumeration",
+      "enum": [
+        "JSONRPC",
+        "GRPC",
+        "HTTP_JSON",
+        "A2UI"
+      ],
+      "required": true
+    }
+  }
+}

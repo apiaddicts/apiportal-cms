@@ -9,6 +9,7 @@ services:
     ports:
       - "${PORT}:${PORT}"
     environment:
+      NODE_ENV: ${NODE_ENV}
       HOST: 0.0.0.0
       PORT: ${PORT}
       APP_KEYS: ${APP_KEYS}

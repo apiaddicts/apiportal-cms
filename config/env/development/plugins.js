@@ -1,7 +1,9 @@
 module.exports = ({ env }) => ({
   upload: {
-    provider: "local",
-    providerOptions: {},
+    config: {
+      provider: "local",
+      providerOptions: {},
+    },
   },
   email: {
     config: {

@@ -213,6 +213,18 @@
       ]
     },
     {
+      "slug": "agents",
+      "shortName": "agents",
+      "metadata": { "metaTitle": "API Market - Biblioteca de Agentes" },
+      "contentSections": [
+        {
+          "__component": "home.banner-section",
+          "title": "Agents",
+          "subtitle": "Descubre los agentes publicados, sus capacidades y los protocolos que soportan."
+        }
+      ]
+    },
+    {
       "slug": "blog",
       "shortName": "blog",
       "metadata": { "metaTitle": "API Market - Blog" },
